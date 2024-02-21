@@ -1,0 +1,53 @@
+
+/*#forumTitle {*/
+/*    font-size: 4em;*/
+/*}*/
+
+/*#forumHeader {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    justify-content: space-between;*/
+/*}*/
+
+/*#forumFilter {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*}*/
+
+/*#forumFilter select {*/
+/*    margin: 1.9em 2em;*/
+/*    !*padding: 1em;*!*/
+/*}*/
+
+/*#btnAddQuestion {*/
+/*    margin-left: 3em;*/
+/*}*/
+
+#forumTitle {
+    font-size: 4em;
+}
+
+#forumHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#forumFilter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#forumFilter select,
+#forumFilter input,
+#forumFilter button {
+    margin: 1.9em 1em;
+    padding: 0.5em;
+}
+
+#btnAddQuestion {
+    margin-left: auto;
+}
+
+

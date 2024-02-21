@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './styles/SignInPage.css';
 import {Link} from "react-router-dom";
 import ForgotPasswordPage from "./ForgotPasswordPage";
+import Navbar from "./Navbar";
 
 const SignInPage = () => {
     const [email, setEmail] = useState('');
@@ -33,38 +34,41 @@ const SignInPage = () => {
     };
 
     return (
-        <div className={'formContainer'}>
-            <h3>Sign in</h3>
-            <form onSubmit={handleSubmit} className={'signInForm'}>
-                <div>
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <button type="submit">Login</button>
-                </div>
-                <div>
-                    <Link to={'/forgot-password'}>
-                        <p>Forgot password?</p>
-                    </Link>
-                </div>
-            </form>
+        <div>
+            <Navbar/>
+            <div className={'formContainer'}>
+                <h3>Sign in</h3>
+                <form onSubmit={handleSubmit} className={'signInForm'}>
+                    <div>
+                        <label htmlFor="email">Email:</label>
+                        <input
+                            type="email"
+                            id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="password">Password:</label>
+                        <input
+                            type="password"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <button type="submit">Login</button>
+                    </div>
+                    <div>
+                        <Link to={'/forgot-password'}>
+                            <p>Forgot password?</p>
+                        </Link>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }
