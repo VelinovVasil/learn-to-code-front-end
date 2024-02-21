@@ -1,0 +1,37 @@
+
+
+.formContainer {
+    text-align: center;
+    border: 2px solid white;
+    padding: 2em;
+    width: 30%;
+    margin: 0 auto;
+}
+
+.formContainer form {
+    display: flex;
+    flex-direction: column;
+}
+
+.signInForm div {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-top: 0.5em;
+}
+
+div button {
+    border-radius: 0.3em;
+    background-color: white;
+    color: black;
+    margin-top: 1.53em;
+}
+
+div button:hover {
+    background-color: gray;
+}
+
+div a {
+    text-decoration: none;
+    color: inherit;
+}
