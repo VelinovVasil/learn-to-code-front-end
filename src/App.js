@@ -6,6 +6,7 @@ import ForumPage from './components/ForumPage';
 import AboutUsPage from './components/AboutUsPage';
 import ContactPage from './components/ContactPage';
 import SignInPage from "./components/SignInPage";
+import ForgotPasswordPage from "./components/ForgotPasswordPage";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                 <Route path="/about-us" element={<AboutUsPage />} />
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/sign-in" element={<SignInPage />} />
+                <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             </Routes>
         </Router>
     );
