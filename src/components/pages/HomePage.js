@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import './styles/HomePage.css';
-import Navbar from "./Navbar";
+import '../styles/HomePage.css';
+import Navbar from "../Navbar";
 
 const HomePage = () => {
     return (

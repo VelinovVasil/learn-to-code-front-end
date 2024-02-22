@@ -1,32 +1,29 @@
 import React, {useState} from 'react';
-import './styles/SignInPage.css';
 import {Link} from "react-router-dom";
-import ForgotPasswordPage from "./ForgotPasswordPage";
-import Navbar from "./Navbar";
+import Navbar from "../Navbar";
 
-const SignInPage = () => {
+const ForgotPasswordPage = () => {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             // Send login request to the server
-            const response = await fetch('your-login-endpoint', {
+            const response = await fetch('your-reset-pass-endpoint', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ email }),
             });
 
             if (response.ok) {
                 // Handle successful login
-                console.log('Login successful');
+                console.log('Email found');
             } else {
                 // Handle login error
-                console.error('Login failed');
+                console.error('Email not present');
             }
         } catch (error) {
             console.error('Error:', error);
@@ -37,7 +34,7 @@ const SignInPage = () => {
         <div>
             <Navbar/>
             <div className={'formContainer'}>
-                <h3>Sign in</h3>
+                <h3>Reset password</h3>
                 <form onSubmit={handleSubmit} className={'signInForm'}>
                     <div>
                         <label htmlFor="email">Email:</label>
@@ -50,22 +47,7 @@ const SignInPage = () => {
                         />
                     </div>
                     <div>
-                        <label htmlFor="password">Password:</label>
-                        <input
-                            type="password"
-                            id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <button type="submit">Login</button>
-                    </div>
-                    <div>
-                        <Link to={'/forgot-password'}>
-                            <p>Forgot password?</p>
-                        </Link>
+                        <button type="submit">Reset password</button>
                     </div>
                 </form>
             </div>
@@ -73,4 +55,4 @@ const SignInPage = () => {
     );
 }
 
-export default SignInPage;
+export default ForgotPasswordPage;

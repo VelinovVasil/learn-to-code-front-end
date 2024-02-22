@@ -1,16 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './components/HomePage';
-import ProgrammingLanguagesPage from './components/ProgrammingLanguagesPage';
-import ForumPage from './components/ForumPage';
-import AboutUsPage from './components/AboutUsPage';
-import ContactPage from './components/ContactPage';
-import SignInPage from "./components/SignInPage";
-import ForgotPasswordPage from "./components/ForgotPasswordPage";
-import JavaScriptPage from "./components/JavaScriptPage";
-import JavaPage from "./components/JavaPage";
-import PythonPage from "./components/PythonPage";
-import SQLPage from "./components/SQLPage";
+import HomePage from './components/pages/HomePage';
+import ProgrammingLanguagesPage from './components/pages/ProgrammingLanguagesPage';
+import ForumPage from './components/pages/ForumPage';
+import AboutUsPage from './components/pages/AboutUsPage';
+import ContactPage from './components/pages/ContactPage';
+import SignInPage from "./components/pages/SignInPage";
+import ForgotPasswordPage from "./components/pages/ForgotPasswordPage";
+import JavaScriptPage from "./components/pages/JavaScriptPage";
+import JavaPage from "./components/pages/JavaPage";
+import PythonPage from "./components/pages/PythonPage";
+import SQLPage from "./components/pages/SQLPage";
 
 function App() {
     return (

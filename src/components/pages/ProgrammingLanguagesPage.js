@@ -1,6 +1,6 @@
 import React from 'react';
-import Navbar from "./Navbar";
-import './styles/ProgrammingLanguagesPage.css'
+import Navbar from "../Navbar";
+import '../styles/ProgrammingLanguagesPage.css'
 import {Link} from "react-router-dom";
 import JavaScriptPage from "./JavaScriptPage";
 

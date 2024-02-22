@@ -1,13 +1,13 @@
 import React from 'react';
-import Navbar from "./Navbar";
+import Navbar from "../Navbar";
 
-const JavaPage = () => {
+const SQLPage = () => {
     return (
         <div>
             <Navbar/>
-            Java page
+            SQL
         </div>
     );
 }
 
-export default JavaPage;
+export default SQLPage;
