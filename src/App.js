@@ -7,6 +7,10 @@ import AboutUsPage from './components/AboutUsPage';
 import ContactPage from './components/ContactPage';
 import SignInPage from "./components/SignInPage";
 import ForgotPasswordPage from "./components/ForgotPasswordPage";
+import JavaScriptPage from "./components/JavaScriptPage";
+import JavaPage from "./components/JavaPage";
+import PythonPage from "./components/PythonPage";
+import SQLPage from "./components/SQLPage";
 
 function App() {
     return (
@@ -19,6 +23,10 @@ function App() {
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/sign-in" element={<SignInPage />} />
                 <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                <Route path="/java-script" element={<JavaScriptPage />} />
+                <Route path="/java" element={<JavaPage />} />
+                <Route path="/python" element={<PythonPage />} />
+                <Route path="/sql" element={<SQLPage/>} />
             </Routes>
         </Router>
     );
