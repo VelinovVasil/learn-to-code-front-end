@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import Navbar from "../Navbar";
+import Footer from "../Footer";
 
 const ForgotPasswordPage = () => {
     const [email, setEmail] = useState('');
@@ -51,6 +52,7 @@ const ForgotPasswordPage = () => {
                     </div>
                 </form>
             </div>
+            <Footer/>
         </div>
     );
 }

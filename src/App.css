@@ -1,4 +1,7 @@
- body {
+
+body {
    background-color: black;
    color: white;
+    width: 75%;
+    margin: auto;
  }

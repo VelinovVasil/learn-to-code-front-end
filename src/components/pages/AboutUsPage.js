@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from "../Navbar";
+import Footer from "../Footer";
 
 const AboutUs = () => {
     return (
@@ -9,6 +10,7 @@ const AboutUs = () => {
             <h4>Daniel Yordanov - Back-End</h4>
             <h4>Nikolay Boychev - Back-End & Deployment</h4>
             <h4>Vasil Velinov - Back-End & Front-End</h4>
+            <Footer />
         </div>
     );
 }

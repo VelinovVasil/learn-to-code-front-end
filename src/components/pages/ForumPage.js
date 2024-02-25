@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../Navbar';
 import '../styles/ForumPage.css';
+import Footer from "../Footer";
+import {Link} from "react-router-dom";
 
 const ForumPage = () => {
     const [questions, setQuestions] = useState([]);
@@ -33,7 +35,12 @@ const ForumPage = () => {
         <div>
             <Navbar />
             <header id={'forumHeader'}>
-                <h2 id="forumTitle">Forum</h2>
+                <section className={'headerAskBtn'}>
+                    <h2 id="forumTitle">Forum</h2>
+                    <Link to={'/ask-question'}>
+                        <button id={'btnAddQuestion'}>Ask a question</button>
+                    </Link>
+                </section>
                 <section id="forumFilter">
                     <label>Sort by:</label>
                     <select value={sortBy} onChange={handleSortChange}>
@@ -41,7 +48,6 @@ const ForumPage = () => {
                         <option value="author">Author</option>
                     </select>
                     {/*Todo: add filter section*/}
-                    <button id="btnAddQuestion">Add question</button>
                 </section>
             </header>
             <ul>
@@ -53,6 +59,7 @@ const ForumPage = () => {
                     </li>
                 ))}
             </ul>
+            <Footer/>
         </div>
     );
 }

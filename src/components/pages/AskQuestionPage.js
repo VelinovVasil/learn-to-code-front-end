@@ -2,14 +2,14 @@ import React from 'react';
 import Navbar from "../Navbar";
 import Footer from "../Footer";
 
-const JavaScriptPage = () => {
+const AskQuestionPage = () => {
     return (
       <div>
           <Navbar/>
-          Java Script
+          ask a question here.
           <Footer/>
       </div>
     );
 }
 
-export default JavaScriptPage;
+export default AskQuestionPage;

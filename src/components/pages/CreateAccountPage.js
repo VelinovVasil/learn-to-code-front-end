@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import '../styles/SignInPage.css';
-import {Link} from "react-router-dom";
-import ForgotPasswordPage from "./ForgotPasswordPage";
+import { Link } from "react-router-dom";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
 
-const SignInPage = () => {
+const CreateAccountPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -13,8 +12,8 @@ const SignInPage = () => {
         e.preventDefault();
 
         try {
-            // Send login request to the server
-            const response = await fetch('your-login-endpoint', {
+            // Send create account request to the server
+            const response = await fetch('your-create-account-endpoint', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -23,11 +22,11 @@ const SignInPage = () => {
             });
 
             if (response.ok) {
-                // Handle successful login
-                console.log('Login successful');
+                // Handle successful account creation
+                console.log('Account created successfully');
             } else {
-                // Handle login error
-                console.error('Login failed');
+                // Handle account creation error
+                console.error('Account creation failed');
             }
         } catch (error) {
             console.error('Error:', error);
@@ -38,7 +37,7 @@ const SignInPage = () => {
         <div>
             <Navbar/>
             <div className={'formContainer'}>
-                <h3>Sign in</h3>
+                <h3>Create Account</h3>
                 <form onSubmit={handleSubmit} className={'signInForm'}>
                     <div>
                         <label htmlFor="email">Email:</label>
@@ -61,14 +60,14 @@ const SignInPage = () => {
                         />
                     </div>
                     <div>
-                        <button type="submit">Login</button>
+                        <button type="submit">Create Account</button>
                     </div>
                     <div id={'forgotPassNewAccContainer'}>
                         <Link to={'/forgot-password'}>
                             <p>Forgot password?</p>
                         </Link>
-                        <Link to={'/create-account'}>
-                            <p>Sign up</p>
+                        <Link to={'/sign-in'}>
+                            <p>Sign in</p>
                         </Link>
                     </div>
                 </form>
@@ -78,4 +77,4 @@ const SignInPage = () => {
     );
 }
 
-export default SignInPage;
+export default CreateAccountPage;

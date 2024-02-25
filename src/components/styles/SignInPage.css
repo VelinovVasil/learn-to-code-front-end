@@ -22,11 +22,12 @@
 
 div button {
     border-radius: 1em;
-    background-color: white;
-    color: black;
+    background-color: orange;
+    color: white;
     width: 40%;
     margin: 1.53em auto;
     height: 3em;
+    transition: background-color 0.3s ease;
 }
 
 div button:hover {
@@ -36,4 +37,24 @@ div button:hover {
 div a {
     text-decoration: none;
     color: inherit;
+}
+
+#forgotPassNewAccContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+input {
+    height: 2em;
+}
+
+#forgotPassNewAccContainer p {
+    color: orange;
+    transition: color 0.3s ease;
+}
+
+#forgotPassNewAccContainer p:hover {
+
+    color: grey;
 }

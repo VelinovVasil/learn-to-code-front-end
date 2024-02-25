@@ -3,6 +3,7 @@ import Navbar from "../Navbar";
 import '../styles/ProgrammingLanguagesPage.css'
 import {Link} from "react-router-dom";
 import JavaScriptPage from "./JavaScriptPage";
+import Footer from "../Footer";
 
 const ProgrammingLanguagesPage = () => {
     return (
@@ -42,6 +43,7 @@ const ProgrammingLanguagesPage = () => {
                     </section>
                 </Link>
             </div>
+            <Footer/>
         </div>
     );
 }

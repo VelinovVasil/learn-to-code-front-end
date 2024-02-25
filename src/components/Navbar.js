@@ -2,10 +2,11 @@ import React from 'react';
 import {Link} from "react-router-dom";
 
 const Navbar = () => {
+
     return (
         <div className={'upperHeader'}>
             <Link to={'/'}>
-                <h4 className={'navText'}>Learn to code</h4>
+                <h4 className={'navText'}>&lt;Learn to code /&gt;</h4>
             </Link>
             <nav>
                 <ul className={'navUl'}>

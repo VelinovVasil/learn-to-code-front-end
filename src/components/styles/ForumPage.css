@@ -37,6 +37,16 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 30%;
+}
+
+#forumFilter label {
+    width: 30%;
+    text-align: right;
+}
+
+#forumFilter select {
+    border-radius: 1em;
 }
 
 #forumFilter select,
@@ -44,10 +54,26 @@
 #forumFilter button {
     margin: 1.9em 1em;
     padding: 0.5em;
+    background-color: orange;
+    color: white;
+}
+
+.headerAskBtn {
+    width: 20%;
+
 }
 
 #btnAddQuestion {
     margin-left: auto;
+    background-color: orange;
+    color: white;
+    font-size: 1.5em;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+#btnAddQuestion:hover {
+    background-color: grey;
 }
 
 

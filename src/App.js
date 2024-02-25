@@ -11,6 +11,10 @@ import JavaScriptPage from "./components/pages/JavaScriptPage";
 import JavaPage from "./components/pages/JavaPage";
 import PythonPage from "./components/pages/PythonPage";
 import SQLPage from "./components/pages/SQLPage";
+import CreateAccountPage from "./components/pages/CreateAccountPage";
+import './App.css';
+import AskQuestionPage from "./components/pages/AskQuestionPage";
+
 
 function App() {
     return (
@@ -27,6 +31,8 @@ function App() {
                 <Route path="/java" element={<JavaPage />} />
                 <Route path="/python" element={<PythonPage />} />
                 <Route path="/sql" element={<SQLPage/>} />
+                <Route path="/create-account" element={<CreateAccountPage />} />
+                <Route path="/ask-question" element={<AskQuestionPage />} />
             </Routes>
         </Router>
     );
