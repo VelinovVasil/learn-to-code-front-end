@@ -1,12 +1,15 @@
 import React from 'react';
 import {Link} from "react-router-dom";
+import {useAuth0} from "@auth0/auth0-react";
+import LoginButton from "./LoginButton";
 
 const Navbar = () => {
 
     return (
+
         <div className={'upperHeader'}>
             <Link to={'/'}>
-                <h4 className={'navText'}>&lt;Learn to code /&gt;</h4>
+                <h4 className={'navText'}>&lt;Learn to code/&gt;</h4>
             </Link>
             <nav>
                 <ul className={'navUl'}>
@@ -31,9 +34,7 @@ const Navbar = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link to={'/sign-in'} className={'navLink'}>
-                            <h4>Sign in</h4>
-                        </Link>
+                            <LoginButton/>
                     </li>
                 </ul>
             </nav>

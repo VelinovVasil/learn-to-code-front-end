@@ -83,10 +83,11 @@ h2 {
     cursor: pointer;
     transition: background-color 0.3s ease;
     width: 55%;
+    height: auto;
 }
 
 .homeMainContainer div p {
-    width: 75%;
+    width: 80%;
     margin: auto;
     font-size: 1.6em;
 }

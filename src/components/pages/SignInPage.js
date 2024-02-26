@@ -1,9 +1,7 @@
-import React, {useState} from 'react';
-import '../styles/SignInPage.css';
-import {Link} from "react-router-dom";
-import ForgotPasswordPage from "./ForgotPasswordPage";
-import Navbar from "../Navbar";
-import Footer from "../Footer";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Navbar from '../Navbar';
+import Footer from '../Footer';
 
 const SignInPage = () => {
     const [email, setEmail] = useState('');
@@ -23,7 +21,13 @@ const SignInPage = () => {
             });
 
             if (response.ok) {
-                // Handle successful login
+                // Retrieve JWT token from response
+                const { token } = await response.json();
+
+                // Store the token in localStorage
+                localStorage.setItem('token', token);
+
+                // Redirect or perform any other action upon successful login
                 console.log('Login successful');
             } else {
                 // Handle login error
@@ -36,7 +40,7 @@ const SignInPage = () => {
 
     return (
         <div>
-            <Navbar/>
+            <Navbar />
             <div className={'formContainer'}>
                 <h3>Sign in</h3>
                 <form onSubmit={handleSubmit} className={'signInForm'}>
@@ -73,9 +77,9 @@ const SignInPage = () => {
                     </div>
                 </form>
             </div>
-            <Footer/>
+            <Footer />
         </div>
     );
-}
+};
 
 export default SignInPage;
