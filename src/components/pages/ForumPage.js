@@ -10,6 +10,7 @@ const ForumPage = () => {
     const [showReplyForm, setShowReplyForm] = useState(false); // State variable to control the visibility of the reply form
     const [replyText, setReplyText] = useState(''); // State variable to store the reply text
     const [authorInfo, setAuthorInfo] = useState(null); // State variable to store the author information
+    const [selectedQuestionId, setSelectedQuestionId] = useState(null); // State variable to store the id of the selected question for replying
 
     // Define the URL for fetching questions
     const url = `insert_url_here?sortBy=${sortBy}`; // Replace 'insert_url_here' with your actual API endpoint
@@ -59,15 +60,16 @@ const ForumPage = () => {
         setSortBy(e.target.value);
     };
 
-    const handleReplyButtonClick = () => {
+    const handleReplyButtonClick = (questionId) => {
+        setSelectedQuestionId(questionId); // Set the id of the selected question
         setShowReplyForm(true); // Display the reply form when the "Reply" button is clicked
     };
 
     const handleReplyFormSubmit = (e) => {
         e.preventDefault();
-        // Call replyToQuestion function with questionId and replyText
+        // Call replyToQuestion function with selectedQuestionId and replyText
         // Reset reply text and hide the reply form after submission
-        replyToQuestion(questionId, replyText);
+        replyToQuestion(selectedQuestionId, replyText);
         setReplyText('');
         setShowReplyForm(false);
     };
@@ -121,10 +123,10 @@ const ForumPage = () => {
                         <p>Author: {question.author.name}</p>
                         <p>Date Published: {question.datePublished}</p>
                         <p>Tags: {question.tags.join(', ')}</p>
-                        <button onClick={handleReplyButtonClick}>
+                        <button onClick={() => handleReplyButtonClick(question.id)}>
                             Reply
                         </button>
-                        {showReplyForm && (
+                        {showReplyForm && selectedQuestionId === question.id && (
                             <form onSubmit={handleReplyFormSubmit}>
                                 <textarea
                                     value={replyText}
