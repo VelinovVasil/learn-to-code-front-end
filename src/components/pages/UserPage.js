@@ -3,6 +3,7 @@ import Navbar from "../Navbar";
 import Footer from "../Footer";
 import { useAuth0 } from '@auth0/auth0-react';
 import LoginButton from "../LoginButton";
+import NotLoggedIn from "../NotLoggedIn";
 
 const UserPage = () => {
     const { isAuthenticated, user, getAccessTokenSilently, loginWithRedirect } = useAuth0();
@@ -53,12 +54,11 @@ const UserPage = () => {
     if (!isAuthenticated) {
         return (
             <div>
-                <Navbar />
                 <div>
-                    <h2>Please log in to your account</h2>
-                    <button onClick={() => loginWithRedirect()}>Log in</button>
+                    {/*<h2>Please log in to your account</h2>*/}
+                    {/*<button onClick={() => loginWithRedirect()}>Log in</button>*/}
+                    <NotLoggedIn/>
                 </div>
-                <Footer />
             </div>
         );
     }

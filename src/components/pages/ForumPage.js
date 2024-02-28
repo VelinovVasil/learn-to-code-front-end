@@ -3,25 +3,28 @@ import Navbar from '../Navbar';
 import '../styles/ForumPage.css';
 import Footer from "../Footer";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import ReactQuill from 'react-quill'; // Import React Quill
+import 'react-quill/dist/quill.snow.css'; // Import Quill's snow theme CSS
 
 const ForumPage = () => {
     const [questions, setQuestions] = useState([]);
     const [sortBy, setSortBy] = useState('datePublished');
-    const [showReplyForm, setShowReplyForm] = useState(false); // State variable to control the visibility of the reply form
-    const [replyText, setReplyText] = useState(''); // State variable to store the reply text
-    const [authorInfo, setAuthorInfo] = useState(null); // State variable to store the author information
-    const [selectedQuestionId, setSelectedQuestionId] = useState(null); // State variable to store the id of the selected question for replying
+    const [showReplyForm, setShowReplyForm] = useState(false);
+    const [replyText, setReplyText] = useState('');
+    const [authorInfo, setAuthorInfo] = useState(null);
+    const [selectedQuestionId, setSelectedQuestionId] = useState(null);
+    const [editedQuestionText, setEditedQuestionText] = useState('');
+    const { getAccessTokenSilently } = useAuth0();
 
-    // Define the URL for fetching questions
-    const url = `insert_url_here?sortBy=${sortBy}`; // Replace 'insert_url_here' with your actual API endpoint
+    const url = `insert_url_here?sortBy=${sortBy}`;
 
     const fetchQuestions = async () => {
         try {
+            const token = await getAccessTokenSilently();
             const response = await fetch(url, {
-                // Add headers for authentication if needed
                 headers: {
-                    // Include the JWT token from localStorage
-                    Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+                    Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
             });
@@ -40,35 +43,50 @@ const ForumPage = () => {
     }, [fetchQuestions, url]);
 
     useEffect(() => {
-        // Retrieve JWT from local storage
-        const jwt = localStorage.getItem('jwt');
+        const fetchUserInfo = async () => {
+            try {
+                const token = await getAccessTokenSilently();
+                const userInfo = await fetchUserInfoFromBackend(token);
+                setAuthorInfo({
+                    userId: userInfo.sub, // Assuming Auth0 user ID is stored in sub field
+                    userEmail: userInfo.email,
+                });
+            } catch (error) {
+                console.error('Error fetching user info:', error);
+            }
+        };
 
-        // Decode JWT to access its payload
-        const decodedJwt = jwt ? JSON.parse(atob(jwt.split('.')[1])) : null;
+        fetchUserInfo();
+    }, [getAccessTokenSilently]);
 
-        // Set author information from JWT payload
-        if (decodedJwt) {
-            setAuthorInfo({
-                userId: decodedJwt.userId,
-                userEmail: decodedJwt.email,
-                // You can extract other user information as needed
+    const fetchUserInfoFromBackend = async (token) => {
+        try {
+            const response = await fetch('your-backend-url/userinfo', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             });
+            if (!response.ok) {
+                throw new Error('Failed to fetch user info');
+            }
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching user info from backend:', error);
+            throw error;
         }
-    }, []);
+    };
 
     const handleSortChange = (e) => {
         setSortBy(e.target.value);
     };
 
     const handleReplyButtonClick = (questionId) => {
-        setSelectedQuestionId(questionId); // Set the id of the selected question
-        setShowReplyForm(true); // Display the reply form when the "Reply" button is clicked
+        setSelectedQuestionId(questionId);
+        setShowReplyForm(true);
     };
 
     const handleReplyFormSubmit = (e) => {
         e.preventDefault();
-        // Call replyToQuestion function with selectedQuestionId and replyText
-        // Reset reply text and hide the reply form after submission
         replyToQuestion(selectedQuestionId, replyText);
         setReplyText('');
         setShowReplyForm(false);
@@ -76,24 +94,63 @@ const ForumPage = () => {
 
     const replyToQuestion = async (questionId, replyText) => {
         try {
+            const token = await getAccessTokenSilently();
             const response = await fetch(`your-backend-url/questions/${questionId}/replies`, {
                 method: 'POST',
                 headers: {
-                    // Include the JWT token from localStorage
-                    Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+                    Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ text: replyText, author: authorInfo }), // Include author information in the request body
+                body: JSON.stringify({ text: replyText, author: authorInfo }),
             });
 
             if (!response.ok) {
                 throw new Error('Failed to submit reply');
             }
 
-            // Refresh questions after successful submission
             fetchQuestions();
         } catch (error) {
             console.error('Error submitting reply:', error);
+        }
+    };
+
+    const handleEditQuestion = (questionId) => {
+        const updatedQuestions = questions.map((question) => {
+            if (question.id === questionId) {
+                return { ...question, isEditing: true };
+            }
+            return question;
+        });
+        setQuestions(updatedQuestions);
+    };
+
+    const handleSaveEdit = async (questionId) => {
+        try {
+            const token = await getAccessTokenSilently();
+            // Update the question text in the backend
+            const response = await fetch(`your-backend-url/questions/${questionId}`, {
+                method: 'PATCH',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ text: editedQuestionText }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update question');
+            }
+
+            // Update the question in the local state
+            const updatedQuestions = questions.map((question) => {
+                if (question.id === questionId) {
+                    return { ...question, text: editedQuestionText, isEditing: false };
+                }
+                return question;
+            });
+            setQuestions(updatedQuestions);
+        } catch (error) {
+            console.error('Error updating question:', error);
         }
     };
 
@@ -113,29 +170,32 @@ const ForumPage = () => {
                         <option value="datePublished">Date Published</option>
                         <option value="author">Author</option>
                     </select>
-                    {/*Todo: add filter section*/}
                 </section>
             </header>
             <ul>
                 {questions.map((question) => (
                     <li key={question.id}>
-                        <h3>{question.text}</h3>
-                        <p>Author: {question.author.name}</p>
-                        <p>Date Published: {question.datePublished}</p>
-                        <p>Tags: {question.tags.join(', ')}</p>
-                        <button onClick={() => handleReplyButtonClick(question.id)}>
-                            Reply
-                        </button>
-                        {showReplyForm && selectedQuestionId === question.id && (
-                            <form onSubmit={handleReplyFormSubmit}>
-                                <textarea
-                                    value={replyText}
-                                    onChange={(e) => setReplyText(e.target.value)}
-                                    placeholder="Type your reply here"
-                                    required
+                        {question.isEditing ? (
+                            <div>
+                                <input
+                                    type="text"
+                                    value={editedQuestionText}
+                                    onChange={(e) => setEditedQuestionText(e.target.value)}
                                 />
-                                <button type="submit">Submit Reply</button>
-                            </form>
+                                <button onClick={() => handleSaveEdit(question.id)}>Save</button>
+                            </div>
+                        ) : (
+                            <div>
+                                <h3>{question.text}</h3>
+                                <p>Author: {question.author.name}</p>
+                                <p>Date Published: {question.datePublished}</p>
+                                <p>Tags: {question.tags.join(', ')}</p>
+                                <button onClick={() => handleReplyButtonClick(question.id)}>Reply</button>
+                                {/* Render edit button only if the authorInfo exists and the question's author matches the logged-in user */}
+                                {authorInfo && authorInfo.userId === question.author.id && (
+                                    <button onClick={() => handleEditQuestion(question.id)}>Edit</button>
+                                )}
+                            </div>
                         )}
                     </li>
                 ))}
