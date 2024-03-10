@@ -16,13 +16,18 @@ const ForumPage = () => {
     const [selectedQuestionId, setSelectedQuestionId] = useState(null);
     const [editedQuestionText, setEditedQuestionText] = useState('');
     const { getAccessTokenSilently } = useAuth0();
+    const [authors, setAuthors] = useState({});
 
-    const url = `insert_url_here?sortBy=${sortBy}`;
+    const baseUrl = `http://localhost:8080/api/`;
 
     const fetchQuestions = async () => {
         try {
             const token = await getAccessTokenSilently();
-            const response = await fetch(url, {
+            console.log(token);
+
+            console.log(localStorage.getItem('jwt'));
+
+            const response = await fetch(baseUrl + 'questions/', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
@@ -32,15 +37,30 @@ const ForumPage = () => {
                 throw new Error('Failed to fetch questions');
             }
             const data = await response.json();
+
+            for (const question of data) {
+                const authorId = question.authorId;
+                // Fetch author info if not already fetched
+                if (!authors[authorId]) {
+                    const userInfo = await fetchUserInfoFromBackend(authorId, token);
+                    // Update authors state with author info
+                    setAuthors(prevState => ({
+                        ...prevState,
+                        [authorId]: userInfo
+                    }));
+                }
+            }
+
             setQuestions(data);
         } catch (error) {
             console.error('Error:', error);
         }
     };
 
+
     useEffect(() => {
         fetchQuestions();
-    }, [fetchQuestions, url]);
+    }, [fetchQuestions, baseUrl + 'questions/']);
 
     useEffect(() => {
         const fetchUserInfo = async () => {
@@ -61,9 +81,25 @@ const ForumPage = () => {
 
     const fetchUserInfoFromBackend = async (token) => {
         try {
-            const response = await fetch('your-backend-url/userinfo', {
+            // localStorage.getItem('jwt')
+
+            const jwt = localStorage.getItem('jwt');
+
+            // Decode the JWT
+            const base64Url = jwt.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const decodedPayload = JSON.parse(atob(base64));
+
+            // Retrieve the email field from the payload
+            const userEmail = decodedPayload.email;
+
+            console.log("user email:");
+            console.log(userEmail); // This will log the user's email
+
+            const response = await fetch(baseUrl + 'users/email/' + userEmail, {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    // Authorization: `Bearer ${token}`,
+                    'Content-Type': 'Application/JSON'
                 },
             });
             if (!response.ok) {
@@ -174,29 +210,33 @@ const ForumPage = () => {
             </header>
             <ul>
                 {questions.map((question) => (
-                    <li key={question.id}>
-                        {question.isEditing ? (
+                    <li key={question && question.id}>
+                        {question && question.id ? (
                             <div>
-                                <input
-                                    type="text"
-                                    value={editedQuestionText}
-                                    onChange={(e) => setEditedQuestionText(e.target.value)}
-                                />
-                                <button onClick={() => handleSaveEdit(question.id)}>Save</button>
-                            </div>
-                        ) : (
-                            <div>
-                                <h3>{question.text}</h3>
-                                <p>Author: {question.author.name}</p>
-                                <p>Date Published: {question.datePublished}</p>
-                                <p>Tags: {question.tags.join(', ')}</p>
-                                <button onClick={() => handleReplyButtonClick(question.id)}>Reply</button>
-                                {/* Render edit button only if the authorInfo exists and the question's author matches the logged-in user */}
-                                {authorInfo && authorInfo.userId === question.author.id && (
-                                    <button onClick={() => handleEditQuestion(question.id)}>Edit</button>
+                                {question.isEditing ? (
+                                    <div>
+                                        <input
+                                            type="text"
+                                            value={editedQuestionText}
+                                            onChange={(e) => setEditedQuestionText(e.target.value)}
+                                        />
+                                        <button onClick={() => handleSaveEdit(question.id)}>Save</button>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <h3>{question.text}</h3>
+                                        <p>Author: {question.authorName}</p>
+                                        <p>Date Published: {question.datePublished}</p>
+                                        <p>Tags: {question.tags ? question.tags.join(', ') : ''}</p>
+                                        <button onClick={() => handleReplyButtonClick(question.id)}>Reply</button>
+                                        {/* Render edit button only if the authorInfo exists and the question's author matches the logged-in user */}
+                                        {authorInfo && authors[question.authorId] && authorInfo.userId === authors[question.authorId].userId && (
+                                            <button onClick={() => handleEditQuestion(question.id)}>Edit</button>
+                                        )}
+                                    </div>
                                 )}
                             </div>
-                        )}
+                        ) : null}
                     </li>
                 ))}
             </ul>
