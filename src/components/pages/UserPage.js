@@ -11,6 +11,8 @@ const UserPage = () => {
     const [askedQuestions, setAskedQuestions] = useState([]);
     const [publishedAnswers, setPublishedAnswers] = useState([]);
 
+    const baseUrl = `http://localhost:8080/api/`;
+
     useEffect(() => {
         if (isAuthenticated && user) {
             fetchData();
@@ -20,13 +22,31 @@ const UserPage = () => {
     const fetchData = async () => {
         try {
             const token = await getAccessTokenSilently();
-            // Fetch user data from backend using the user sub (subject) ID
-            const userDataResponse = await fetch(`your-backend-url/user/${user.sub}`, {
+
+            const jwt = localStorage.getItem('jwt');
+
+            // Decode the JWT
+            const base64Url = jwt.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const decodedPayload = JSON.parse(atob(base64));
+
+            // Retrieve the email field from the payload
+            const userEmail = decodedPayload.email;
+
+            console.log("user email:");
+            console.log(userEmail); // This will log the user's email
+
+            const response = await fetch(baseUrl + 'users/email/' + userEmail, {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    // Authorization: `Bearer ${token}`,
+                    'Content-Type': 'Application/JSON'
                 },
             });
-            const userData = await userDataResponse.json();
+            if (!response.ok) {
+                throw new Error('Failed to fetch user info');
+            }
+
+            const userData = await response.json();
             setUserData(userData);
 
             // Fetch asked questions
