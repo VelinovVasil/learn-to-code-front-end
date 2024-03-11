@@ -54,8 +54,8 @@
 #forumFilter button {
     margin: 1.9em 1em;
     padding: 0.5em;
-    background-color: orange;
-    color: white;
+    background-color: #3fabaf;
+    color: #f7efe5;
 }
 
 .headerAskBtn {
@@ -65,15 +65,52 @@
 
 #btnAddQuestion {
     margin-left: auto;
-    background-color: orange;
-    color: white;
+    background-color: #3fabaf;
+    color: #f7efe5;
     font-size: 1.5em;
     width: 100%;
     transition: background-color 0.3s ease;
+    padding: 0.5em;
 }
 
 #btnAddQuestion:hover {
     background-color: grey;
 }
 
+.questionLi {
+    display: flex;
+    flex-direction: column;
+    /*margin: 0 auto;*/
+    width: auto;
+    margin-top: 2em;
+    background-color: #3fabaf;
+    padding: 1.1em;
+    border-radius: 1em;
+}
+
+.questionLi div {
+    width: 100%;
+}
+
+.questionContainer h3 {
+    border-bottom: 2px solid #f7efe5;
+}
+
+.authorName {
+    margin-bottom: 1em;
+}
+
+.questionButtons {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.questionButtons button {
+    border: none;
+    padding: 0.5em;
+    border-radius: 1em;
+    transition: background-color 0.3s ease;
+}
 

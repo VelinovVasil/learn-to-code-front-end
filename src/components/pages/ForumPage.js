@@ -131,7 +131,7 @@ const ForumPage = () => {
     const replyToQuestion = async (questionId, replyText) => {
         try {
             const token = await getAccessTokenSilently();
-            const response = await fetch(`your-backend-url/questions/${questionId}/replies`, {
+            const response = await fetch(baseUrl + `questions/${questionId}/replies`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -165,7 +165,7 @@ const ForumPage = () => {
             const token = await getAccessTokenSilently();
             // Update the question text in the backend
             const response = await fetch(`your-backend-url/questions/${questionId}`, {
-                method: 'PATCH',
+                method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
@@ -200,17 +200,17 @@ const ForumPage = () => {
                         <button id={'btnAddQuestion'}>Ask a question</button>
                     </Link>
                 </section>
-                <section id="forumFilter">
-                    <label>Sort by:</label>
-                    <select value={sortBy} onChange={handleSortChange}>
-                        <option value="datePublished">Date Published</option>
-                        <option value="author">Author</option>
-                    </select>
-                </section>
+                {/*<section id="forumFilter">*/}
+                {/*    <label>Sort by:</label>*/}
+                {/*    <select value={sortBy} onChange={handleSortChange}>*/}
+                {/*        <option value="datePublished">Date Published</option>*/}
+                {/*        <option value="author">Author</option>*/}
+                {/*    </select>*/}
+                {/*</section>*/}
             </header>
             <ul>
                 {questions.map((question) => (
-                    <li key={question && question.id}>
+                    <li key={question && question.id} className={'questionLi'}>
                         {question && question.id ? (
                             <div>
                                 {question.isEditing ? (
@@ -223,16 +223,18 @@ const ForumPage = () => {
                                         <button onClick={() => handleSaveEdit(question.id)}>Save</button>
                                     </div>
                                 ) : (
-                                    <div>
+                                    <div className={'questionContainer'}>
                                         <h3>{question.text}</h3>
-                                        <p>Author: {question.authorName}</p>
-                                        <p>Date Published: {question.datePublished}</p>
+                                        <p className={'authorName'}>Author: {question.authorName}</p>
                                         <p>Tags: {question.tags ? question.tags.join(', ') : ''}</p>
-                                        <button onClick={() => handleReplyButtonClick(question.id)}>Reply</button>
-                                        {/* Render edit button only if the authorInfo exists and the question's author matches the logged-in user */}
-                                        {authorInfo && authors[question.authorId] && authorInfo.userId === authors[question.authorId].userId && (
-                                            <button onClick={() => handleEditQuestion(question.id)}>Edit</button>
-                                        )}
+                                        <p>Date Published: {question.datePublished}</p>
+                                        <div className={'questionButtons'}>
+                                            <button onClick={() => handleReplyButtonClick(question.id)}>Reply</button>
+                                            {/* Render edit button only if the authorInfo exists and the question's author matches the logged-in user */}
+                                            {authorInfo && authors[question.authorId] && authorInfo.userId === authors[question.authorId].userId && (
+                                                <button onClick={() => handleEditQuestion(question.id)}>Edit</button>
+                                            )}
+                                        </div>
                                     </div>
                                 )}
                             </div>

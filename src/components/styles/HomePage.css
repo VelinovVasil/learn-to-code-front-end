@@ -8,7 +8,7 @@ body {
     width: 100%;
     font-size: 1em;
     background-color: black;
-    color: white;
+    color: #f7efe5;
     padding: 2em 4em;
 }
 
@@ -30,7 +30,7 @@ body {
 }
 
 .headerText {
-    border-top: 1px solid white;
+    border-top: 1px solid #f7efe5;
     padding-top: 2em;
 }
 
@@ -71,8 +71,8 @@ h2 {
 }
 
 .homeMainContainer div button {
-    background-color: orange;
-    color: white;
+    background-color: #3fabaf;
+    color: #f7efe5;
     border: none;
     padding: 1em 2em;
     text-align: center;
@@ -84,6 +84,10 @@ h2 {
     transition: background-color 0.3s ease;
     width: 55%;
     height: auto;
+}
+
+.homeMainContainer div button:hover {
+    background-color: grey;
 }
 
 .homeMainContainer div p {

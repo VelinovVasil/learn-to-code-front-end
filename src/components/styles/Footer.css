@@ -1,4 +1,22 @@
 
 footer {
     margin-top: 10em; /* just a temporary value, likely to change */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-top: 2px solid #f7efe5;
+    padding-top: 1em;
 }
+
+#footerLogo {
+    font-size: 1em;
+}
+
+.footerUl {
+    font-size: 0.81em;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    gap: 1.81em;
+}
+

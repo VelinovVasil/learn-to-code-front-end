@@ -5,6 +5,10 @@
     justify-content: space-evenly;
 }
 
+.languagesContainer * {
+    text-decoration: none;
+}
+
 .programmingLanguageSection {
     height: auto;
     border-radius: 2em;
@@ -35,5 +39,5 @@
 .programmingLanguageSection h3 {
     margin-top: 0.5em;
     text-align: center;
-
+    color: #f7efe5;
 }

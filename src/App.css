@@ -1,7 +1,11 @@
 
 body {
    background-color: black;
-   color: white;
+   color: #f7efe5;
     width: 80%;
     margin: auto;
  }
+
+button {
+    border-radius: 1em;
+}

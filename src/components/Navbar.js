@@ -1,14 +1,13 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import {useAuth0} from "@auth0/auth0-react";
 import LoginButton from "./LoginButton";
+import './styles/Navbar.css';
 
 const Navbar = () => {
 
     return (
-
         <div className={'upperHeader'}>
-            <Link to={'/'}>
+            <Link to={'/'} className={'linkNavText'}>
                 <h4 className={'navText'}>&lt;Learn to code/&gt;</h4>
             </Link>
             <nav>
