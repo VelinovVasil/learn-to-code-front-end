@@ -47,6 +47,10 @@ const UserPage = () => {
             }
 
             const userData = await response.json();
+
+            console.log('user data:');
+            console.log(userData);
+
             setUserData(userData);
 
             // Fetch asked questions

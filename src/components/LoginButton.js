@@ -4,6 +4,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 const LoginButton = () => {
     const { loginWithRedirect, logout, isAuthenticated, getIdTokenClaims } = useAuth0();
 
+    // TODO: save user id to localstorage
+
     const handleLogin = async () => {
         await loginWithRedirect({
             authorizationParams: {

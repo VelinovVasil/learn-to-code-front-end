@@ -26,8 +26,8 @@ const HomePage = () => {
                             </svg>
                         </div>
                         <p>Find the best answer to your technical question, help others answer theirs.</p>
-                        <Link to={'/create-account'}>
-                            <button>Join our community</button>
+                        <Link to={'/ask-question'}>
+                            <button>Ask a question</button>
                         </Link>
                     </div>
                     <div>
