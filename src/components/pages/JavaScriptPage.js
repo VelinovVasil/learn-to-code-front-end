@@ -5,6 +5,9 @@ import '../styles/RoadmapStyle.css'
 // import '../styles/RoadmapStyle.scss';
 
 const JavaScriptPage = () => {
+
+    // TODO: Populate the roadmap with the given resources in the comments
+
     return (
       <div>
           <Navbar/>
