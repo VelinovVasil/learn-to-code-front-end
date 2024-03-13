@@ -182,7 +182,7 @@ const JavaScriptPage = () => {
 
                       </div>
                       <div className="timeline__event__date">
-                          20-08-2019
+                          &lt;Basic syntax/&gt;
                       </div>
                       <div className="timeline__event__content ">
                           <div className="timeline__event__title">
