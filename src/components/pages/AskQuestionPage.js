@@ -8,16 +8,24 @@ import 'react-quill/dist/quill.snow.css';
 import '../styles/AskQuestionPage.css'
 import NotLoggedIn from "../NotLoggedIn";
 
+// TODO: fix publishQuestion (error 400)
+
 const AskQuestionPage = () => {
     const [questionText, setQuestionText] = useState('');
-    const [answer, setAnswer] = useState('');
+    const [messageDiv, setAnswer] = useState('');
     const [isAnswered, setIsAnswered] = useState(false);
     const [isPublished, setIsPublished] = useState(false);
     const [selectedTags, setSelectedTags] = useState([]);
     const [allTags, setAllTags] = useState([]);
     const navigate = useNavigate();
     const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+
+
     const baseUrl = `http://localhost:8080/api/`;
+
+    //Get userId from localstorage
+    const userId = localStorage.getItem("userId");
+
 
     useEffect(() => {
         fetchTags();
@@ -47,7 +55,7 @@ const AskQuestionPage = () => {
         try {
             const token = await getAccessTokenSilently();
 
-            const userId = localStorage.getItem("userId");
+            // const userId = localStorage.getItem("userId");
             console.log(userId);
 
             const obj = JSON.stringify({content: questionText, userId: userId, role: "USER"});
@@ -66,14 +74,21 @@ const AskQuestionPage = () => {
             }
 
             const answerData = await response.json();
-            setAnswer(answerData);
+            const content = answerData.response.content;
+
+            console.log(content);
+
+            // Check if the content has code block
+            const hasCodeBlock = content.includes("```");
+            let formattedContent = content;
+
+            if (hasCodeBlock) {
+                // If the content has code block, wrap it in a <pre><code> element
+                formattedContent = content.replace(/```([\s\S]+?)```/g, '</p><pre><code>$1</code></pre><p>');
+            }
+
+            setAnswer(formattedContent);
             setIsAnswered(true);
-
-            console.log('Ai response');
-            console.log(answerData);
-
-            console.log('Answer: ');
-            console.log(answerData.response.content);
 
         } catch (error) {
             console.error('Error submitting question:', error);
@@ -82,18 +97,26 @@ const AskQuestionPage = () => {
 
     const handlePublish = async () => {
         try {
+
+            console.log('Selected tags: ');
+            console.log(selectedTags);
+            console.log(`Question text: ${questionText}`);
+            console.log(`userId: ${userId}`);
+
             const token = await getAccessTokenSilently();
-            const response = await fetch(baseUrl + 'questions', {
+
+            const response = await fetch(baseUrl + 'questions/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify({ text: questionText, tags: selectedTags }),
+                body: JSON.stringify({ text: questionText, tagIds: selectedTags, userId: userId }),
             });
             if (!response.ok) {
-                throw new Error('Failed to publish question');
+                throw new Error(`Failed to publish question: ${response.status} ${response.statusText}`);
             }
+
             setIsPublished(true);
             navigate('/forum');
         } catch (error) {
@@ -127,13 +150,14 @@ const AskQuestionPage = () => {
                     onChange={(value) => setQuestionText(value)}
                     placeholder="Type your question here"
                 />
-                <button onClick={handleQuestionSubmit}>Submit Question</button>
+                <button id={'btnSubmitQuestion'} onClick={handleQuestionSubmit}>Submit Question</button>
             </section>
             {isAnswered && (
                 <div id={'aiAnswer'}>
                     <h3>AI Answer:</h3>
-                    <p>{answer.response.content}</p>
-                    <button onClick={handlePublish}>Publish Question</button>
+                    {/* Render the content as HTML string */}
+                    <div dangerouslySetInnerHTML={{ __html: messageDiv }} />
+                    <button id={'btnPublishQuestion'} onClick={handlePublish}>Publish Question</button>
                 </div>
             )}
             {isPublished && (

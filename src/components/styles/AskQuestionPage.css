@@ -7,7 +7,7 @@
 }
 
 #askQuestionPage section button {
-    width: 20%;
+    /*width: 20%;*/
     /*padding-left: 1em;*/
 }
 
@@ -25,4 +25,25 @@
 
 #aiAnswer p {
     line-height: 3em;
+}
+
+pre {
+    background-color: grey;
+    padding: 1em;
+    border-radius: 0.53em;
+    margin: 1em 0.5em;
+}
+
+#btnPublishQuestion {
+    font-size: 1.5em;
+    padding: 0.1em 0.3em;
+}
+
+#btnSubmitQuestion {
+    font-size: 1.5em;
+    padding:  0.1em 0.2em;
+}
+
+#btnPublishQuestion {
+    margin-top: 1em;
 }
