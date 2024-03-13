@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
 import { useNavigate } from 'react-router-dom';
-import { useAuth0 } from '@auth0/auth0-react'; // Import useAuth0 hook
-import ReactQuill from 'react-quill'; // Import React Quill
-import 'react-quill/dist/quill.snow.css'; // Import React Quill's CSS
+import { useAuth0 } from '@auth0/auth0-react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import '../styles/AskQuestionPage.css'
 import NotLoggedIn from "../NotLoggedIn";
 
@@ -15,8 +15,9 @@ const AskQuestionPage = () => {
     const [isPublished, setIsPublished] = useState(false);
     const [selectedTags, setSelectedTags] = useState([]);
     const [allTags, setAllTags] = useState([]);
-    const navigate = useNavigate(); // Initialize the navigate function
-    const { isAuthenticated, getAccessTokenSilently } = useAuth0(); // Destructure isAuthenticated and getAccessTokenSilently from useAuth0 hook
+    const navigate = useNavigate();
+    const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+    const baseUrl = `http://localhost:8080/api/`;
 
     useEffect(() => {
         fetchTags();
@@ -24,7 +25,14 @@ const AskQuestionPage = () => {
 
     const fetchTags = async () => {
         try {
-            const response = await fetch('your-backend-url/tags');
+            const token = await getAccessTokenSilently();
+            const response = await fetch(baseUrl + 'tags/', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+
             if (!response.ok) {
                 throw new Error('Failed to fetch tags');
             }
@@ -37,12 +45,12 @@ const AskQuestionPage = () => {
 
     const handleQuestionSubmit = async () => {
         try {
-            const token = await getAccessTokenSilently(); // Get the access token
-            const response = await fetch('your-backend-url/questions', {
+            const token = await getAccessTokenSilently();
+            const response = await fetch(baseUrl + 'chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`, // Include the access token in the authorization header
+                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify({ text: questionText }),
             });
@@ -59,12 +67,12 @@ const AskQuestionPage = () => {
 
     const handlePublish = async () => {
         try {
-            const token = await getAccessTokenSilently(); // Get the access token
-            const response = await fetch('your-backend-url/questions/publish', {
+            const token = await getAccessTokenSilently();
+            const response = await fetch(baseUrl + 'questions', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`, // Include the access token in the authorization header
+                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify({ text: questionText, tags: selectedTags }),
             });
@@ -72,15 +80,24 @@ const AskQuestionPage = () => {
                 throw new Error('Failed to publish question');
             }
             setIsPublished(true);
-            // Redirect to the forum page after publishing
-            navigate('/forum'); // Use navigate function to redirect
+            navigate('/forum');
         } catch (error) {
             console.error('Error publishing question:', error);
         }
     };
 
+    const handleTagClick = (tagId) => {
+        setSelectedTags(prevTags => {
+            // Toggle the tag selection
+            if (prevTags.includes(tagId)) {
+                return prevTags.filter(id => id !== tagId);
+            } else {
+                return [...prevTags, tagId];
+            }
+        });
+    };
+
     if (!isAuthenticated) {
-        // Redirect the user to the login page if not authenticated
         return <NotLoggedIn/>
     }
 
@@ -104,13 +121,25 @@ const AskQuestionPage = () => {
                     <button onClick={handlePublish}>Publish Question</button>
                 </div>
             )}
-
             {isPublished && (
                 <div>
                     <h3>Question Published!</h3>
                 </div>
             )}
-
+            <div>
+                <h3>Tags:</h3>
+                <div className="tags-container">
+                    {allTags.map(tag => (
+                        <button
+                            key={tag.id}
+                            className={selectedTags.includes(tag.id) ? 'selected' : ''}
+                            onClick={() => handleTagClick(tag.id)}
+                        >
+                            {tag.name}
+                        </button>
+                    ))}
+                </div>
+            </div>
             <Footer />
         </div>
     );

@@ -53,13 +53,25 @@ const UserPage = () => {
 
             setUserData(userData);
 
+            const userId = userData.id;
+            console.log('UserId:');
+            console.log(userId);
+
+            localStorage.setItem('userId', userId); // Save userId to localstorage
+
             // Fetch asked questions
-            const askedQuestionsResponse = await fetch(`your-backend-url/questions?userId=${user.sub}`, {
+            const askedQuestionsResponse = await fetch(`${baseUrl}users/questions/${userId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
                 },
             });
+            
             const askedQuestionsData = await askedQuestionsResponse.json();
+
+            console.log('Asked questions:');
+            console.log(askedQuestionsData);
+
             setAskedQuestions(askedQuestionsData);
 
             // Fetch published answers
@@ -94,7 +106,9 @@ const UserPage = () => {
                 <div>
                     <h2>Welcome back!</h2>
                     <h3>User Information:</h3>
+                    <p>Username {user.username}</p>
                     <p>Email: {user.email}</p>
+                    <p>Nickname: {user.nickname}</p>
                     {/* Display other user information as needed */}
 
                     <h3>Asked Questions:</h3>

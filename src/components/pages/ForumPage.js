@@ -17,8 +17,13 @@ const ForumPage = () => {
     const [editedQuestionText, setEditedQuestionText] = useState('');
     const { getAccessTokenSilently } = useAuth0();
     const [authors, setAuthors] = useState({});
+    const [tags, setTags] = useState({});
+
 
     const baseUrl = `http://localhost:8080/api/`;
+
+    // TODO: display edit button
+    // TODO: fix reply functionality
 
     const fetchQuestions = async () => {
         try {
@@ -40,81 +45,81 @@ const ForumPage = () => {
 
             for (const question of data) {
                 const authorId = question.authorId;
+
+                console.log('authorId:');
+                console.log(authorId);
+
                 // Fetch author info if not already fetched
                 if (!authors[authorId]) {
-                    const userInfo = await fetchUserInfoFromBackend(authorId, token);
-                    // Update authors state with author info
-                    setAuthors(prevState => ({
-                        ...prevState,
-                        [authorId]: userInfo
-                    }));
+                    try {
+                        const userResponse = await fetch(baseUrl + `users/${authorId}`, {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                                'Content-Type': 'application/json',
+                            },
+                        });
+                        if (!userResponse.ok) {
+                            throw new Error('Failed to fetch author');
+                        }
+
+                        const authorInfo = await userResponse.json();
+
+                        console.log('Author info: ');
+                        console.log(authorInfo);
+
+                        // Update authors state with author info
+                        setAuthors(prevState => ({
+                            ...prevState,
+                            [authorId]: authorInfo
+                        }));
+                    } catch (error) {
+                        console.error('Error fetching author:', error);
+                    }
+                }
+
+                // Fetch tags for each question
+                for (const tagId of question.tagIds) {
+                    if (!tags[tagId]) {
+                        try {
+                            const tagResponse = await fetch(baseUrl + `tags/${tagId}`, {
+                                headers: {
+                                    Authorization: `Bearer ${token}`,
+                                    'Content-Type': 'application/json',
+                                },
+                            });
+                            if (!tagResponse.ok) {
+                                throw new Error('Failed to fetch tag');
+                            }
+
+                            const tagInfo = await tagResponse.json();
+
+                            console.log('Tag info: ');
+                            console.log(tagInfo);
+
+                            // Update tags state with tag info
+                            setTags(prevState => ({
+                                ...prevState,
+                                [tagId]: tagInfo
+                            }));
+                        } catch (error) {
+                            console.error('Error fetching tag:', error);
+                        }
+                    }
                 }
             }
 
             setQuestions(data);
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error fetching questions:', error);
         }
     };
+
+
 
 
     useEffect(() => {
         fetchQuestions();
     }, [fetchQuestions, baseUrl + 'questions/']);
-
-    useEffect(() => {
-        const fetchUserInfo = async () => {
-            try {
-                const token = await getAccessTokenSilently();
-                const userInfo = await fetchUserInfoFromBackend(token);
-                setAuthorInfo({
-                    userId: userInfo.sub, // Assuming Auth0 user ID is stored in sub field
-                    userEmail: userInfo.email,
-                });
-            } catch (error) {
-                console.error('Error fetching user info:', error);
-            }
-        };
-
-        fetchUserInfo();
-    }, [getAccessTokenSilently]);
-
-    const fetchUserInfoFromBackend = async (token) => {
-        try {
-            // localStorage.getItem('jwt')
-
-            const jwt = localStorage.getItem('jwt');
-
-            // Decode the JWT
-            const base64Url = jwt.split('.')[1];
-            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            const decodedPayload = JSON.parse(atob(base64));
-
-            // Retrieve the email field from the payload
-            const userEmail = decodedPayload.email;
-
-            console.log("user email:");
-            console.log(userEmail); // This will log the user's email
-
-            const response = await fetch(baseUrl + 'users/email/' + userEmail, {
-                headers: {
-                    // Authorization: `Bearer ${token}`,
-                    'Content-Type': 'Application/JSON'
-                },
-            });
-            if (!response.ok) {
-                throw new Error('Failed to fetch user info');
-            }
-            return await response.json();
-        } catch (error) {
-            console.error('Error fetching user info from backend:', error);
-            throw error;
-        }
-    };
-
-    const handleSortChange = (e) => {
-        setSortBy(e.target.value);
-    };
 
     const handleReplyButtonClick = (questionId) => {
         setSelectedQuestionId(questionId);
@@ -190,6 +195,12 @@ const ForumPage = () => {
         }
     };
 
+    const formatDate = (dateTimeString) => {
+        const date = new Date(dateTimeString);
+        return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+    };
+
+
     return (
         <div>
             <Navbar />
@@ -214,6 +225,7 @@ const ForumPage = () => {
                         {question && question.id ? (
                             <div>
                                 {question.isEditing ? (
+                                    // Editing mode
                                     <div>
                                         <input
                                             type="text"
@@ -223,11 +235,18 @@ const ForumPage = () => {
                                         <button onClick={() => handleSaveEdit(question.id)}>Save</button>
                                     </div>
                                 ) : (
+                                    // Viewing mode
                                     <div className={'questionContainer'}>
                                         <h3>{question.text}</h3>
-                                        <p className={'authorName'}>Author: {question.authorName}</p>
-                                        <p>Tags: {question.tags ? question.tags.join(', ') : ''}</p>
-                                        <p>Date Published: {question.datePublished}</p>
+                                        {/* Display author name if authorInfo is available */}
+                                        {authors[question.authorId] && (
+                                            <p className={'authorName'}>Author: {authors[question.authorId].nickname}</p>
+                                        )}
+                                        {/* Render tags */}
+                                        <p>Tags: {question.tagIds && question.tagIds.map(tagId => (
+                                            tags[tagId] ? tags[tagId].name : ''
+                                        )).join(', ')}</p>
+                                        <p>Date Published: {question.datePublished && formatDate(question.datePublished)}</p>
                                         <div className={'questionButtons'}>
                                             <button onClick={() => handleReplyButtonClick(question.id)}>Reply</button>
                                             {/* Render edit button only if the authorInfo exists and the question's author matches the logged-in user */}
@@ -241,6 +260,9 @@ const ForumPage = () => {
                         ) : null}
                     </li>
                 ))}
+
+
+
             </ul>
             <Footer />
         </div>
