@@ -46,20 +46,35 @@ const AskQuestionPage = () => {
     const handleQuestionSubmit = async () => {
         try {
             const token = await getAccessTokenSilently();
-            const response = await fetch(baseUrl + 'chat', {
+
+            const userId = localStorage.getItem("userId");
+            console.log(userId);
+
+            const obj = JSON.stringify({content: questionText, userId: userId, role: "USER"});
+            console.log(obj);
+
+            const response = await fetch(baseUrl + 'openai/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify({ text: questionText }),
+                body: obj,
             });
             if (!response.ok) {
                 throw new Error('Failed to submit question');
             }
+
             const answerData = await response.json();
-            setAnswer(answerData.answer);
+            setAnswer(answerData);
             setIsAnswered(true);
+
+            console.log('Ai response');
+            console.log(answerData);
+
+            console.log('Answer: ');
+            console.log(answerData.response.content);
+
         } catch (error) {
             console.error('Error submitting question:', error);
         }
@@ -115,9 +130,9 @@ const AskQuestionPage = () => {
                 <button onClick={handleQuestionSubmit}>Submit Question</button>
             </section>
             {isAnswered && (
-                <div>
-                    <h3>Answer:</h3>
-                    <p>{answer}</p>
+                <div id={'aiAnswer'}>
+                    <h3>AI Answer:</h3>
+                    <p>{answer.response.content}</p>
                     <button onClick={handlePublish}>Publish Question</button>
                 </div>
             )}

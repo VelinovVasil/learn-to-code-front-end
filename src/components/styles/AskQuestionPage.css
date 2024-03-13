@@ -14,3 +14,15 @@
 #askQuestionArea {
     width: 60%;
 }
+
+#aiAnswer {
+    margin-top: 5em;
+}
+
+#aiAnswer h3 {
+    font-size: 3em;
+}
+
+#aiAnswer p {
+    line-height: 3em;
+}
