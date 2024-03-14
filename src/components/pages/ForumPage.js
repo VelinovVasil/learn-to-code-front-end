@@ -8,6 +8,7 @@ import ReactQuill from 'react-quill'; // Import React Quill
 import 'react-quill/dist/quill.snow.css'; // Import Quill's snow theme CSS
 
 const ForumPage = () => {
+    const [dataChanged, setDataChanged] = useState(false);
     const [questions, setQuestions] = useState([]);
     const [sortBy, setSortBy] = useState('datePublished');
     const [showReplyForm, setShowReplyForm] = useState(false);
@@ -21,6 +22,7 @@ const ForumPage = () => {
 
 
     const baseUrl = `http://localhost:8080/api/`;
+    const useEffectDependency = 'http://localhost:8080/api/questions/'
 
     // TODO: display edit button
     //
@@ -121,8 +123,13 @@ const ForumPage = () => {
 
 
     useEffect(() => {
-        fetchQuestions();
-    }, [fetchQuestions, baseUrl + 'questions/']);
+        if(!dataChanged) {
+            //TODO: Extract into services and setState in useEffect
+            fetchQuestions();
+            setDataChanged(true);
+        }
+        console.log('ín')
+    }, [fetchQuestions, dataChanged, useEffectDependency]);
 
     const handleReplyButtonClick = (questionId) => {
         setSelectedQuestionId(questionId);
@@ -240,7 +247,8 @@ const ForumPage = () => {
                                 ) : (
                                     // Viewing mode
                                     <div className={'questionContainer'}>
-                                        <h3>{question.text}</h3>
+                                        {/*<h3>{question.text}</h3>*/}
+                                        <div dangerouslySetInnerHTML={{__html: question.text}}/>
                                         {/* Display author name if authorInfo is available */}
                                         {authors[question.authorId] && (
                                             <p className={'authorName'}>Author: {authors[question.authorId].nickname}</p>
@@ -249,7 +257,8 @@ const ForumPage = () => {
                                         <p>Tags: {question.tagIds && question.tagIds.map(tagId => (
                                             tags[tagId] ? tags[tagId].name : ''
                                         )).join(', ')}</p>
-                                        <p>Date Published: {question.datePublished && formatDate(question.datePublished)}</p>
+                                        <p>Date
+                                            Published: {question.datePublished && formatDate(question.datePublished)}</p>
                                         <div className={'questionButtons'}>
                                             <button onClick={() => handleReplyButtonClick(question.id)}>Reply</button>
                                             {/* Render edit button only if the authorInfo exists and the question's author matches the logged-in user */}
