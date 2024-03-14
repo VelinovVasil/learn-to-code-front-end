@@ -8,8 +8,6 @@ import 'react-quill/dist/quill.snow.css';
 import '../styles/AskQuestionPage.css'
 import NotLoggedIn from "../NotLoggedIn";
 
-// TODO: fix publishQuestion (error 400)
-
 const AskQuestionPage = () => {
     const [questionText, setQuestionText] = useState('');
     const [messageDiv, setAnswer] = useState('');

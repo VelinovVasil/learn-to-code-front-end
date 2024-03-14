@@ -26,8 +26,6 @@ const ForumPage = () => {
 
     // TODO: display edit button
     //
-    // TODO: fix reply functionality
-    //
     // TODO: React hook fix
 
     const fetchQuestions = async () => {
@@ -119,9 +117,6 @@ const ForumPage = () => {
         }
     };
 
-
-
-
     useEffect(() => {
         if(!dataChanged) {
             //TODO: Extract into services and setState in useEffect
@@ -136,6 +131,10 @@ const ForumPage = () => {
         setShowReplyForm(true);
     };
 
+    const handleCancelReply = () => {
+        setShowReplyForm(false);
+    };
+
     const handleReplyFormSubmit = (e) => {
         e.preventDefault();
         replyToQuestion(selectedQuestionId, replyText);
@@ -143,16 +142,28 @@ const ForumPage = () => {
         setShowReplyForm(false);
     };
 
-    const replyToQuestion = async (questionId, replyText) => {
+    const replyToQuestion = async (selectedQuestionId, replyText) => {
         try {
+            // JSON payload
             const token = await getAccessTokenSilently();
-            const response = await fetch(baseUrl + `questions/${questionId}/replies`, {
+            const authorId = localStorage.getItem('userId');
+
+            console.log('authorId:');
+            console.log(authorId);
+
+
+            const replyObj = JSON.stringify({ text: replyText, authorId: authorId, questionId: selectedQuestionId});
+
+            console.log('reply obj:');
+            console.log(replyObj);
+
+            const response = await fetch(baseUrl + `replies/`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ text: replyText, author: authorInfo }),
+                body: replyObj,
             });
 
             if (!response.ok) {
@@ -260,7 +271,9 @@ const ForumPage = () => {
                                         <p>Date
                                             Published: {question.datePublished && formatDate(question.datePublished)}</p>
                                         <div className={'questionButtons'}>
-                                            <button onClick={() => handleReplyButtonClick(question.id)}>Reply</button>
+                                            {!showReplyForm && (
+                                                <button onClick={() => handleReplyButtonClick(question.id)}>Reply</button>
+                                            )}
                                             {/* Render edit button only if the authorInfo exists and the question's author matches the logged-in user */}
                                             {authorInfo && authors[question.authorId] && authorInfo.userId === authors[question.authorId].userId && (
                                                 <button onClick={() => handleEditQuestion(question.id)}>Edit</button>
@@ -268,13 +281,24 @@ const ForumPage = () => {
                                         </div>
                                     </div>
                                 )}
+                                {/* Reply form */}
+                                {showReplyForm && selectedQuestionId === question.id && (
+                                    <div>
+                                        <form onSubmit={handleReplyFormSubmit}>
+                                            <textarea
+                                                value={replyText}
+                                                onChange={(e) => setReplyText(e.target.value)}
+                                                placeholder="Write your reply here..."
+                                            />
+                                            <button type="submit">Submit Reply</button>
+                                            <button onClick={handleCancelReply}>Cancel</button>
+                                        </form>
+                                    </div>
+                                )}
                             </div>
                         ) : null}
                     </li>
                 ))}
-
-
-
             </ul>
             <Footer />
         </div>
