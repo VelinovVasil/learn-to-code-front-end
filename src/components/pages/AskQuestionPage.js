@@ -105,13 +105,18 @@ const AskQuestionPage = () => {
 
             const token = await getAccessTokenSilently();
 
+            const publishObj = JSON.stringify({ text: questionText, authorId: userId, tagIds: selectedTags, imageUrls: []});
+
+            console.log('Object to publish: ');
+            console.log(publishObj);
+
             const response = await fetch(baseUrl + 'questions/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify({ text: questionText, tagIds: selectedTags, userId: userId }),
+                body: publishObj,
             });
             if (!response.ok) {
                 throw new Error(`Failed to publish question: ${response.status} ${response.statusText}`);
