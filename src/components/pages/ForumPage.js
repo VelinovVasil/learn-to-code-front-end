@@ -23,7 +23,10 @@ const ForumPage = () => {
     const baseUrl = `http://localhost:8080/api/`;
 
     // TODO: display edit button
+    //
     // TODO: fix reply functionality
+    //
+    // TODO: React hook fix
 
     const fetchQuestions = async () => {
         try {
