@@ -2,7 +2,6 @@ import React from 'react';
 import Navbar from "../Navbar";
 import '../styles/ProgrammingLanguagesPage.css'
 import {Link} from "react-router-dom";
-import JavaScriptPage from "./JavaScriptPage";
 import Footer from "../Footer";
 
 const ProgrammingLanguagesPage = () => {
@@ -10,7 +9,7 @@ const ProgrammingLanguagesPage = () => {
         <div>
             <Navbar/>
             <div className={'languagesContainer'}>
-                <Link to={"/java-script"}>
+                <Link to={"/programming-languages/java-script"}>
                     <section className={'programmingLanguageSection'}>
                         <div className={'logoIconContainer'}>
                             <img src={process.env.PUBLIC_URL + '/images/Unofficial_JavaScript_logo_2.png'} alt={'jsLogo'}/>
@@ -18,7 +17,7 @@ const ProgrammingLanguagesPage = () => {
                         <h3>JavaScript</h3>
                     </section>
                 </Link>
-                <Link to={"/java"}>
+                <Link to={"/programming-languages/java"}>
                     <section className={'programmingLanguageSection'}>
                         <div className={'logoIconContainer'}>
                             <img src={process.env.PUBLIC_URL + '/images/Java-Emblem.jpg'} alt={'javaLogo'}/>
@@ -26,7 +25,7 @@ const ProgrammingLanguagesPage = () => {
                         <h3>Java</h3>
                     </section>
                 </Link>
-                <Link to={"/python"}>
+                <Link to={"/programming-languages/python"}>
                     <section className={'programmingLanguageSection'}>
                         <div className={'logoIconContainer'}>
                             <img src={process.env.PUBLIC_URL + '/images/pythonlogo.jpg'} alt={'pythonLogo'}/>
@@ -34,7 +33,7 @@ const ProgrammingLanguagesPage = () => {
                         <h3>Python</h3>
                     </section>
                 </Link>
-                <Link to={"/sql"}>
+                <Link to={"/programming-languages/sql"}>
                     <section className={'programmingLanguageSection'}>
                         <div className={'logoIconContainer'}>
                             <img src={process.env.PUBLIC_URL + '/images/databaseImg.png'} alt={'sqlLogo'}/>
