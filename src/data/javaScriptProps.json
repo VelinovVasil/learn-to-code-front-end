@@ -1,0 +1,27 @@
+{
+  "title": "Java Script",
+  "content": "javascript content lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
+  "data": [
+    {
+      "title": "Getting Started",
+      "links": [
+        { "title": "CDN Guide", "href": "#" },
+        { "title": "MDN Guide", "href": "#" }
+      ]
+    },
+    {
+      "title": "Fundamentals",
+      "links": [
+        { "title": "CDN Guide", "href": "#" },
+        { "title": "MDN Guide", "href": "#" }
+      ]
+    },
+    {
+      "title": "Advanced",
+      "links": [
+        { "title": "CDN Guide", "href": "#" },
+        { "title": "MDN Guide", "href": "#" }
+      ]
+    }
+  ]
+}

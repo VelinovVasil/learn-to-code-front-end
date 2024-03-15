@@ -1,0 +1,114 @@
+{
+  "title": "Java",
+  "content": "Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible. It is a general-purpose programming language intended to let application developers write once, run anywhere (WORA), meaning that compiled Java code can run on all platforms that support Java without the need for recompilation. Java applications are typically compiled to bytecode that can run on any Java virtual machine (JVM) regardless of the underlying computer architecture.",
+  "data": [
+    {
+      "title": "Basic Syntax",
+      "links": [
+        { "title": "Java Syntax Tutorial", "href": "https://www.javatpoint.com/java-syntax" },
+        { "title": "Oracle Java Tutorial - Learning the Java Language", "href": "https://docs.oracle.com/javase/tutorial/java/nutsandbolts/index.html" },
+        { "title": "Java Programming Basics", "href": "https://www.udemy.com/course/java-programming-basics/" },
+        { "title": "Java Syntax Cheat Sheet", "href": "https://www.cs.cmu.edu/~mrmiller/15-110/Handouts/JavaCheatSheet.pdf" }
+      ]
+    },
+    {
+      "title": "Data Types and Variables",
+      "links": [
+        { "title": "Java Data Types", "href": "https://www.javatpoint.com/java-data-types" },
+        { "title": "Variables in Java", "href": "https://www.geeksforgeeks.org/variables-in-java/" },
+        { "title": "Java Primitive Data Types", "href": "https://www.baeldung.com/java-primitive-data-types" },
+        { "title": "Java Variables and Constants", "href": "https://beginnersbook.com/2017/09/java-variables/" }
+      ]
+    },
+    {
+      "title": "Conditional Statements",
+      "links": [
+        { "title": "Java if...else Statement", "href": "https://www.w3schools.com/java/java_conditions.asp" },
+        { "title": "Oracle Java Tutorial - Control Flow Statements", "href": "https://docs.oracle.com/javase/tutorial/java/nutsandbolts/flow.html" },
+        { "title": "Java switch Statement", "href": "https://www.javatpoint.com/java-switch" },
+        { "title": "Java Ternary Operator", "href": "https://www.javatpoint.com/ternary-operator-in-java" }
+      ]
+    },
+    {
+      "title": "Loops",
+      "links": [
+        { "title": "Java Loops (for, while, do-while)", "href": "https://www.programiz.com/java-programming/for-loop" },
+        { "title": "Oracle Java Tutorial - Control Flow Statements", "href": "https://docs.oracle.com/javase/tutorial/java/nutsandbolts/flow.html" },
+        { "title": "Java for Loop Tutorial", "href": "https://www.geeksforgeeks.org/for-each-loop-in-java/" },
+        { "title": "Java while and do-while Loop", "href": "https://www.javatpoint.com/while-and-do-while-loop" }
+      ]
+    },
+    {
+      "title": "Arrays and Lists",
+      "links": [
+        { "title": "Java Arrays", "href": "https://www.w3schools.com/java/java_arrays.asp" },
+        { "title": "Java ArrayList Class", "href": "https://www.javatpoint.com/java-arraylist" },
+        { "title": "Arrays in Java - GeeksforGeeks", "href": "https://www.geeksforgeeks.org/arrays-in-java/" },
+        { "title": "Java Collections Framework", "href": "https://www.baeldung.com/java-collections" }
+      ]
+    },
+    {
+      "title": "Methods",
+      "links": [
+        { "title": "Java Methods", "href": "https://www.w3schools.com/java/java_methods.asp" },
+        { "title": "Oracle Java Tutorial - Methods", "href": "https://docs.oracle.com/javase/tutorial/java/javaOO/methods.html" },
+        { "title": "Java Method Overloading", "href": "https://www.geeksforgeeks.org/method-overloading-in-java/" },
+        { "title": "Java Method Overriding", "href": "https://www.javatpoint.com/method-overriding-in-java" }
+      ]
+    },
+    {
+      "title": "Objects and Classes",
+      "links": [
+        { "title": "Java Classes and Objects", "href": "https://www.javatpoint.com/java-oops-concepts" },
+        { "title": "Oracle Java Tutorial - Classes and Objects", "href": "https://docs.oracle.com/javase/tutorial/java/javaOO/" },
+        { "title": "Java Constructor", "href": "https://www.geeksforgeeks.org/constructors-in-java/" },
+        { "title": "Java Object Class", "href": "https://www.javatpoint.com/object-class" }
+      ]
+    },
+    {
+      "title": "OOP Principles",
+      "links": [
+        { "title": "Java Object-Oriented Programming Concepts", "href": "https://www.javatpoint.com/java-oops-concepts" },
+        { "title": "Oracle Java Tutorial - Object-Oriented Programming Concepts", "href": "https://docs.oracle.com/javase/tutorial/java/concepts/index.html" },
+        { "title": "Encapsulation in Java", "href": "https://www.geeksforgeeks.org/encapsulation-in-java/" },
+        { "title": "Inheritance in Java", "href": "https://www.javatpoint.com/inheritance-in-java" }
+      ]
+    },
+    {
+      "title": "SOLID",
+      "links": [
+        { "title": "SOLID Principles in Java", "href": "https://www.baeldung.com/solid-principles" },
+        { "title": "Understanding SOLID Principles", "href": "https://stackify.com/solid-design-principles/" },
+        { "title": "Open/Closed Principle in Java", "href": "https://www.baeldung.com/java-open-closed-principle" },
+        { "title": "Dependency Inversion Principle", "href": "https://www.oodesign.com/dependency-inversion-principle.html" }
+      ]
+    },
+    {
+      "title": "Sets and Maps",
+      "links": [
+        { "title": "Java Set Interface", "href": "https://www.javatpoint.com/java-set" },
+        { "title": "Java Map Interface", "href": "https://www.geeksforgeeks.org/java-map-interface/" },
+        { "title": "Java HashSet Class", "href": "https://www.javatpoint.com/java-hashset" },
+        { "title": "Java HashMap Class", "href": "https://www.javatpoint.com/java-hashmap" }
+      ]
+    },
+    {
+      "title": "Multi-threaded Programming",
+      "links": [
+        { "title": "Java Multithreading", "href": "https://www.geeksforgeeks.org/multithreading-in-java/" },
+        { "title": "Oracle Java Tutorial - Concurrency", "href": "https://docs.oracle.com/javase/tutorial/essential/concurrency/index.html" },
+        { "title": "Java Thread Class", "href": "https://www.javatpoint.com/java-thread" },
+        { "title": "Java Synchronization", "href": "https://www.geeksforgeeks.org/synchronized-in-java/" }
+      ]
+    },
+    {
+      "title": "Design Patterns",
+      "links": [
+        { "title": "Java Design Patterns", "href": "https://www.javatpoint.com/design-patterns-in-java" },
+        { "title": "Oracle Java Tutorial - Design Patterns", "href": "https://docs.oracle.com/javase/tutorial/essential/concurrency/index.html" },
+        { "title": "Singleton Design Pattern", "href": "https://www.geeksforgeeks.org/singleton-design-pattern/" },
+        { "title": "Factory Design Pattern", "href": "https://www.baeldung.com/java-factory-design-pattern" }
+      ]
+    }
+  ]
+}

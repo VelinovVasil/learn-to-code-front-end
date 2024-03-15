@@ -1,0 +1,106 @@
+{
+  "title": "Python",
+  "content": "Python is an interpreted, high-level, general-purpose programming language. It emphasizes code readability and its syntax allows programmers to express concepts in fewer lines of code than would be possible in languages such as C++ or Java. Python supports multiple programming paradigms, including procedural, object-oriented, and functional programming.",
+  "data": [
+    {
+      "title": "Basic Syntax",
+      "links": [
+        { "title": "Python Tutorial", "href": "https://www.python.org/doc/" },
+        { "title": "W3Schools Python Tutorial", "href": "https://www.w3schools.com/python/" },
+        { "title": "Python Syntax Cheat Sheet", "href": "https://www.pythoncheatsheet.org/" },
+        { "title": "Python Documentation", "href": "https://docs.python.org/3/tutorial/index.html" },
+        { "title": "Learn Python - Full Course for Beginners", "href": "https://www.youtube.com/watch?v=rfscVS0vtbw" }
+      ]
+    },
+    {
+      "title": "Data Types and Variables",
+      "links": [
+        { "title": "Python Data Types", "href": "https://realpython.com/python-data-types/" },
+        { "title": "Variables in Python", "href": "https://www.programiz.com/python-programming/variables-datatypes" },
+        { "title": "Python Built-in Functions", "href": "https://www.programiz.com/python-programming/methods/built-in" },
+        { "title": "Python Variables and Constants", "href": "https://beginnersbook.com/2017/09/python-variables/" },
+        { "title": "Python Variables: Declare, Assign Multiple Variables", "href": "https://www.guru99.com/variables-in-python.html" }
+      ]
+    },
+    {
+      "title": "Conditional Statements",
+      "links": [
+        { "title": "Python if...else Statement", "href": "https://www.programiz.com/python-programming/if-elif-else" },
+        { "title": "Python Decision Making", "href": "https://www.w3schools.com/python/python_conditions.asp" },
+        { "title": "Python Ternary Operator", "href": "https://realpython.com/python-ternary-operator/" },
+        { "title": "Python switch-case Statement", "href": "https://www.geeksforgeeks.org/switch-case-in-python-replacement/" },
+        { "title": "Python Control Structures: if, elif, else, for, while, break, continue, pass", "href": "https://www.learnpython.org/en/Control_Flow_Statements" }
+      ]
+    },
+    {
+      "title": "Loops",
+      "links": [
+        { "title": "Python Loops (for, while)", "href": "https://www.w3schools.com/python/python_for_loops.asp" },
+        { "title": "Python Loop Control Statements", "href": "https://www.programiz.com/python-programming/break-continue" },
+        { "title": "Python for Loop Tutorial", "href": "https://realpython.com/python-for-loop/" },
+        { "title": "Python while Loop Tutorial", "href": "https://realpython.com/python-while-loop/" },
+        { "title": "Python Looping Techniques", "href": "https://www.geeksforgeeks.org/python-loops/" }
+      ]
+    },
+    {
+      "title": "Lists and Tuples",
+      "links": [
+        { "title": "Python Lists", "href": "https://www.w3schools.com/python/python_lists.asp" },
+        { "title": "Python Tuples", "href": "https://www.programiz.com/python-programming/tuple" },
+        { "title": "Python List Methods", "href": "https://www.geeksforgeeks.org/python-list/" },
+        { "title": "Python Tuple Methods", "href": "https://www.programiz.com/python-programming/methods/tuple" },
+        { "title": "Understanding Lists and Tuples in Python", "href": "https://realpython.com/python-lists-tuples/" }
+      ]
+    },
+    {
+      "title": "Dictionaries",
+      "links": [
+        { "title": "Python Dictionaries", "href": "https://www.w3schools.com/python/python_dictionaries.asp" },
+        { "title": "Python Dictionary Methods", "href": "https://www.programiz.com/python-programming/methods/dictionary" },
+        { "title": "Python Dictionary Comprehensions", "href": "https://realpython.com/python-dicts/" },
+        { "title": "Python Dictionary Iteration", "href": "https://realpython.com/iterate-through-dictionary-python/" },
+        { "title": "Working with Python Dictionaries: A Guide", "href": "https://www.digitalocean.com/community/tutorials/working-with-dictionaries-in-python" }
+      ]
+    },
+    {
+      "title": "Functions",
+      "links": [
+        { "title": "Python Functions", "href": "https://www.w3schools.com/python/python_functions.asp" },
+        { "title": "Python Function Arguments", "href": "https://www.programiz.com/python-programming/function-argument" },
+        { "title": "Python Lambda Functions", "href": "https://www.w3schools.com/python/python_lambda.asp" },
+        { "title": "Python Recursive Functions", "href": "https://realpython.com/python-recursive-functions/" },
+        { "title": "Python Functions - Defining Functions in Python", "href": "https://www.studytonight.com/python/functions-in-python" }
+      ]
+    },
+    {
+      "title": "Modules and Packages",
+      "links": [
+        { "title": "Python Modules", "href": "https://www.learnpython.org/en/Modules_and_Packages" },
+        { "title": "Python Module Search Path", "href": "https://www.programiz.com/python-programming/modules" },
+        { "title": "Python Packages", "href": "https://www.geeksforgeeks.org/python-packages/" },
+        { "title": "Python Import Statement", "href": "https://www.tutorialspoint.com/python/python_modules.htm" },
+        { "title": "A Guide to Python Modules and Packages", "href": "https://realpython.com/python-modules-packages/" }
+      ]
+    },
+    {
+      "title": "File Handling",
+      "links": [
+        { "title": "Python File Handling", "href": "https://www.w3schools.com/python/python_file_handling.asp" },
+        { "title": "Python File I/O", "href": "https://www.programiz.com/python-programming/file-operation" },
+        { "title": "Python File Handling: Create, Open, Append, Read, Write", "href": "https://www.geeksforgeeks.org/file-handling-python/" },
+        { "title": "Python File Handling Tutorial", "href": "https://realpython.com/read-write-files-python/" },
+        { "title": "Python File Handling Explained", "href": "https://www.freecodecamp.org/news/python-file-handling-guide/" }
+      ]
+    },
+    {
+      "title": "Exception Handling",
+      "links": [
+        { "title": "Python Exception Handling", "href": "https://www.w3schools.com/python/python_try_except.asp" },
+        { "title": "Python Try Except", "href": "https://www.programiz.com/python-programming/exception-handling" },
+        { "title": "Python Exception Handling Best Practices", "href": "https://realpython.com/python-exceptions/" },
+        { "title": "Python Exception Handling Tutorial", "href": "https://www.geeksforgeeks.org/python-set-5-exception-handling/" },
+        { "title": "Understanding Python Exceptions", "href": "https://www.datacamp.com/community/tutorials/exception-handling-python" }
+      ]
+    }
+  ]
+}

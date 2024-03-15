@@ -11,67 +11,11 @@ import AskQuestionPage from "./components/pages/AskQuestionPage";
 import UserPage from "./components/pages/UserPage";
 import CallbackPage from "./components/pages/CallbackPage";
 import RoadmapPage from "./components/pages/RoadmapPage";
+import javaScriptProps from "./data/javaScriptProps.json";
+import javaProps from "./data/javaProps.json";
+import pythonProps from "./data/pythonProps.json";
 
 function App() {
-    //TODO: Add all props and render 4 language roadmaps dinamicly
-    //OPTIONAL: Extract big data in JSON file
-  const javaScriptProps = {
-    title: "Java Script",
-    content:
-      "javascript content lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
-    data: [
-      {
-        title: "Getting Started",
-        links: [
-          { title: "CDN Guide", href: "#" },
-          { title: "MDN Guide", href: "#" },
-        ],
-      },
-      {
-        title: "Fundamentals",
-        links: [
-          { title: "CDN Guide", href: "#" },
-          { title: "MDN Guide", href: "#" },
-        ],
-      },
-      {
-        title: "Advanced",
-        links: [
-          { title: "CDN Guide", href: "#" },
-          { title: "MDN Guide", href: "#" },
-        ],
-      },
-    ],
-  };
-
-  const javaProps = {
-    title: "Java",
-    content:
-      "java content lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
-    data: [
-      {
-        title: "Getting Started",
-        links: [
-          { title: "CDN Guide", href: "#" },
-          { title: "MDN Guide", href: "#" },
-        ],
-      },
-      {
-        title: "Fundamentals",
-        links: [
-          { title: "CDN Guide", href: "#" },
-          { title: "MDN Guide", href: "#" },
-        ],
-      },
-      {
-        title: "Advanced",
-        links: [
-          { title: "CDN Guide", href: "#" },
-          { title: "MDN Guide", href: "#" },
-        ],
-      },
-    ],
-  };
 
   return (
     <Router>
@@ -110,10 +54,10 @@ function App() {
             path="/programming-languages/java"
             element={<RoadmapPage data={javaProps} />}
           />
-          {/* <Route
+          <Route
             path="/programming-languages/python"
-            element={<RoadmapPage />}
-          /> */}
+            element={<RoadmapPage data={pythonProps} />}
+          />
         </Routes>
       </Auth0Provider>
     </Router>
