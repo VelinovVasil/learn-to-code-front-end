@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../Navbar';
 import '../styles/ForumPage.css';
 import Footer from "../Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import ReactQuill from 'react-quill'; // Import React Quill
 import 'react-quill/dist/quill.snow.css'; // Import Quill's snow theme CSS
@@ -27,6 +27,15 @@ const ForumPage = () => {
     // TODO: display edit button
     //
     // TODO: React hook fix
+
+    const navigate = useNavigate();
+
+    const navigateToQuestion = (question, tags) => {
+        localStorage.setItem('question', JSON.stringify(question));
+        localStorage.setItem('tags', JSON.stringify(tags));
+        localStorage.setItem('authorName', authors[question.authorId].nickname);
+        navigate(`/question/${question.id}`);
+    };
 
     const fetchQuestions = async () => {
         try {
@@ -232,70 +241,25 @@ const ForumPage = () => {
                         <button id={'btnAddQuestion'}>Ask a question</button>
                     </Link>
                 </section>
-                {/*<section id="forumFilter">*/}
-                {/*    <label>Sort by:</label>*/}
-                {/*    <select value={sortBy} onChange={handleSortChange}>*/}
-                {/*        <option value="datePublished">Date Published</option>*/}
-                {/*        <option value="author">Author</option>*/}
-                {/*    </select>*/}
-                {/*</section>*/}
             </header>
             <ul>
                 {questions.map((question) => (
                     <li key={question && question.id} className={'questionLi'}>
                         {question && question.id ? (
-                            <div>
-                                {question.isEditing ? (
-                                    // Editing mode
-                                    <div>
-                                        <input
-                                            type="text"
-                                            value={editedQuestionText}
-                                            onChange={(e) => setEditedQuestionText(e.target.value)}
-                                        />
-                                        <button onClick={() => handleSaveEdit(question.id)}>Save</button>
-                                    </div>
-                                ) : (
-                                    // Viewing mode
-                                    <div className={'questionContainer'}>
-                                        {/*<h3>{question.text}</h3>*/}
-                                        <div dangerouslySetInnerHTML={{__html: question.text}}/>
-                                        {/* Display author name if authorInfo is available */}
-                                        {authors[question.authorId] && (
-                                            <p className={'authorName'}>Author: {authors[question.authorId].nickname}</p>
-                                        )}
-                                        {/* Render tags */}
-                                        <p>Tags: {question.tagIds && question.tagIds.map(tagId => (
-                                            tags[tagId] ? tags[tagId].name : ''
-                                        )).join(', ')}</p>
-                                        <p>Date
-                                            Published: {question.datePublished && formatDate(question.datePublished)}</p>
-                                        <div className={'questionButtons'}>
-                                            {!showReplyForm && (
-                                                <button onClick={() => handleReplyButtonClick(question.id)}>Reply</button>
-                                            )}
-                                            {/* Render edit button only if the authorInfo exists and the question's author matches the logged-in user */}
-                                            {authorInfo && authors[question.authorId] && authorInfo.userId === authors[question.authorId].userId && (
-                                                <button onClick={() => handleEditQuestion(question.id)}>Edit</button>
-                                            )}
-                                        </div>
-                                    </div>
-                                )}
-                                {/* Reply form */}
-                                {showReplyForm && selectedQuestionId === question.id && (
-                                    <div>
-                                        <form onSubmit={handleReplyFormSubmit}>
-                                            <textarea
-                                                value={replyText}
-                                                onChange={(e) => setReplyText(e.target.value)}
-                                                placeholder="Write your reply here..."
-                                            />
-                                            <button type="submit">Submit Reply</button>
-                                            <button onClick={handleCancelReply}>Cancel</button>
-                                        </form>
-                                    </div>
-                                )}
-                            </div>
+                            // <Link to={{
+                            //     pathname: `/question/${question.id}`,
+                            //     state: { question: question, tags: tags } }}>
+                            <div onClick={() => navigateToQuestion(question, tags)} className={'questionContainer'}>
+                                    <div dangerouslySetInnerHTML={{__html: question.text}}/>
+                                    {authors[question.authorId] && (
+                                        <p className={'authorName'}>Author: {authors[question.authorId].nickname}</p>
+                                    )}
+                                    <p>Tags: {question.tagIds && question.tagIds.map(tagId => (
+                                        tags[tagId] ? tags[tagId].name : ''
+                                    )).join(', ')}</p>
+                                    <p>Date Published: {question.datePublished && formatDate(question.datePublished)}</p>
+                                </div>
+                            // </Link>
                         ) : null}
                     </li>
                 ))}
@@ -303,6 +267,7 @@ const ForumPage = () => {
             <Footer />
         </div>
     );
+;
 }
 
 export default ForumPage;

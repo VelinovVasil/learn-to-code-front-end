@@ -11,6 +11,7 @@ import AskQuestionPage from "./components/pages/AskQuestionPage";
 import UserPage from "./components/pages/UserPage";
 import CallbackPage from "./components/pages/CallbackPage";
 import RoadmapPage from "./components/pages/RoadmapPage";
+import QuestionPage from "./components/pages/QuestionPage";
 import javaScriptProps from "./data/javaScriptProps.json";
 import javaProps from "./data/javaProps.json";
 import pythonProps from "./data/pythonProps.json";
@@ -44,6 +45,7 @@ function App() {
           <Route path="/ask-question" element={<AskQuestionPage />} />
           <Route path="/user" element={<UserPage />} />
           <Route path="/callback" element={<CallbackPage />} />
+          <Route path="/question/:id" element={<QuestionPage />} />
 
           <Route
             path="/programming-languages/java-script"
