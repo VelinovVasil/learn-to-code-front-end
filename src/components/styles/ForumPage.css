@@ -23,6 +23,10 @@
 /*    margin-left: 3em;*/
 /*}*/
 
+.questionContainer {
+    cursor: pointer;
+}
+
 #forumTitle {
     font-size: 4em;
 }
