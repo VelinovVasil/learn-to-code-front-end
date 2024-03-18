@@ -30,11 +30,11 @@ const AboutUs = () => {
 
             <div className="container">
                 <h1>What We Offer:</h1>
-                <ul>
-                    <li>Comprehensive Roadmaps</li>
-                    <li>Curated Resources</li>
-                    <li>Community Support</li>
-                    <li>Expert Advice</li>
+                <ul className="ul">
+                    <li className="li">Comprehensive Roadmaps</li>
+                    <li className="li">Curated Resources</li>
+                    <li className="li">Community Support</li>
+                    <li className="li">Expert Advice</li>
                 </ul>
             </div>
 

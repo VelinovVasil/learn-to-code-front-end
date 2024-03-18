@@ -135,7 +135,7 @@
     background: #e7efe5;
 }
 .timeline__event--type2 .timeline__event__date {
-    color: #e7efe5;
+    color: black;
     background: #e7efe5;
 }
 .timeline__event--type2:nth-child(2n + 1) .timeline__event__icon:before, .timeline__event--type2:nth-child(2n + 1) .timeline__event__icon:after {
@@ -155,7 +155,7 @@
     background: #e7efe5;
 }
 .timeline__event--type3 .timeline__event__date {
-    color: #e7efe5;
+    color: black;
     background-color: #e7efe5;
 }
 .timeline__event--type3:nth-child(2n + 1) .timeline__event__icon:before, .timeline__event--type3:nth-child(2n + 1) .timeline__event__icon:after {
