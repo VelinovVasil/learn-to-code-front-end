@@ -6,7 +6,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import ReactQuill from 'react-quill'; // Import React Quill
 import 'react-quill/dist/quill.snow.css';
-import {getQuestions} from "../../services/questionService"; // Import Quill's snow theme CSS
+import {getQuestions} from "../../services/questionService";
+import {getOneUser} from "../../services/userService";
+import {getOneTag} from "../../services/tagsService"; // Import Quill's snow theme CSS
 
 const ForumPage = () => {
     const [questions, setQuestions] = useState([]);
@@ -38,35 +40,16 @@ const ForumPage = () => {
     const fetchQuestions = useCallback(async () => {
         try {
             const token = await getAccessTokenSilently();
-            console.log(token);
-
-            console.log(localStorage.getItem('jwt'));
 
             const data = await getQuestions(token);
 
             for (const question of data) {
                 const authorId = question.authorId;
 
-                console.log('authorId:');
-                console.log(authorId);
-
                 // Fetch author info if not already fetched
                 if (!authors[authorId]) {
                     try {
-                        const userResponse = await fetch(baseUrl + `users/${authorId}`, {
-                            headers: {
-                                Authorization: `Bearer ${token}`,
-                                'Content-Type': 'application/json',
-                            },
-                        });
-                        if (!userResponse.ok) {
-                            throw new Error('Failed to fetch author');
-                        }
-
-                        const authorInfo = await userResponse.json();
-
-                        console.log('Author info: ');
-                        console.log(authorInfo);
+                        const authorInfo = await getOneUser(token, authorId);
 
                         // Update authors state with author info
                         setAuthors(prevState => ({
@@ -82,20 +65,7 @@ const ForumPage = () => {
                 for (const tagId of question.tagIds) {
                     if (!tags[tagId]) {
                         try {
-                            const tagResponse = await fetch(baseUrl + `tags/${tagId}`, {
-                                headers: {
-                                    Authorization: `Bearer ${token}`,
-                                    'Content-Type': 'application/json',
-                                },
-                            });
-                            if (!tagResponse.ok) {
-                                throw new Error('Failed to fetch tag');
-                            }
-
-                            const tagInfo = await tagResponse.json();
-
-                            console.log('Tag info: ');
-                            console.log(tagInfo);
+                            const tagInfo = await getOneTag(token, tagId);
 
                             // Update tags state with tag info
                             setTags(prevState => ({
@@ -117,98 +87,9 @@ const ForumPage = () => {
 
     useEffect(() => {
             //TODO: Extract into services and setState in useEffect
-            fetchQuestions();
+            fetchQuestions()
+                .then(data => console.log(data));
     }, [fetchQuestions, useEffectDependency]);
-
-    const handleReplyButtonClick = (questionId) => {
-        setSelectedQuestionId(questionId);
-        setShowReplyForm(true);
-    };
-
-    const handleCancelReply = () => {
-        setShowReplyForm(false);
-    };
-
-    const handleReplyFormSubmit = (e) => {
-        e.preventDefault();
-        replyToQuestion(selectedQuestionId, replyText);
-        setReplyText('');
-        setShowReplyForm(false);
-    };
-
-    const replyToQuestion = async (selectedQuestionId, replyText) => {
-        try {
-            // JSON payload
-            const token = await getAccessTokenSilently();
-            const authorId = localStorage.getItem('userId');
-
-            console.log('authorId:');
-            console.log(authorId);
-
-
-            const replyObj = JSON.stringify({ text: replyText, authorId: authorId, questionId: selectedQuestionId});
-
-            console.log('reply obj:');
-            console.log(replyObj);
-
-            const response = await fetch(baseUrl + `replies/`, {
-                method: 'POST',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-                body: replyObj,
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to submit reply');
-            }
-
-            fetchQuestions();
-        } catch (error) {
-            console.error('Error submitting reply:', error);
-        }
-    };
-
-    const handleEditQuestion = (questionId) => {
-        const updatedQuestions = questions.map((question) => {
-            if (question.id === questionId) {
-                return { ...question, isEditing: true };
-            }
-            return question;
-        });
-        setQuestions(updatedQuestions);
-    };
-
-    const handleSaveEdit = async (questionId) => {
-        try {
-            const token = await getAccessTokenSilently();
-            // Update the question text in the backend
-            const response = await fetch(`your-backend-url/questions/${questionId}`, {
-                method: 'PUT',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ text: editedQuestionText }),
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to update question');
-            }
-
-            // Update the question in the local state
-            const updatedQuestions = questions.map((question) => {
-                if (question.id === questionId) {
-                    return { ...question, text: editedQuestionText, isEditing: false };
-                }
-                return question;
-            });
-            setQuestions(updatedQuestions);
-        } catch (error) {
-            console.error('Error updating question:', error);
-        }
-    };
 
     const formatDate = (dateTimeString) => {
         const date = new Date(dateTimeString);
@@ -228,6 +109,7 @@ const ForumPage = () => {
                 </section>
             </header>
             <ul>
+                {/* Export question block to seperate component*/}
                 {questions.map((question) => (
                     <li key={question && question.id} className={'questionLi'}>
                         {question && question.id ? (

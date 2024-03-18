@@ -10,6 +10,5 @@ export const getQuestions = async (token) => {
     if (!response.ok) {
         throw new Error('Failed to fetch questions');
     }
-    const data = await response.json();
-    return data;
+    return response.json();
 }
