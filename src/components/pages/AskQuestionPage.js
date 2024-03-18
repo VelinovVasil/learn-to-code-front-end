@@ -5,25 +5,23 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import '../styles/AskQuestionPage.css'
+import '../styles/AskQuestionPage.css';
 import NotLoggedIn from "../NotLoggedIn";
 
 const AskQuestionPage = () => {
     const [questionText, setQuestionText] = useState('');
-    const [messageDiv, setAnswer] = useState('');
-    const [isAnswered, setIsAnswered] = useState(false);
+    const [conversationLog, setConversationLog] = useState([]);
     const [isPublished, setIsPublished] = useState(false);
     const [selectedTags, setSelectedTags] = useState([]);
     const [allTags, setAllTags] = useState([]);
+    const [conversationContext, setConversationContext] = useState('');
     const navigate = useNavigate();
     const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
-
     const baseUrl = `http://localhost:8080/api/`;
 
-    //Get userId from localstorage
+    // Get userId from localstorage
     const userId = localStorage.getItem("userId");
-
 
     useEffect(() => {
         fetchTags();
@@ -52,12 +50,7 @@ const AskQuestionPage = () => {
     const handleQuestionSubmit = async () => {
         try {
             const token = await getAccessTokenSilently();
-
-            // const userId = localStorage.getItem("userId");
-            console.log(userId);
-
-            const obj = JSON.stringify({content: questionText, userId: userId, role: "USER"});
-            console.log(obj);
+            const obj = JSON.stringify({ content: questionText, userId: userId, role: "USER" });
 
             const response = await fetch(baseUrl + 'openai/chat', {
                 method: 'POST',
@@ -74,39 +67,51 @@ const AskQuestionPage = () => {
             const answerData = await response.json();
             const content = answerData.response.content;
 
-            console.log(content);
+            // Session id:
+            localStorage.setItem('sessionId', answerData.sessionId);
 
-            // Check if the content has code block
-            const hasCodeBlock = content.includes("```");
-            let formattedContent = content;
-
-            if (hasCodeBlock) {
-                // If the content has code block, wrap it in a <pre><code> element
-                formattedContent = content.replace(/```([\s\S]+?)```/g, '</p><pre><code>$1</code></pre><p>');
-            }
-
-            setAnswer(formattedContent);
-            setIsAnswered(true);
+            const updatedLog = [...conversationLog, { sender: 'User', message: questionText }, { sender: 'Chatbot', message: content }];
+            setConversationLog(updatedLog);
+            setConversationContext(answerData.context); // Save the context for continuing conversation
 
         } catch (error) {
             console.error('Error submitting question:', error);
         }
     };
 
+    const handleContinueConversation = async () => {
+        try {
+            const token = await getAccessTokenSilently();
+            const obj = JSON.stringify({ content: questionText, userId: userId, role: 'User', sessionId: localStorage.getItem('sessionId')});
+
+            const response = await fetch(baseUrl + 'openai/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: obj,
+            });
+            if (!response.ok) {
+                throw new Error('Failed to continue conversation');
+            }
+
+            const answerData = await response.json();
+            const content = answerData.response.content;
+
+            const updatedLog = [...conversationLog, { sender: 'User', message: questionText }, { sender: 'Chatbot', message: content }];
+            setConversationLog(updatedLog);
+            setConversationContext(answerData.context); // Update the context for future continuation
+
+        } catch (error) {
+            console.error('Error continuing conversation:', error);
+        }
+    };
+
     const handlePublish = async () => {
         try {
-
-            console.log('Selected tags: ');
-            console.log(selectedTags);
-            console.log(`Question text: ${questionText}`);
-            console.log(`userId: ${userId}`);
-
             const token = await getAccessTokenSilently();
-
-            const publishObj = JSON.stringify({ text: questionText, authorId: userId, tagIds: selectedTags, imageUrls: []});
-
-            console.log('Object to publish: ');
-            console.log(publishObj);
+            const publishObj = JSON.stringify({ text: questionText, authorId: userId, tagIds: selectedTags, imageUrls: [] });
 
             const response = await fetch(baseUrl + 'questions/', {
                 method: 'POST',
@@ -139,7 +144,7 @@ const AskQuestionPage = () => {
     };
 
     if (!isAuthenticated) {
-        return <NotLoggedIn/>
+        return <NotLoggedIn />
     }
 
     return (
@@ -155,14 +160,12 @@ const AskQuestionPage = () => {
                 />
                 <button id={'btnSubmitQuestion'} onClick={handleQuestionSubmit}>Submit Question</button>
             </section>
-            {isAnswered && (
-                <div id={'aiAnswer'}>
-                    <h3>AI Answer:</h3>
-                    {/* Render the content as HTML string */}
-                    <div dangerouslySetInnerHTML={{ __html: messageDiv }} />
-                    <button id={'btnPublishQuestion'} onClick={handlePublish}>Publish Question</button>
+            {conversationLog.map((entry, index) => (
+                <div key={index}>
+                    <p>{entry.sender}: {entry.message}</p>
                 </div>
-            )}
+            ))}
+            <button onClick={handleContinueConversation}>Continue Conversation</button>
             {isPublished && (
                 <div>
                     <h3>Question Published!</h3>
@@ -182,6 +185,7 @@ const AskQuestionPage = () => {
                     ))}
                 </div>
             </div>
+            <button onClick={handlePublish}>Publish Question</button>
             <Footer />
         </div>
     );
