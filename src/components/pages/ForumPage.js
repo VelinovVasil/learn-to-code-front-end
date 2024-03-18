@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import Navbar from '../Navbar';
 import '../styles/ForumPage.css';
 import Footer from "../Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import ReactQuill from 'react-quill'; // Import React Quill
-import 'react-quill/dist/quill.snow.css'; // Import Quill's snow theme CSS
+import 'react-quill/dist/quill.snow.css';
+import {getQuestions} from "../../services/questionService"; // Import Quill's snow theme CSS
 
 const ForumPage = () => {
-    const [dataChanged, setDataChanged] = useState(false);
     const [questions, setQuestions] = useState([]);
     const [sortBy, setSortBy] = useState('datePublished');
     const [showReplyForm, setShowReplyForm] = useState(false);
@@ -25,8 +25,6 @@ const ForumPage = () => {
     const useEffectDependency = 'http://localhost:8080/api/questions/'
 
     // TODO: display edit button
-    //
-    // TODO: React hook fix
 
     const navigate = useNavigate();
 
@@ -37,23 +35,14 @@ const ForumPage = () => {
         navigate(`/question/${question.id}`);
     };
 
-    const fetchQuestions = async () => {
+    const fetchQuestions = useCallback(async () => {
         try {
             const token = await getAccessTokenSilently();
             console.log(token);
 
             console.log(localStorage.getItem('jwt'));
 
-            const response = await fetch(baseUrl + 'questions/', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-            });
-            if (!response.ok) {
-                throw new Error('Failed to fetch questions');
-            }
-            const data = await response.json();
+            const data = await getQuestions(token);
 
             for (const question of data) {
                 const authorId = question.authorId;
@@ -124,16 +113,12 @@ const ForumPage = () => {
         } catch (error) {
             console.error('Error fetching questions:', error);
         }
-    };
+    },[authors,baseUrl,getAccessTokenSilently,tags]);
 
     useEffect(() => {
-        if(!dataChanged) {
             //TODO: Extract into services and setState in useEffect
             fetchQuestions();
-            setDataChanged(true);
-        }
-        console.log('ín')
-    }, [fetchQuestions, dataChanged, useEffectDependency]);
+    }, [fetchQuestions, useEffectDependency]);
 
     const handleReplyButtonClick = (questionId) => {
         setSelectedQuestionId(questionId);
