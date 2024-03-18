@@ -4,7 +4,6 @@ import '../styles/ForumPage.css';
 import Footer from "../Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import ReactQuill from 'react-quill'; // Import React Quill
 import 'react-quill/dist/quill.snow.css';
 import {getQuestions} from "../../services/questionService";
 import {getOneUser} from "../../services/userService";
@@ -12,19 +11,10 @@ import {getOneTag} from "../../services/tagsService"; // Import Quill's snow the
 
 const ForumPage = () => {
     const [questions, setQuestions] = useState([]);
-    const [sortBy, setSortBy] = useState('datePublished');
-    const [showReplyForm, setShowReplyForm] = useState(false);
-    const [replyText, setReplyText] = useState('');
-    const [authorInfo, setAuthorInfo] = useState(null);
-    const [selectedQuestionId, setSelectedQuestionId] = useState(null);
-    const [editedQuestionText, setEditedQuestionText] = useState('');
-    const { getAccessTokenSilently } = useAuth0();
     const [authors, setAuthors] = useState({});
     const [tags, setTags] = useState({});
+    const { getAccessTokenSilently } = useAuth0();
 
-
-    const baseUrl = `http://localhost:8080/api/`;
-    const useEffectDependency = 'http://localhost:8080/api/questions/'
 
     // TODO: display edit button
 
@@ -83,13 +73,13 @@ const ForumPage = () => {
         } catch (error) {
             console.error('Error fetching questions:', error);
         }
-    },[authors,baseUrl,getAccessTokenSilently,tags]);
+    },[authors,getAccessTokenSilently,tags]);
 
     useEffect(() => {
             //TODO: Extract into services and setState in useEffect
             fetchQuestions()
                 .then(data => console.log(data));
-    }, [fetchQuestions, useEffectDependency]);
+    }, [fetchQuestions]);
 
     const formatDate = (dateTimeString) => {
         const date = new Date(dateTimeString);
