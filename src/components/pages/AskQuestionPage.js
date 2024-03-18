@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
-import { useNavigate } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -12,6 +12,7 @@ const AskQuestionPage = () => {
     const [questionText, setQuestionText] = useState('');
     const [conversationLog, setConversationLog] = useState([]);
     const [isPublished, setIsPublished] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
     const [selectedTags, setSelectedTags] = useState([]);
     const [allTags, setAllTags] = useState([]);
     const [conversationContext, setConversationContext] = useState('');
@@ -26,6 +27,18 @@ const AskQuestionPage = () => {
     useEffect(() => {
         fetchTags();
     }, []);
+
+    function formatText(text) {
+        const hasCodeBlock = text.includes("```");
+        let formattedContent = text;
+
+        if (hasCodeBlock) {
+            // If the content has code block, wrap it in a <pre><code> element
+            formattedContent = text.replace(/```([\s\S]+?)```/g, '</p><pre><code>$1</code></pre><p>');
+        }
+
+        return formattedContent;
+    }
 
     const fetchTags = async () => {
         try {
@@ -70,9 +83,10 @@ const AskQuestionPage = () => {
             // Session id:
             localStorage.setItem('sessionId', answerData.sessionId);
 
-            const updatedLog = [...conversationLog, { sender: 'User', message: questionText }, { sender: 'Chatbot', message: content }];
+            const updatedLog = [...conversationLog, { sender: 'User', message: questionText }, { sender: 'Chatbot', message: formatText(content) }];
             setConversationLog(updatedLog);
             setConversationContext(answerData.context); // Save the context for continuing conversation
+            setIsSubmitted(true);
 
         } catch (error) {
             console.error('Error submitting question:', error);
@@ -82,7 +96,7 @@ const AskQuestionPage = () => {
     const handleContinueConversation = async () => {
         try {
             const token = await getAccessTokenSilently();
-            const obj = JSON.stringify({ content: questionText, userId: userId, role: 'User', sessionId: localStorage.getItem('sessionId')});
+            const obj = JSON.stringify({ content: questionText, userId: userId, role: 'USER', sessionId: localStorage.getItem('sessionId')});
 
             const response = await fetch(baseUrl + 'openai/chat', {
                 method: 'POST',
@@ -96,10 +110,11 @@ const AskQuestionPage = () => {
                 throw new Error('Failed to continue conversation');
             }
 
+
             const answerData = await response.json();
             const content = answerData.response.content;
 
-            const updatedLog = [...conversationLog, { sender: 'User', message: questionText }, { sender: 'Chatbot', message: content }];
+            const updatedLog = [...conversationLog, { sender: 'User', message: questionText }, { sender: 'Chatbot', message: formatText(content) }];
             setConversationLog(updatedLog);
             setConversationContext(answerData.context); // Update the context for future continuation
 
@@ -158,34 +173,49 @@ const AskQuestionPage = () => {
                     onChange={(value) => setQuestionText(value)}
                     placeholder="Type your question here"
                 />
-                <button id={'btnSubmitQuestion'} onClick={handleQuestionSubmit}>Submit Question</button>
+                <div>
+                    <h3>Tags:</h3>
+                    <div className="tags-container">
+                        {allTags.map(tag => (
+                            <button
+                                key={tag.id}
+                                className={selectedTags.includes(tag.id) ? 'selected' : ''}
+                                onClick={() => handleTagClick(tag.id)}
+                            >
+                                {tag.name}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+                <div className={'btnContainer'}>
+                    {!isSubmitted && (
+                        <button id={'btnSubmitQuestion'} className={'btnSubmit'} onClick={handleQuestionSubmit}>Submit Question</button>
+                    )}
+                    {/*<button id={'btnSubmitQuestion'} onClick={handleQuestionSubmit}>Submit Question</button>*/}
+                    {isSubmitted && (
+                        <button className={'btnSubmit'} onClick={handleContinueConversation}>Continue Conversation</button>
+                    )}
+                    {isSubmitted && (
+                        <Link to={'/forum'}>
+                            <button>My question is answered</button>
+                        </Link>
+                    )}
+                </div>
             </section>
             {conversationLog.map((entry, index) => (
                 <div key={index}>
                     <p>{entry.sender}: {entry.message}</p>
                 </div>
             ))}
-            <button onClick={handleContinueConversation}>Continue Conversation</button>
+            {/*<button onClick={handleContinueConversation}>Continue Conversation</button>*/}
             {isPublished && (
                 <div>
                     <h3>Question Published!</h3>
                 </div>
             )}
-            <div>
-                <h3>Tags:</h3>
-                <div className="tags-container">
-                    {allTags.map(tag => (
-                        <button
-                            key={tag.id}
-                            className={selectedTags.includes(tag.id) ? 'selected' : ''}
-                            onClick={() => handleTagClick(tag.id)}
-                        >
-                            {tag.name}
-                        </button>
-                    ))}
-                </div>
-            </div>
-            <button onClick={handlePublish}>Publish Question</button>
+            {isSubmitted && (
+                <button onClick={handlePublish}>Publish Question</button>
+            )}
             <Footer />
         </div>
     );
