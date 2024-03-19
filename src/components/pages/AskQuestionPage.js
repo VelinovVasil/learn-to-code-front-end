@@ -56,7 +56,10 @@ const AskQuestionPage = () => {
 
     const handleQuestionSubmit = async () => {
 
-
+        if (selectedTags.length === 0) {
+            window.alert('Please select tags for the question.');
+            return;
+        }
 
         const token = await getAccessTokenSilently();
         const obj = JSON.stringify({ content: questionText, userId: userId, role: "USER" });
@@ -75,6 +78,12 @@ const AskQuestionPage = () => {
     }
 
     const handleContinueConversation = async () => {
+
+        if (selectedTags.length === 0) {
+            window.alert('Please select tags for the question.');
+            return;
+        }
+
         try {
             const token = await getAccessTokenSilently();
             const obj = JSON.stringify({ content: questionText, userId: userId, role: 'USER', sessionId: localStorage.getItem('sessionId')});
@@ -92,6 +101,12 @@ const AskQuestionPage = () => {
     };
 
     const handlePublish = async () => {
+
+        if (selectedTags.length === 0) {
+            window.alert('Please select tags for the question.');
+            return;
+        }
+
         try {
             const token = await getAccessTokenSilently();
             const publishObj = JSON.stringify({ text: questionText, authorId: userId, tagIds: selectedTags, imageUrls: [] });
@@ -161,8 +176,11 @@ const AskQuestionPage = () => {
                 </div>
             </section>
             {conversationLog.map((entry, index) => (
-                <div key={index}>
-                    <p>{entry.sender}: {entry.message}</p>
+                // <div key={index}>
+                //     <p>{entry.sender}: {entry.message}</p>
+                // </div>
+                <div key={index} className={entry.sender == 'Chatbot' ? 'chatbot-message' : 'user-message'}>
+                    <p dangerouslySetInnerHTML={{__html: entry.message}}/>
                 </div>
             ))}
             {/*<button onClick={handleContinueConversation}>Continue Conversation</button>*/}
