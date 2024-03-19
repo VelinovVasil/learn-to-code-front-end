@@ -12,3 +12,24 @@ export const getQuestions = async (token) => {
     }
     return response.json();
 }
+
+export const publishQuestion = async (token, publishObj) => {
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+            body: publishObj,
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to publish question: ${response.status} ${response.statusText}`);
+        }
+
+    } catch (error) {
+        console.error('Error publishing question:', error);
+    }
+};
+
+

@@ -7,6 +7,10 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import '../styles/AskQuestionPage.css';
 import NotLoggedIn from "../NotLoggedIn";
+import {fetchTags} from "../../services/tagsService";
+import async from "async";
+import {questionSubmit} from "../../services/openaiService";
+import {publishQuestion} from "../../services/questionService";
 
 const AskQuestionPage = () => {
     const [questionText, setQuestionText] = useState('');
@@ -25,7 +29,17 @@ const AskQuestionPage = () => {
     const userId = localStorage.getItem("userId");
 
     useEffect(() => {
-        fetchTags();
+        const fetchData = async () => {
+            try {
+                const token = await getAccessTokenSilently();
+                const fetchedTags = await fetchTags(token);
+                setAllTags(fetchedTags);
+            } catch (error) {
+                console.error('Error fetching tags:', error);
+            }
+        };
+
+        fetchData();
     }, []);
 
     function formatText(text) {
@@ -40,78 +54,30 @@ const AskQuestionPage = () => {
         return formattedContent;
     }
 
-    const fetchTags = async () => {
-        try {
-            const token = await getAccessTokenSilently();
-            const response = await fetch(baseUrl + 'tags/', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch tags');
-            }
-            const data = await response.json();
-            setAllTags(data);
-        } catch (error) {
-            console.error('Error fetching tags:', error);
-        }
-    };
-
     const handleQuestionSubmit = async () => {
-        try {
-            const token = await getAccessTokenSilently();
-            const obj = JSON.stringify({ content: questionText, userId: userId, role: "USER" });
 
-            const response = await fetch(baseUrl + 'openai/chat', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-                body: obj,
-            });
-            if (!response.ok) {
-                throw new Error('Failed to submit question');
-            }
+        const token = await getAccessTokenSilently();
+        const obj = JSON.stringify({ content: questionText, userId: userId, role: "USER" });
 
-            const answerData = await response.json();
-            const content = answerData.response.content;
+        const answerData = await questionSubmit(token, obj);
 
-            // Session id:
-            localStorage.setItem('sessionId', answerData.sessionId);
+        const content = answerData.response.content;
 
-            const updatedLog = [...conversationLog, { sender: 'User', message: questionText }, { sender: 'Chatbot', message: formatText(content) }];
-            setConversationLog(updatedLog);
-            setConversationContext(answerData.context); // Save the context for continuing conversation
-            setIsSubmitted(true);
+        // Session id:
+        localStorage.setItem('sessionId', answerData.sessionId);
 
-        } catch (error) {
-            console.error('Error submitting question:', error);
-        }
-    };
+        const updatedLog = [...conversationLog, { sender: 'User', message: questionText }, { sender: 'Chatbot', message: formatText(content) }];
+        setConversationLog(updatedLog);
+        setConversationContext(answerData.context); // Save the context for continuing conversation
+        setIsSubmitted(true);
+    }
 
     const handleContinueConversation = async () => {
         try {
             const token = await getAccessTokenSilently();
             const obj = JSON.stringify({ content: questionText, userId: userId, role: 'USER', sessionId: localStorage.getItem('sessionId')});
 
-            const response = await fetch(baseUrl + 'openai/chat', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-                body: obj,
-            });
-            if (!response.ok) {
-                throw new Error('Failed to continue conversation');
-            }
-
-
-            const answerData = await response.json();
+            const answerData = await questionSubmit(token, obj);
             const content = answerData.response.content;
 
             const updatedLog = [...conversationLog, { sender: 'User', message: questionText }, { sender: 'Chatbot', message: formatText(content) }];
@@ -128,17 +94,7 @@ const AskQuestionPage = () => {
             const token = await getAccessTokenSilently();
             const publishObj = JSON.stringify({ text: questionText, authorId: userId, tagIds: selectedTags, imageUrls: [] });
 
-            const response = await fetch(baseUrl + 'questions/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-                body: publishObj,
-            });
-            if (!response.ok) {
-                throw new Error(`Failed to publish question: ${response.status} ${response.statusText}`);
-            }
+            await publishQuestion(token, publishObj);
 
             setIsPublished(true);
             navigate('/forum');
