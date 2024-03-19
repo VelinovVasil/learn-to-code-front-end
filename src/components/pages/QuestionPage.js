@@ -22,6 +22,7 @@ const QuestionPage = () => {
 
     const question = JSON.parse(localStorage.getItem('question'));
     const tags = JSON.parse(localStorage.getItem('tags'));
+    const authorName = localStorage.getItem('authorName');
 
     const fetchReplies = async () => {
         try {
@@ -151,7 +152,7 @@ const QuestionPage = () => {
             <Navbar />
             <div className="question-details">
                 <div dangerouslySetInnerHTML={{ __html: question.text }} />
-                <p>Author: {question.authorName}</p>
+                <p>Author: {authorName}</p>
                 <p>Date Published: {question.datePublished}</p>
                 <p>Tags: {question.tagIds.map(tagId => tags[tagId].name).join(', ')}</p>
                 <button onClick={handleEdit}>{editButtonClicked ? 'Discard Edit' : 'Edit Question'}</button>

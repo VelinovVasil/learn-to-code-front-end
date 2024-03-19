@@ -46,12 +46,10 @@ function App() {
           <Route path="/user" element={<UserPage />} />
           <Route path="/callback" element={<CallbackPage />} />
           <Route path="/question/:id" element={<QuestionPage />} />
-
           <Route
             path="/programming-languages/java-script"
             element={<RoadmapPage data={javaScriptProps} />}
           />
-
           <Route
             path="/programming-languages/java"
             element={<RoadmapPage data={javaProps} />}
