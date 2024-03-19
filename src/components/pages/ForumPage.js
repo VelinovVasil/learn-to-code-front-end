@@ -7,16 +7,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 import 'react-quill/dist/quill.snow.css';
 import {getQuestions} from "../../services/questionService";
 import {getOneUser} from "../../services/userService";
-import {getOneTag} from "../../services/tagsService"; // Import Quill's snow theme CSS
+import {getOneTag} from "../../services/tagService"; // Import Quill's snow theme CSS
 
 const ForumPage = () => {
     const [questions, setQuestions] = useState([]);
     const [authors, setAuthors] = useState({});
     const [tags, setTags] = useState({});
     const { getAccessTokenSilently } = useAuth0();
-
-
-    // TODO: display edit button
 
     const navigate = useNavigate();
 

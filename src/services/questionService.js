@@ -32,4 +32,42 @@ export const publishQuestion = async (token, publishObj) => {
     }
 };
 
+export const markQuestionAsAnswered = async (token, questionId) => {
+    try {
 
+        const response = await fetch(url + questionId, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to delete question: ${response.status} ${response.statusText}`);
+        }
+
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+// TODO: fix ediQuestion fetch()
+export const editQuestion = async (token, question) => {
+    try {
+
+        const response = await fetch(url + question.id, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            body: question,
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to edit question: ${response.status} ${response.statusText}`)
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+}

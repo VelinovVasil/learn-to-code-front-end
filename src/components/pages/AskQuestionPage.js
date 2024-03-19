@@ -7,7 +7,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import '../styles/AskQuestionPage.css';
 import NotLoggedIn from "../NotLoggedIn";
-import {fetchTags} from "../../services/tagsService";
+import {fetchTags} from "../../services/tagService";
 import async from "async";
 import {questionSubmit} from "../../services/openaiService";
 import {publishQuestion} from "../../services/questionService";
@@ -55,6 +55,8 @@ const AskQuestionPage = () => {
     }
 
     const handleQuestionSubmit = async () => {
+
+
 
         const token = await getAccessTokenSilently();
         const obj = JSON.stringify({ content: questionText, userId: userId, role: "USER" });

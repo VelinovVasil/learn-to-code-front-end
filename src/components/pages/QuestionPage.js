@@ -4,10 +4,12 @@ import Footer from "../Footer";
 import { useAuth0 } from "@auth0/auth0-react";
 import {fetchRepliesByQuestionId, replyToAReply, submitReply} from "../../services/replyService";
 import {fetchAuthor} from "../../services/userService";
+import ReactQuill from "react-quill";
+import {get} from "axios";
+import {editQuestion, markQuestionAsAnswered} from "../../services/questionService";
+import {useNavigate} from "react-router-dom";
 
 const QuestionPage = () => {
-    const baseUrl = `http://localhost:8080/api/`;
-
     const [replies, setReplies] = useState([]);
     const [showReplies, setShowReplies] = useState(false);
     const [showReplyForm, setShowReplyForm] = useState(false);
@@ -19,10 +21,14 @@ const QuestionPage = () => {
     const [editButtonClicked, setEditButtonClicked] = useState(false);
     const [replyToReplyButtonClicked, setReplyToReplyButtonClicked] = useState(false);
     const [replyToReplyId, setReplyToReplyId] = useState(null);
+    const navigate = useNavigate();
 
     const question = JSON.parse(localStorage.getItem('question'));
     const tags = JSON.parse(localStorage.getItem('tags'));
-    const authorName = localStorage.getItem('authorName');
+    const authorName = localStorage.getItem('authorName')
+
+    const [updatedQuestionText, setUpdatedQuestionText] = useState(question.text);
+    const [selectedTagIds, setSelectedTagIds] = useState([]);
 
     const fetchReplies = async () => {
         try {
@@ -89,7 +95,7 @@ const QuestionPage = () => {
         try {
             const token = await getAccessTokenSilently();
 
-            const data = await submitReply(token, localStorage.getItem('userId'), replyText, question.id);
+            await submitReply(token, localStorage.getItem('userId'), replyText, question.id);
 
             setReplyText('');
             setShowReplyForm(false);
@@ -104,7 +110,7 @@ const QuestionPage = () => {
         try {
             const token = await getAccessTokenSilently();
 
-            const data = await replyToAReply(token, replyToReplyId, localStorage.getItem('userId'), replyToAReplyText, question.id);
+            await replyToAReply(token, replyToReplyId, localStorage.getItem('userId'), replyToAReplyText, question.id);
 
             setReplyToAReplyText('');
             setShowReplyToAReplyForm(false);
@@ -147,6 +153,75 @@ const QuestionPage = () => {
         ));
     };
 
+    const handleMarkAsAnswered = async () => {
+        try {
+
+            const token = await getAccessTokenSilently();
+            await markQuestionAsAnswered(token, question.id);
+            navigate("/forum");
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const renderEditForm = (question, tags) => {
+
+        return (
+            <>
+                <ReactQuill
+                    id={'editQuestionArea'}
+                    value={updatedQuestionText}
+                    onChange={setUpdatedQuestionText}
+                    placeholder="Type your question here"
+                />
+                <h4>Tags:</h4>
+                {Object.values(tags).map((tag) => (
+                    <button
+                        key={tag.id}
+                        id={tag.id}
+                        className={selectedTagIds.includes(tag.id) ? 'selected' : ''}
+                        onClick={() => handleTagClick(tag.id)}
+                    >
+                        {tag.name}
+                    </button>
+                ))}
+                <button id={'btnSaveEdit'} onClick={handleSaveEdit}>
+                    Save edit
+                </button>
+            </>
+        );
+    }
+
+    const handleSaveEdit = async () => {
+        try {
+
+            const token = await getAccessTokenSilently();
+
+            const objToSave = JSON.stringify({
+                text: updatedQuestionText,
+                authorId: localStorage.getItem("userId"),
+                tagIds: selectedTagIds,
+                imageUrls: []
+            });
+
+            await editQuestion(token, objToSave);
+            navigate("/forum");
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const handleTagClick = (tagId) => {
+        // Toggle the selection of the tag
+        setSelectedTagIds((prevSelectedTagIds) =>
+            prevSelectedTagIds.includes(tagId)
+                ? prevSelectedTagIds.filter((id) => id !== tagId)
+                : [...prevSelectedTagIds, tagId]
+        );
+    };
+
     return (
         <>
             <Navbar />
@@ -155,9 +230,18 @@ const QuestionPage = () => {
                 <p>Author: {authorName}</p>
                 <p>Date Published: {question.datePublished}</p>
                 <p>Tags: {question.tagIds.map(tagId => tags[tagId].name).join(', ')}</p>
-                <button onClick={handleEdit}>{editButtonClicked ? 'Discard Edit' : 'Edit Question'}</button>
-                <button onClick={handleReply}>{replyButtonClicked ? 'Discard Reply' : 'Reply to Question'}</button>
-                {showReplyForm && <button onClick={handleDiscardReply}>Discard Reply</button>}
+                { editButtonClicked && (
+                    renderEditForm(question, tags)
+                )}
+                {!replyButtonClicked && localStorage.getItem('userId') == question.authorId &&
+                    <button onClick={handleEdit}>{editButtonClicked ? 'Discard Edit' : 'Edit Question'}</button>
+                }
+                {localStorage.getItem('userId') == question.authorId &&
+                    <button onClick={handleMarkAsAnswered}>Mark as answered</button>
+                }
+                {!editButtonClicked &&
+                    <button onClick={handleReply}>{replyButtonClicked ? 'Discard Reply' : 'Reply to Question'}</button>
+                }
                 {showReplyForm && (
                     <div>
                         <textarea value={replyText} onChange={e => setReplyText(e.target.value)} />
