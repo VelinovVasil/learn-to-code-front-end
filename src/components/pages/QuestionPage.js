@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Navbar from "../Navbar";
 import Footer from "../Footer";
 import { useAuth0 } from "@auth0/auth0-react";
+import {fetchRepliesByQuestionId, replyToAReply, submitReply} from "../../services/replyService";
+import {fetchAuthor} from "../../services/userService";
 
 const QuestionPage = () => {
     const baseUrl = `http://localhost:8080/api/`;
@@ -24,23 +26,12 @@ const QuestionPage = () => {
     const fetchReplies = async () => {
         try {
             const token = await getAccessTokenSilently();
-            const response = await fetch(baseUrl + `replies/question/${question.id}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-            });
 
-            let data = await response.json();
+            let data = await fetchRepliesByQuestionId(token, question.id);
 
             data = await Promise.all(data.map(async reply => {
-                const authorResponse = await fetch(baseUrl + `users/${reply.authorId}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    },
-                });
-                const author = await authorResponse.json();
+
+                const author = await fetchAuthor(token, reply.authorId);
 
                 // Update the authorName for the reply
                 const updatedReply = { ...reply, authorName: author.nickname };
@@ -62,13 +53,8 @@ const QuestionPage = () => {
 
     const fetchNestedReplies = async (replies, token) => {
         return await Promise.all(replies.map(async reply => {
-            const authorResponse = await fetch(baseUrl + `users/${reply.authorId}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-            });
-            const author = await authorResponse.json();
+
+            const author = await fetchAuthor(token, reply.authorId);
 
             // Update the authorName for the nested reply
             const updatedReply = { ...reply, authorName: author.nickname };
@@ -101,22 +87,12 @@ const QuestionPage = () => {
         e.preventDefault();
         try {
             const token = await getAccessTokenSilently();
-            const response = await fetch(baseUrl + `replies/`, {
-                method: 'POST',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    authorId: localStorage.getItem('userId'),
-                    text: replyText,
-                    questionId: question.id,
-                }),
-            });
-            const data = await response.json();
+
+            const data = await submitReply(token, localStorage.getItem('userId'), replyText, question.id);
+
             setReplyText('');
             setShowReplyForm(false);
-            fetchReplies();
+            await fetchReplies();
         } catch (error) {
             console.error('Error:', error);
         }
@@ -126,22 +102,12 @@ const QuestionPage = () => {
         e.preventDefault();
         try {
             const token = await getAccessTokenSilently();
-            const response = await fetch(baseUrl + `replies/${replyToReplyId}`, {
-                method: 'POST',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    authorId: localStorage.getItem('userId'),
-                    text: replyToAReplyText,
-                    questionId: question.id,
-                }),
-            });
-            const data = await response.json();
+
+            const data = await replyToAReply(token, replyToReplyId, localStorage.getItem('userId'), replyToAReplyText, question.id);
+
             setReplyToAReplyText('');
             setShowReplyToAReplyForm(false);
-            fetchReplies();
+            await fetchReplies();
         } catch (error) {
             console.error('Error:', error);
         }

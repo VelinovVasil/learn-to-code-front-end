@@ -12,3 +12,15 @@ export const getOneUser = async (token, userId) => {
     }
     return userResponse.json();
 }
+
+export const fetchAuthor = async (token, authorId) => {
+
+    const authorResponse = await fetch(url + `${authorId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+    });
+
+    return await authorResponse.json();
+}
