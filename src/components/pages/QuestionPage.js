@@ -30,6 +30,30 @@ const QuestionPage = () => {
     const [updatedQuestionText, setUpdatedQuestionText] = useState(question.text);
     const [selectedTagIds, setSelectedTagIds] = useState([]);
 
+
+    const [replyBeingRepliedTo, setReplyBeingRepliedTo] = useState(null);
+    const [replyToAReplyButtonClicked, setReplyToAReplyButtonClicked] = useState(false);
+
+    // Function to set the reply being replied to
+    const handleReplyToAReply = (replyId) => {
+        setReplyBeingRepliedTo(replyId);
+        setReplyToAReplyButtonClicked(!replyToAReplyButtonClicked);
+        setReplyToReplyId(replyId);
+    };
+
+    // Function to clear the reply being replied to
+    const handleDiscardReplyToAReply = () => {
+        setReplyBeingRepliedTo(null)
+        setReplyToAReplyButtonClicked(false);
+        setReplyToReplyId(null);
+    };
+
+    // Function to check if a reply is being replied to
+    const isReplyBeingRepliedTo = (replyId) => {
+        return replyBeingRepliedTo === replyId;
+    };
+
+
     const fetchReplies = async () => {
         try {
             const token = await getAccessTokenSilently();
@@ -80,11 +104,11 @@ const QuestionPage = () => {
         setReplyButtonClicked(!replyButtonClicked);
     };
 
-    const handleReplyToAReply = (replyId) => {
-        setShowReplyToAReplyForm(!showReplyToAReplyForm);
-        setReplyToReplyButtonClicked(!replyToReplyButtonClicked);
-        setReplyToReplyId(replyId);
-    };
+    // const handleReplyToAReply = (replyId) => {
+    //     setShowReplyToAReplyForm(!showReplyToAReplyForm);
+    //     setReplyToReplyButtonClicked(!replyToReplyButtonClicked);
+    //     setReplyToReplyId(replyId);
+    // };
 
     const handleEdit = () => {
         setEditButtonClicked(!editButtonClicked);
@@ -112,8 +136,11 @@ const QuestionPage = () => {
 
             await replyToAReply(token, replyToReplyId, localStorage.getItem('userId'), replyToAReplyText, question.id);
 
+            // setReplyToAReplyText('');
+            // setShowReplyToAReplyForm(false);
+
             setReplyToAReplyText('');
-            setShowReplyToAReplyForm(false);
+            setReplyToReplyId(null);
             await fetchReplies();
         } catch (error) {
             console.error('Error:', error);
@@ -129,20 +156,20 @@ const QuestionPage = () => {
         setEditButtonClicked(false);
     };
 
-    const handleDiscardReplyToAReply = () => {
-        setShowReplyToAReplyForm(false);
-        setReplyToReplyButtonClicked(false);
-    };
+    // const handleDiscardReplyToAReply = () => {
+    //     setShowReplyToAReplyForm(false);
+    //     setReplyToReplyButtonClicked(false);
+    // };
 
     const renderReplies = (replies, level = 0) => {
         return replies.map(reply => (
             <div key={reply.id} style={{ marginLeft: level * 20 }}>
                 <p>{reply.text}</p>
                 <p>Author: {reply.authorName}</p>
-                <p>Date Published: {reply.dateOfCreation}</p>
+                <p>Date Published: {new Date(reply.dateOfCreation).toLocaleString()}</p>
                 <button onClick={() => handleReplyToAReply(reply.id)}>{replyToReplyButtonClicked ? 'Discard Reply to Reply' : 'Reply to Reply'}</button>
-                {replyToReplyButtonClicked && <button onClick={handleDiscardReplyToAReply}>Discard Reply to Reply</button>}
-                {showReplyToAReplyForm && (
+                {/*{replyToReplyButtonClicked && <button onClick={handleDiscardReplyToAReply}>Discard Reply to Reply</button>}*/}
+                {reply.id == replyToReplyId && (
                     <div>
                         <textarea value={replyToAReplyText} onChange={e => setReplyToAReplyText(e.target.value)} />
                         <button onClick={handleSubmitReplyToAReply}>Submit Reply</button>
@@ -228,7 +255,7 @@ const QuestionPage = () => {
             <div className="question-details">
                 <div dangerouslySetInnerHTML={{ __html: question.text }} />
                 <p>Author: {authorName}</p>
-                <p>Date Published: {question.datePublished}</p>
+                <p>Date Published: {new Date(question.datePublished).toLocaleString()}</p>
                 <p>Tags: {question.tagIds.map(tagId => tags[tagId].name).join(', ')}</p>
                 { editButtonClicked && (
                     renderEditForm(question, tags)
