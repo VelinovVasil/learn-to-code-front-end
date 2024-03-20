@@ -7,15 +7,34 @@ import { useAuth0 } from "@auth0/auth0-react";
 import 'react-quill/dist/quill.snow.css';
 import {getQuestions} from "../../services/questionService";
 import {getOneUser} from "../../services/userService";
-import {getOneTag} from "../../services/tagService"; // Import Quill's snow theme CSS
+import {fetchTags, getOneTag} from "../../services/tagService"; // Import Quill's snow theme CSS
 
 const ForumPage = () => {
     const [questions, setQuestions] = useState([]);
     const [authors, setAuthors] = useState({});
     const [tags, setTags] = useState({});
+    const [allTags, setAllTags] = useState({});
+    const [selectedTags, setSelectedTags] = useState({});
     const { getAccessTokenSilently } = useAuth0();
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+
+        const fetchTagsData = async () => {
+            const token = await getAccessTokenSilently();
+            const fetchedTags = await fetchTags(token);
+            setAllTags(fetchedTags);
+        }
+
+        fetchTagsData();
+    }, []);
+
+    const handleTagChange = (event) => {
+        const selectedOptions = Array.from(event.target.selectedOptions, (option) => option.value);
+        setSelectedTags(selectedOptions);
+    };
+
 
     const navigateToQuestion = (question, tags) => {
         localStorage.setItem('question', JSON.stringify(question));
@@ -83,6 +102,13 @@ const ForumPage = () => {
         return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
     };
 
+    const handleFilter = (e) => {
+        e.preventDefault();
+
+        // TODO:
+        // setQuestions(await fetchQuestionsByTagNames)
+    }
+
 
     return (
         <div>
@@ -95,6 +121,14 @@ const ForumPage = () => {
                             <button id={'btnAddQuestion'}>Ask a question</button>
                         </Link>
 
+                        <form onSubmit={(e) => handleFilter(e)}>
+                            <select multiple onChange={handleTagChange}>
+                                {Object.values(allTags).map((tag) => (
+                                    <option key={tag.id}>{tag.name}</option>
+                                ))}
+                            </select>
+                            <button type="submit">Filter</button>
+                        </form>
                     </div>
                 </section>
             </header>
