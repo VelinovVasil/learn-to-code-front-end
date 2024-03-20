@@ -7,10 +7,22 @@ const AboutUs = () => {
     return (
         <div>
             <Navbar/>
-            <h1>Our team:</h1>
-            <h4>Daniel Yordanov - Back-End</h4>
-            <h4>Nikolay Boychev - Back-End & Deployment</h4>
-            <h4>Vasil Velinov - Back-End & Front-End</h4>
+
+            <div className="container">
+                <h1>Our team:</h1>
+                <ul id="ourTeamUl">
+                    <li>
+                        <p>Daniel Yordanov - Back-End, Resources & Design</p>
+                    </li>
+                    <li>
+                        <p>Nikolay Boychev - Back-End & Deployment</p>
+                    </li>
+                    <li>
+                        <p>Vasil Velinov - Front-End, Back-End & Design</p>
+                    </li>
+                </ul>
+            </div>
+
 
             <div className="container">
                 <h1>About Us: Learn to code</h1>

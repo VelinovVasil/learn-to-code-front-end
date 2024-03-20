@@ -271,7 +271,7 @@ const QuestionPage = () => {
                     <button onClick={handleEdit}>{editButtonClicked ? 'Discard Edit' : 'Edit Question'}</button>
                 }
                 {localStorage.getItem('userId') == question.authorId &&
-                    <button onClick={handleMarkAsAnswered}>Mark as answered</button>
+                    <button onClick={handleMarkAsAnswered}>Delete question</button>
                 }
                 {!editButtonClicked &&
                     <button onClick={handleReply}>{replyButtonClicked ? 'Discard Reply' : 'Reply to Question'}</button>
@@ -282,7 +282,7 @@ const QuestionPage = () => {
                         <button onClick={handleSubmitReply}>Submit Reply</button>
                     </div>
                 )}
-                <button onClick={fetchReplies}>{showReplies ? 'Hide Replies' : 'View Replies'}</button>
+                {!showReplies && <button onClick={fetchReplies}>{'View Replies'}</button>}
                 {showReplies && renderReplies(replies)}
             </div>
             <Footer />

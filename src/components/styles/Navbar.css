@@ -11,3 +11,7 @@
         gap: 1em;
     }
 }
+
+#liBtnLogin {
+    cursor: pointer;
+}

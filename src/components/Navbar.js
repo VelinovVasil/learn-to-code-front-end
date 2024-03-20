@@ -32,8 +32,8 @@ const Navbar = () => {
                             <h4>Contacts</h4>
                         </Link>
                     </li>
-                    <li>
-                            <LoginButton/>
+                    <li id={'liBtnLogin'}>
+                            <LoginButton />
                     </li>
                 </ul>
             </nav>
