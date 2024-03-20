@@ -8,6 +8,7 @@ import ReactQuill from "react-quill";
 import {get} from "axios";
 import {editQuestion, markQuestionAsAnswered} from "../../services/questionService";
 import {useNavigate} from "react-router-dom";
+import '../styles/QuestionPage.css';
 
 const QuestionPage = () => {
     const [replies, setReplies] = useState([]);
@@ -221,6 +222,12 @@ const QuestionPage = () => {
     }
 
     const handleSaveEdit = async () => {
+
+        if (selectedTagIds.length === 0) {
+            window.alert('Please select tags for the question.');
+            return;
+        }
+
         try {
 
             const token = await getAccessTokenSilently();

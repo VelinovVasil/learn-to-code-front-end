@@ -20,3 +20,10 @@ footer {
     gap: 1.81em;
 }
 
+@media (max-width: 600px) {
+    .footerUl {
+        flex-direction: column;
+        gap: 0.2em;
+    }
+}
+

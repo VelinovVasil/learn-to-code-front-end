@@ -9,3 +9,13 @@ body {
 button {
     border-radius: 1em;
 }
+
+@media (max-width: 600px) {
+
+
+    body {
+        max-width: 100%;
+        width: 95%;
+    }
+
+}

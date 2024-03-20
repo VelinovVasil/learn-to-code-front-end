@@ -3,3 +3,11 @@
     text-decoration: none;
     color: white;
 }
+
+@media (max-width: 600px) {
+    .navUl {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+}

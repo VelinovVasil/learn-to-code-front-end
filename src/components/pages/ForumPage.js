@@ -90,9 +90,12 @@ const ForumPage = () => {
             <header id={'forumHeader'}>
                 <section className={'headerAskBtn'}>
                     <h2 id="forumTitle">Forum</h2>
-                    <Link to={'/ask-question'}>
-                        <button id={'btnAddQuestion'}>Ask a question</button>
-                    </Link>
+                    <div id={'askFilterContainer'}>
+                        <Link to={'/ask-question'}>
+                            <button id={'btnAddQuestion'}>Ask a question</button>
+                        </Link>
+
+                    </div>
                 </section>
             </header>
             <ul>

@@ -118,3 +118,10 @@
     transition: background-color 0.3s ease;
 }
 
+@media (max-width: 600px) {
+
+    #btnAddQuestion {
+        width: auto;
+    }
+}
+

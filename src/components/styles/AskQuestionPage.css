@@ -80,4 +80,18 @@ pre {
     align-self: flex-end;
 }
 
+.selected {
+    background-color: grey;
+}
+
+@media (max-width: 600px) {
+
+    #askQuestionPage h2 {
+        font-size: 50px;
+    }
+
+    #askQuestionArea {
+        margin-bottom: 7em;
+    }
+}
 
