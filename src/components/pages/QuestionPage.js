@@ -14,7 +14,6 @@ const QuestionPage = () => {
     const [replies, setReplies] = useState([]);
     const [showReplies, setShowReplies] = useState(false);
     const [showReplyForm, setShowReplyForm] = useState(false);
-    const [showReplyToAReplyForm, setShowReplyToAReplyForm] = useState(false);
     const [replyText, setReplyText] = useState('');
     const [replyToAReplyText, setReplyToAReplyText] = useState('');
     const { getAccessTokenSilently } = useAuth0();
@@ -23,6 +22,7 @@ const QuestionPage = () => {
     const [replyToReplyButtonClicked, setReplyToReplyButtonClicked] = useState(false);
     const [replyToReplyId, setReplyToReplyId] = useState(null);
     const navigate = useNavigate();
+    const [questionTitle, setQuestionTitle] = useState('');
 
     const question = JSON.parse(localStorage.getItem('question'));
     const tags = JSON.parse(localStorage.getItem('tags'));
@@ -105,12 +105,6 @@ const QuestionPage = () => {
         setReplyButtonClicked(!replyButtonClicked);
     };
 
-    // const handleReplyToAReply = (replyId) => {
-    //     setShowReplyToAReplyForm(!showReplyToAReplyForm);
-    //     setReplyToReplyButtonClicked(!replyToReplyButtonClicked);
-    //     setReplyToReplyId(replyId);
-    // };
-
     const handleEdit = () => {
         setEditButtonClicked(!editButtonClicked);
     };
@@ -137,9 +131,6 @@ const QuestionPage = () => {
 
             await replyToAReply(token, replyToReplyId, localStorage.getItem('userId'), replyToAReplyText, question.id);
 
-            // setReplyToAReplyText('');
-            // setShowReplyToAReplyForm(false);
-
             setReplyToAReplyText('');
             setReplyToReplyId(null);
             await fetchReplies();
@@ -156,11 +147,6 @@ const QuestionPage = () => {
     const handleDiscardEdit = () => {
         setEditButtonClicked(false);
     };
-
-    // const handleDiscardReplyToAReply = () => {
-    //     setShowReplyToAReplyForm(false);
-    //     setReplyToReplyButtonClicked(false);
-    // };
 
     const renderReplies = (replies, level = 0) => {
         return replies.map(reply => (
@@ -197,6 +183,12 @@ const QuestionPage = () => {
 
         return (
             <>
+                <input
+                    type="text"
+                    value={questionTitle}
+                    onChange={(e) => setQuestionTitle(e.target.value)}
+                    // Placeholder for title input
+                />
                 <ReactQuill
                     id={'editQuestionArea'}
                     value={updatedQuestionText}

@@ -51,7 +51,6 @@ export const markQuestionAsAnswered = async (token, questionId) => {
     }
 }
 
-// TODO: fix ediQuestion fetch()
 export const editQuestion = async (token, question) => {
     try {
 

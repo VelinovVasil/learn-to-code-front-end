@@ -8,6 +8,7 @@ import 'react-quill/dist/quill.snow.css';
 import {getQuestions} from "../../services/questionService";
 import {getOneUser} from "../../services/userService";
 import {fetchTags, getOneTag} from "../../services/tagService"; // Import Quill's snow theme CSS
+import Question  from "../Question";
 
 const ForumPage = () => {
     const [questions, setQuestions] = useState([]);
@@ -153,25 +154,26 @@ const ForumPage = () => {
             <ul>
                 {/* Export question block to seperate component*/}
                 {questions.map((question) => (
-                    <li key={question && question.id} className={'questionLi'}>
-                        {question && question.id ? (
-                            // <Link to={{
-                            //     pathname: `/question/${question.id}`,
-                            //     state: { question: question, tags: tags } }}>
-                            <div onClick={() => navigateToQuestion(question, tags)} className={'questionContainer'}>
-                                <p>Title: {question.title}</p>
-                                    {/*<div dangerouslySetInnerHTML={{__html: question.text}}/>*/}
-                                    {authors[question.authorId] && (
-                                        <p className={'authorName'}>Author: {authors[question.authorId].nickname}</p>
-                                    )}
-                                    <p>Tags: {question.tagIds && question.tagIds.map(tagId => (
-                                        tags[tagId] ? tags[tagId].name : ''
-                                    )).join(', ')}</p>
-                                    <p>Date Published: {question.datePublished && formatDate(question.datePublished)}</p>
-                                </div>
-                            // </Link>
-                        ) : null}
-                    </li>
+                    // <li key={question && question.id} className={'questionLi'}>
+                    //     {question && question.id ? (
+                    //         <div onClick={() => navigateToQuestion(question, tags)} className={'questionContainer'}>
+                    //             <p>Title: {question.title}</p>
+                    //                 {authors[question.authorId] && (
+                    //                     <p className={'authorName'}>Author: {authors[question.authorId].nickname}</p>
+                    //                 )}
+                    //                 <p>Tags: {question.tagIds && question.tagIds.map(tagId => (
+                    //                     tags[tagId] ? tags[tagId].name : ''
+                    //                 )).join(', ')}</p>
+                    //                 <p>Date Published: {question.datePublished && formatDate(question.datePublished)}</p>
+                    //             </div>
+                    //     ) : null}
+                    // </li>
+                    <Question
+                        // key={question.id}
+                        question={question}
+                        authors={authors}
+                        tags={tags}
+                    />
                 ))}
             </ul>
             <Footer />
