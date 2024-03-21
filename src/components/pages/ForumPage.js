@@ -15,11 +15,9 @@ const ForumPage = () => {
     const [authors, setAuthors] = useState({});
     const [tags, setTags] = useState({});
     const [allTags, setAllTags] = useState({});
-    const [selectedTags, setSelectedTags] = useState({});
+    const [selectedTags, setSelectedTags] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const { getAccessTokenSilently } = useAuth0();
-
-    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -41,17 +39,15 @@ const ForumPage = () => {
     }, []);
 
     const handleTagChange = (event) => {
-        const selectedOptions = Array.from(event.target.selectedOptions, (option) => option.value);
-        setSelectedTags(selectedOptions);
+        const { value, checked } = event.target;
+
+        if (checked) {
+            setSelectedTags(prevSelectedTags => [...prevSelectedTags, value]);
+        } else {
+            setSelectedTags(prevSelectedTags => prevSelectedTags.filter(tag => tag !== value));
+        }
     };
 
-
-    const navigateToQuestion = (question, tags) => {
-        localStorage.setItem('question', JSON.stringify(question));
-        localStorage.setItem('tags', JSON.stringify(tags));
-        localStorage.setItem('authorName', authors[question.authorId].nickname);
-        navigate(`/question/${question.id}`);
-    };
 
     const fetchQuestions = useCallback(async () => {
         try {
@@ -115,11 +111,6 @@ const ForumPage = () => {
         }
     }, [fetchQuestions]);
 
-    const formatDate = (dateTimeString) => {
-        const date = new Date(dateTimeString);
-        return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
-    };
-
     const handleFilter = (e) => {
         e.preventDefault();
 
@@ -141,45 +132,38 @@ const ForumPage = () => {
                         </Link>
 
                         <form onSubmit={(e) => handleFilter(e)}>
-                            <select multiple onChange={handleTagChange}>
-                                {Object.values(allTags).map((tag) => (
-                                    <option key={tag.id}>{tag.name}</option>
-                                ))}
-                            </select>
+                            {Object.values(allTags).map((tag) => (
+                                <div key={tag.id}>
+                                    <input
+                                        type="checkbox"
+                                        id={tag.id}
+                                        value={tag.name}
+                                        onChange={handleTagChange}
+                                        checked={selectedTags.includes(tag.name)}
+                                    />
+                                    <label htmlFor={tag.id}>{tag.name}</label>
+                                </div>
+                            ))}
                             <button type="submit">Filter</button>
                         </form>
+
                     </div>
                 </section>
             </header>
             <ul>
-                {/* Export question block to seperate component*/}
                 {questions.map((question) => (
-                    // <li key={question && question.id} className={'questionLi'}>
-                    //     {question && question.id ? (
-                    //         <div onClick={() => navigateToQuestion(question, tags)} className={'questionContainer'}>
-                    //             <p>Title: {question.title}</p>
-                    //                 {authors[question.authorId] && (
-                    //                     <p className={'authorName'}>Author: {authors[question.authorId].nickname}</p>
-                    //                 )}
-                    //                 <p>Tags: {question.tagIds && question.tagIds.map(tagId => (
-                    //                     tags[tagId] ? tags[tagId].name : ''
-                    //                 )).join(', ')}</p>
-                    //                 <p>Date Published: {question.datePublished && formatDate(question.datePublished)}</p>
-                    //             </div>
-                    //     ) : null}
-                    // </li>
                     <Question
-                        // key={question.id}
+                        key={question.id}
                         question={question}
                         authors={authors}
                         tags={tags}
                     />
                 ))}
             </ul>
-            <Footer />
+            <Footer/>
         </div>
     );
-;
+    ;
 }
 
 export default ForumPage;

@@ -116,6 +116,7 @@ const QuestionPage = () => {
 
             await submitReply(token, localStorage.getItem('userId'), replyText, question.id);
 
+            setReplyButtonClicked(false);
             setReplyText('');
             setShowReplyForm(false);
             await fetchReplies();
