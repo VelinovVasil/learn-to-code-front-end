@@ -20,7 +20,9 @@ const AskQuestionPage = () => {
     const [selectedTags, setSelectedTags] = useState([]);
     const [allTags, setAllTags] = useState([]);
     const [conversationContext, setConversationContext] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
+    const [questionTitle, setQuestionTitle] = useState('');
     const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
     const baseUrl = `http://localhost:8080/api/`;
@@ -36,6 +38,8 @@ const AskQuestionPage = () => {
                 setAllTags(fetchedTags);
             } catch (error) {
                 console.error('Error fetching tags:', error);
+            } finally {
+                setIsLoading(false);
             }
         };
 
@@ -61,20 +65,33 @@ const AskQuestionPage = () => {
             return;
         }
 
-        const token = await getAccessTokenSilently();
-        const obj = JSON.stringify({ content: questionText, userId: userId, role: "USER" });
+        setIsLoading(true);
 
-        const answerData = await questionSubmit(token, obj);
+        try {
 
-        const content = answerData.response.content;
+            const token = await getAccessTokenSilently();
+            const obj = JSON.stringify({content: questionText, userId: userId, role: "USER"});
 
-        // Session id:
-        localStorage.setItem('sessionId', answerData.sessionId);
+            const answerData = await questionSubmit(token, obj);
 
-        const updatedLog = [...conversationLog, { sender: 'User', message: questionText }, { sender: 'Chatbot', message: formatText(content) }];
-        setConversationLog(updatedLog);
-        setConversationContext(answerData.context); // Save the context for continuing conversation
-        setIsSubmitted(true);
+            const content = answerData.response.content;
+
+            // Session id:
+            localStorage.setItem('sessionId', answerData.sessionId);
+
+            const updatedLog = [...conversationLog, {sender: 'User', message: questionText}, {
+                sender: 'Chatbot',
+                message: formatText(content)
+            }];
+            setConversationLog(updatedLog);
+            setConversationContext(answerData.context); // Save the context for continuing conversation
+            setIsSubmitted(true);
+
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     const handleContinueConversation = async () => {
@@ -83,6 +100,8 @@ const AskQuestionPage = () => {
             window.alert('Please select tags for the question.');
             return;
         }
+
+        setIsLoading(true);
 
         try {
             const token = await getAccessTokenSilently();
@@ -97,6 +116,8 @@ const AskQuestionPage = () => {
 
         } catch (error) {
             console.error('Error continuing conversation:', error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -109,7 +130,11 @@ const AskQuestionPage = () => {
 
         try {
             const token = await getAccessTokenSilently();
-            const publishObj = JSON.stringify({ text: questionText, authorId: userId, tagIds: selectedTags, imageUrls: [] });
+
+            console.log('Question title: ');
+            console.log(questionTitle);
+
+            const publishObj = JSON.stringify({ title: questionTitle, text: questionText, authorId: userId, tagIds: selectedTags, imageUrls: [] });
 
             await publishQuestion(token, publishObj);
 
@@ -139,7 +164,14 @@ const AskQuestionPage = () => {
         <div id={'askQuestionPage'}>
             <Navbar />
             <h2>Ask a Question</h2>
+            {isLoading && <div className="loading">Loading&#8230;</div>}
             <section>
+                <input
+                    type="text"
+                    value={questionTitle}
+                    onChange={(e) => setQuestionTitle(e.target.value)}
+                    placeholder="Enter your question title" // Placeholder for title input
+                />
                 <ReactQuill
                     id={'askQuestionArea'}
                     value={questionText}
@@ -162,11 +194,13 @@ const AskQuestionPage = () => {
                 </div>
                 <div className={'btnContainer'}>
                     {!isSubmitted && (
-                        <button id={'btnSubmitQuestion'} className={'btnSubmit'} onClick={handleQuestionSubmit}>Submit Question</button>
+                        <button id={'btnSubmitQuestion'} className={'btnSubmit'} onClick={handleQuestionSubmit}>Submit
+                            Question</button>
                     )}
                     {/*<button id={'btnSubmitQuestion'} onClick={handleQuestionSubmit}>Submit Question</button>*/}
                     {isSubmitted && (
-                        <button className={'btnSubmit'} onClick={handleContinueConversation}>Continue Conversation</button>
+                        <button className={'btnSubmit'} onClick={handleContinueConversation}>Continue
+                            Conversation</button>
                     )}
                     {isSubmitted && (
                         <Link to={'/forum'}>

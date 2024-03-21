@@ -260,6 +260,7 @@ const QuestionPage = () => {
         <>
             <Navbar />
             <div className="question-details">
+                <h2>Title: {question.title}</h2>
                 <div dangerouslySetInnerHTML={{ __html: question.text }} />
                 <p>Author: {authorName}</p>
                 <p>Date Published: {new Date(question.datePublished).toLocaleString()}</p>

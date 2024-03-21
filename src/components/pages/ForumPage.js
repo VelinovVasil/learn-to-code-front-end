@@ -15,6 +15,7 @@ const ForumPage = () => {
     const [tags, setTags] = useState({});
     const [allTags, setAllTags] = useState({});
     const [selectedTags, setSelectedTags] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
     const { getAccessTokenSilently } = useAuth0();
 
     const navigate = useNavigate();
@@ -27,7 +28,15 @@ const ForumPage = () => {
             setAllTags(fetchedTags);
         }
 
-        fetchTagsData();
+        setIsLoading(true);
+
+        try {
+            fetchTagsData();
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLoading(false);
+        }
     }, []);
 
     const handleTagChange = (event) => {
@@ -92,9 +101,17 @@ const ForumPage = () => {
     },[authors,getAccessTokenSilently,tags]);
 
     useEffect(() => {
-            //TODO: Extract into services and setState in useEffect
+        setIsLoading(true);
+
+        try {
             fetchQuestions()
                 .then(data => console.log(data));
+
+        } catch(error) {
+            console.log(error);
+        } finally {
+            setIsLoading(false);
+        }
     }, [fetchQuestions]);
 
     const formatDate = (dateTimeString) => {
@@ -116,6 +133,7 @@ const ForumPage = () => {
             <header id={'forumHeader'}>
                 <section className={'headerAskBtn'}>
                     <h2 id="forumTitle">Forum</h2>
+                    {isLoading && <div className="loading">Loading&#8230;</div>}
                     <div id={'askFilterContainer'}>
                         <Link to={'/ask-question'}>
                             <button id={'btnAddQuestion'}>Ask a question</button>
@@ -141,7 +159,8 @@ const ForumPage = () => {
                             //     pathname: `/question/${question.id}`,
                             //     state: { question: question, tags: tags } }}>
                             <div onClick={() => navigateToQuestion(question, tags)} className={'questionContainer'}>
-                                    <div dangerouslySetInnerHTML={{__html: question.text}}/>
+                                <p>Title: {question.title}</p>
+                                    {/*<div dangerouslySetInnerHTML={{__html: question.text}}/>*/}
                                     {authors[question.authorId] && (
                                         <p className={'authorName'}>Author: {authors[question.authorId].nickname}</p>
                                     )}
