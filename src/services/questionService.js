@@ -54,12 +54,16 @@ export const markQuestionAsAnswered = async (token, questionId) => {
 export const editQuestion = async (token, question) => {
     try {
 
+        console.log('Question:');
+        console.log(question);
+
         const response = await fetch(url + question.id, {
             method: 'PUT',
             headers: {
                 Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
             },
-            body: question,
+            body: JSON.stringify(question),
         });
 
         if (!response.ok) {

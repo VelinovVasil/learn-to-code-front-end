@@ -225,12 +225,14 @@ const QuestionPage = () => {
 
             const token = await getAccessTokenSilently();
 
-            const objToSave = JSON.stringify({
+            const objToSave = {
+                id: question.id,
+                title: questionTitle,
                 text: updatedQuestionText,
                 authorId: localStorage.getItem("userId"),
                 tagIds: selectedTagIds,
                 imageUrls: []
-            });
+            };
 
             await editQuestion(token, objToSave);
             navigate("/forum");

@@ -135,14 +135,16 @@ const ForumPage = () => {
                             {Object.values(allTags).map((tag) => (
                                 <div key={tag.id}>
                                     <input
-                                        type="checkbox"
+                                        type="radio"
                                         id={tag.id}
+                                        name="selectedTag"
                                         value={tag.name}
                                         onChange={handleTagChange}
                                         checked={selectedTags.includes(tag.name)}
                                     />
                                     <label htmlFor={tag.id}>{tag.name}</label>
                                 </div>
+
                             ))}
                             <button type="submit">Filter</button>
                         </form>
