@@ -18,7 +18,6 @@
         { "title": "Python Data Types", "href": "https://realpython.com/python-data-types/" },
         { "title": "Variables in Python", "href": "https://www.programiz.com/python-programming/variables-datatypes" },
         { "title": "Python Built-in Functions", "href": "https://www.programiz.com/python-programming/methods/built-in" },
-        { "title": "Python Variables and Constants", "href": "https://beginnersbook.com/2017/09/python-variables/" },
         { "title": "Python Variables: Declare, Assign Multiple Variables", "href": "https://www.guru99.com/variables-in-python.html" }
       ]
     },
@@ -27,9 +26,7 @@
       "links": [
         { "title": "Python if...else Statement", "href": "https://www.programiz.com/python-programming/if-elif-else" },
         { "title": "Python Decision Making", "href": "https://www.w3schools.com/python/python_conditions.asp" },
-        { "title": "Python Ternary Operator", "href": "https://realpython.com/python-ternary-operator/" },
-        { "title": "Python switch-case Statement", "href": "https://www.geeksforgeeks.org/switch-case-in-python-replacement/" },
-        { "title": "Python Control Structures: if, elif, else, for, while, break, continue, pass", "href": "https://www.learnpython.org/en/Control_Flow_Statements" }
+        { "title": "Python switch-case Statement", "href": "https://www.geeksforgeeks.org/switch-case-in-python-replacement/" }
       ]
     },
     {
@@ -58,8 +55,7 @@
         { "title": "Python Dictionaries", "href": "https://www.w3schools.com/python/python_dictionaries.asp" },
         { "title": "Python Dictionary Methods", "href": "https://www.programiz.com/python-programming/methods/dictionary" },
         { "title": "Python Dictionary Comprehensions", "href": "https://realpython.com/python-dicts/" },
-        { "title": "Python Dictionary Iteration", "href": "https://realpython.com/iterate-through-dictionary-python/" },
-        { "title": "Working with Python Dictionaries: A Guide", "href": "https://www.digitalocean.com/community/tutorials/working-with-dictionaries-in-python" }
+        { "title": "Python Dictionary Iteration", "href": "https://realpython.com/iterate-through-dictionary-python/" }
       ]
     },
     {
@@ -68,7 +64,6 @@
         { "title": "Python Functions", "href": "https://www.w3schools.com/python/python_functions.asp" },
         { "title": "Python Function Arguments", "href": "https://www.programiz.com/python-programming/function-argument" },
         { "title": "Python Lambda Functions", "href": "https://www.w3schools.com/python/python_lambda.asp" },
-        { "title": "Python Recursive Functions", "href": "https://realpython.com/python-recursive-functions/" },
         { "title": "Python Functions - Defining Functions in Python", "href": "https://www.studytonight.com/python/functions-in-python" }
       ]
     },

@@ -5,19 +5,15 @@
     {
       "title": "Basic Syntax",
       "links": [
-        { "title": "Java Syntax Tutorial", "href": "https://www.javatpoint.com/java-syntax" },
         { "title": "Oracle Java Tutorial - Learning the Java Language", "href": "https://docs.oracle.com/javase/tutorial/java/nutsandbolts/index.html" },
-        { "title": "Java Programming Basics", "href": "https://www.udemy.com/course/java-programming-basics/" },
-        { "title": "Java Syntax Cheat Sheet", "href": "https://www.cs.cmu.edu/~mrmiller/15-110/Handouts/JavaCheatSheet.pdf" }
+        { "title": "Java Programming Basics", "href": "https://www.udemy.com/course/java-programming-basics/" }
       ]
     },
     {
       "title": "Data Types and Variables",
       "links": [
         { "title": "Java Data Types", "href": "https://www.javatpoint.com/java-data-types" },
-        { "title": "Variables in Java", "href": "https://www.geeksforgeeks.org/variables-in-java/" },
-        { "title": "Java Primitive Data Types", "href": "https://www.baeldung.com/java-primitive-data-types" },
-        { "title": "Java Variables and Constants", "href": "https://beginnersbook.com/2017/09/java-variables/" }
+        { "title": "Variables in Java", "href": "https://www.geeksforgeeks.org/variables-in-java/" }
       ]
     },
     {
@@ -34,8 +30,7 @@
       "links": [
         { "title": "Java Loops (for, while, do-while)", "href": "https://www.programiz.com/java-programming/for-loop" },
         { "title": "Oracle Java Tutorial - Control Flow Statements", "href": "https://docs.oracle.com/javase/tutorial/java/nutsandbolts/flow.html" },
-        { "title": "Java for Loop Tutorial", "href": "https://www.geeksforgeeks.org/for-each-loop-in-java/" },
-        { "title": "Java while and do-while Loop", "href": "https://www.javatpoint.com/while-and-do-while-loop" }
+        { "title": "Java for Loop Tutorial", "href": "https://www.geeksforgeeks.org/for-each-loop-in-java/" }
       ]
     },
     {
@@ -86,8 +81,8 @@
     {
       "title": "Sets and Maps",
       "links": [
-        { "title": "Java Set Interface", "href": "https://www.javatpoint.com/java-set" },
-        { "title": "Java Map Interface", "href": "https://www.geeksforgeeks.org/java-map-interface/" },
+        {"title":  "Java Set", "href":  "https://www.geeksforgeeks.org/set-in-java/"},
+        { "title": "Java Map Interface", "href": "https://www.geeksforgeeks.org/map-interface-java-examples/" },
         { "title": "Java HashSet Class", "href": "https://www.javatpoint.com/java-hashset" },
         { "title": "Java HashMap Class", "href": "https://www.javatpoint.com/java-hashmap" }
       ]
@@ -106,8 +101,7 @@
       "links": [
         { "title": "Java Design Patterns", "href": "https://www.javatpoint.com/design-patterns-in-java" },
         { "title": "Oracle Java Tutorial - Design Patterns", "href": "https://docs.oracle.com/javase/tutorial/essential/concurrency/index.html" },
-        { "title": "Singleton Design Pattern", "href": "https://www.geeksforgeeks.org/singleton-design-pattern/" },
-        { "title": "Factory Design Pattern", "href": "https://www.baeldung.com/java-factory-design-pattern" }
+        { "title": "Singleton Design Pattern", "href": "https://www.geeksforgeeks.org/singleton-design-pattern/" }
       ]
     }
   ]
