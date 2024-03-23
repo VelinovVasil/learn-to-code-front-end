@@ -32,37 +32,41 @@ const ContactPage = () => {
             </header>
             <form onSubmit={handleSubmit} className="contact-form">
                 <div className="form-group">
-                    <label htmlFor="name">Name:</label>
+                    <label className="label" htmlFor="name">Name:</label>
                     <input
                         type="text"
                         id="name"
+                        className="inputText"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         required
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="email">Email:</label>
+                    <label className="label" htmlFor="email">Email:</label>
                     <input
                         type="email"
                         id="email"
+                        className="inputEmail"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="message">Message:</label>
+                    <label className="label" htmlFor="message">Message:</label>
                     <textarea
                         id="message"
+                        className="textArea"
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                         required
                     ></textarea>
                 </div>
-                <button type="submit">Submit</button>
+                <button type="submit" className="submitButton">Submit</button>
             </form>
-            <Footer />
+
+            <Footer/>
         </div>
     );
 }
