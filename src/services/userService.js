@@ -1,9 +1,5 @@
 const url = 'http://localhost:8080/api/users/'
 
-export const login = async (userdata) => {
-
-}
-
 export const getOneUser = async (token, userId) => {
 
     const userResponse = await fetch(url + userId, {
