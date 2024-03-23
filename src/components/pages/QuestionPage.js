@@ -185,7 +185,7 @@ const QuestionPage = () => {
 
   const renderReplies = (replies, level = 0) => {
     return replies.map((reply) => (
-      <div key={reply.id} style={{ marginLeft: level * 40 }} className="reply">
+      <div key={reply.id} style={{ marginLeft: level + 40 }} className="reply">
         <p>{reply.text}</p>
         <p>Author: {reply.authorName}</p>
         <p>Date Published: {new Date(reply.dateOfCreation).toLocaleString()}</p>
