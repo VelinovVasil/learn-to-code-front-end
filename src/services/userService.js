@@ -1,6 +1,8 @@
-import async from "async";
-
 const url = 'http://localhost:8080/api/users/'
+
+export const login = async (userdata) => {
+
+}
 
 export const getOneUser = async (token, userId) => {
 
@@ -44,6 +46,7 @@ export const getUserByEmail = async (userEmail) => {
     return await response.json();
 }
 
+// TODO: FIX backend and export to question service
 export const getQuestionsByUserId = async (token, userId) => {
     try {
 

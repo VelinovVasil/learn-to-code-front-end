@@ -1,38 +1,73 @@
-import React from 'react';
-import {useNavigate} from "react-router-dom";
-import '../styles/Question.css';
+import { useNavigate } from "react-router-dom";
+import "../styles/Question.css";
+import { useAuth0 } from "@auth0/auth0-react";
+import { getOneUser } from "../../services/userService";
+import { getOneTag } from "../../services/tagService";
+import { useEffect, useState } from "react";
 
-const Question = ({question, authors, tags}) => {
-    const navigate = useNavigate();
+const Question = (params) => {
+  const question = params.question;
 
-    const navigateToQuestion = (question, tags) => {
-        localStorage.setItem('question', JSON.stringify(question));
-        localStorage.setItem('tags', JSON.stringify(tags));
-        localStorage.setItem('authorName', authors[question.authorId].nickname);
-        navigate(`/question/${question.id}`);
-    };
+  const { getAccessTokenSilently } = useAuth0();
+  const [author, setAuthor] = useState("");
+  const [tags, setTags] = useState([]);
+  const navigate = useNavigate();
 
-    const formatDate = (dateTimeString) => {
-        const date = new Date(dateTimeString);
-        return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
-    };
+  let tagsElements = "No tags";
+  if (tags.length > 0) {
+    tagsElements = tags
+      .map((tag) => {
+        return tag.name || "";
+      })
+      .join(", ");
+  }
 
-    return (
-            <li key={question && question.id} className={'questionLi'}>
-                {question && question.id ? (
-                    <div onClick={() => navigateToQuestion(question, tags)} className={'questionContainer'}>
-                        <p>Title: {question.title}</p>
-                        {authors[question.authorId] && (
-                            <p className={'authorName'}>Author: {authors[question.authorId].nickname}</p>
-                        )}
-                        <p>Tags: {question.tagIds && question.tagIds.map(tagId => (
-                            tags[tagId] ? tags[tagId].name : ''
-                        )).join(', ')}</p>
-                        <p>Date Published: {question.datePublished && formatDate(question.datePublished)}</p>
-                    </div>
-                ) : null}
-            </li>
-            );
-}
+  const navigateToQuestion = (question, tags) => {
+    localStorage.setItem("question", JSON.stringify(question));
+    localStorage.setItem("tags", JSON.stringify(tags));
+    localStorage.setItem("authorName", author.nickname);
+    navigate(`/question/${question.id}`);
+  };
+
+  const formatDate = (dateTimeString) => {
+    const date = new Date(dateTimeString);
+    return date.toLocaleDateString() + " " + date.toLocaleTimeString();
+  };
+
+  useEffect(() => {
+    getAccessTokenSilently().then((token) => {
+      getOneUser(token, question.authorId).then((authorInfo) =>
+        setAuthor(authorInfo)
+      );
+
+      let tagsTemp = [];
+      for(let tagId of question.tagIds) {
+        getOneTag(token, tagId).then(data => {
+            tagsTemp.push(data);
+            setTags(tagsTemp);
+        })
+      }
+    });
+  }, [getAccessTokenSilently, question]);
+
+  return (
+    <li key={question.id} className={"questionLi"}>
+      {question && question.id ? (
+        <div
+          onClick={() => navigateToQuestion(question, tags)}
+          className={"questionContainer"}
+        >
+          <p>Title: {question.title}</p>
+          {author && <p className={"authorName"}>Author: {author.nickname}</p>}
+          <p>Tags: {tagsElements}</p>
+          <p>
+            Date Published:{" "}
+            {question.datePublished && formatDate(question.datePublished)}
+          </p>
+        </div>
+      ) : null}
+    </li>
+  );
+};
 
 export default Question;

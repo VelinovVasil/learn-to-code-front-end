@@ -7,8 +7,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import '../styles/AskQuestionPage.css';
 import NotLoggedIn from "../NotLoggedIn";
-import {fetchTags} from "../../services/tagService";
-import async from "async";
+import {getAllTags} from "../../services/tagService";
 import {questionSubmit} from "../../services/openaiService";
 import {publishQuestion} from "../../services/questionService";
 
@@ -34,7 +33,7 @@ const AskQuestionPage = () => {
         const fetchData = async () => {
             try {
                 const token = await getAccessTokenSilently();
-                const fetchedTags = await fetchTags(token);
+                const fetchedTags = await getAllTags(token);
                 setAllTags(fetchedTags);
             } catch (error) {
                 console.error('Error fetching tags:', error);

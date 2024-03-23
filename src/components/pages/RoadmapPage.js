@@ -13,7 +13,6 @@ const RoadmapPage = (props) => {
   const elements = data.map((block) => {
     return <RoadmapBlock data={block} />;
   });
-  // TODO: Populate the roadmap with the given resources in the comments
 
   return (
     <div>

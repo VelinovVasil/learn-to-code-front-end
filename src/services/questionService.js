@@ -1,5 +1,3 @@
-import question from "../components/shared/Question";
-
 const url = 'http://localhost:8080/api/questions/'
 
 export const getQuestions = async (token) => {

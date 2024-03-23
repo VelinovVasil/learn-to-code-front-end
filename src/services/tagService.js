@@ -14,7 +14,7 @@ export const getOneTag = async(token, tagId) => {
     return tagResponse.json();
 }
 
-export const fetchTags = async (token) => {
+export const getAllTags = async (token) => {
     try {
         const response = await fetch(url, {
             headers: {

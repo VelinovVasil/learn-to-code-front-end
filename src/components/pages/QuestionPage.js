@@ -9,7 +9,7 @@ import {get} from "axios";
 import {editQuestion, markQuestionAsAnswered} from "../../services/questionService";
 import {useNavigate} from "react-router-dom";
 import '../styles/QuestionPage.css';
-import {fetchTags} from "../../services/tagService";
+import {getAllTags} from "../../services/tagService";
 
 const QuestionPage = () => {
     const [replies, setReplies] = useState([]);
@@ -63,7 +63,7 @@ const QuestionPage = () => {
     const fetchAllTags = async () => {
         try {
             const token = await getAccessTokenSilently();
-            const tags = await fetchTags(token);
+            const tags = await getAllTags(token);
             setAllTags(tags);
         } catch (error) {
             console.error('Error fetching tags:', error);

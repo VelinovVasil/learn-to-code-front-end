@@ -4,8 +4,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 const LoginButton = () => {
     const { loginWithRedirect, logout, isAuthenticated, getIdTokenClaims, getAccessTokenSilently } = useAuth0();
 
-    const baseUrl = `http://localhost:8080/api/`;
-
     // TODO: save user id to localstorage
 
     const handleLogin = async () => {
