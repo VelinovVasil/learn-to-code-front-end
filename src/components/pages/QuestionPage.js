@@ -167,15 +167,17 @@ const QuestionPage = () => {
 
     const renderReplies = (replies, level = 0) => {
         return replies.map(reply => (
-            <div key={reply.id} style={{ marginLeft: level * 20 }}>
+            <div key={reply.id} style={{marginLeft: level * 40}} className="reply">
                 <p>{reply.text}</p>
                 <p>Author: {reply.authorName}</p>
                 <p>Date Published: {new Date(reply.dateOfCreation).toLocaleString()}</p>
-                <button onClick={() => handleReplyToAReply(reply.id)}>{replyToReplyButtonClicked ? 'Discard Reply to Reply' : 'Reply to Reply'}</button>
+                <hr class="separator"></hr>
+                <button
+                    onClick={() => handleReplyToAReply(reply.id)}>{replyToReplyButtonClicked ? 'Discard Reply to Reply' : 'Reply to Reply'}</button>
                 {/*{replyToReplyButtonClicked && <button onClick={handleDiscardReplyToAReply}>Discard Reply to Reply</button>}*/}
                 {reply.id == replyToReplyId && (
                     <div>
-                        <textarea value={replyToAReplyText} onChange={e => setReplyToAReplyText(e.target.value)} />
+                        <textarea value={replyToAReplyText} onChange={e => setReplyToAReplyText(e.target.value)}/>
                         <button onClick={handleSubmitReplyToAReply}>Submit Reply</button>
                     </div>
                 )}
@@ -269,35 +271,38 @@ const QuestionPage = () => {
 
     return (
         <>
-            <Navbar />
+            <Navbar/>
             <div className="question-details">
                 <h2>Title: {question.title}</h2>
-                <div dangerouslySetInnerHTML={{ __html: question.text }} />
-                <p>Author: {authorName}</p>
+                <div dangerouslySetInnerHTML={{__html: question.text}}/>
+                <p className="authorName">Author: {authorName}</p>
                 <p>Date Published: {new Date(question.datePublished).toLocaleString()}</p>
                 <p>Tags: {question.tagIds.map(tagId => tags[tagId].name).join(', ')}</p>
-                { editButtonClicked && (
+                <hr class="separator"></hr>
+                {editButtonClicked && (
                     renderEditForm(question, tags)
                 )}
                 {!replyButtonClicked && localStorage.getItem('userId') == question.authorId &&
-                    <button onClick={handleEdit}>{editButtonClicked ? 'Discard Edit' : 'Edit Question'}</button>
+                    <button onClick={handleEdit} class="spaced-button">{editButtonClicked ? 'Discard Edit' : 'Edit Question'}</button>
                 }
                 {localStorage.getItem('userId') == question.authorId &&
-                    <button onClick={handleMarkAsAnswered}>Delete question</button>
+                    <button onClick={handleMarkAsAnswered} class="spaced-button">Delete question</button>
                 }
                 {!editButtonClicked &&
-                    <button onClick={handleReply}>{replyButtonClicked ? 'Discard Reply' : 'Reply to Question'}</button>
+                    <button onClick={handleReply} class="spaced-button">{replyButtonClicked ? 'Discard Reply' : 'Reply to Question'}</button>
                 }
                 {showReplyForm && (
                     <div>
-                        <textarea value={replyText} onChange={e => setReplyText(e.target.value)} />
+                        <textarea className="reply" value={replyText}
+                                  onChange={e => setReplyText(e.target.value)}></textarea>
                         <button onClick={handleSubmitReply}>Submit Reply</button>
                     </div>
                 )}
-                {!showReplies && <button onClick={fetchReplies}>{'View Replies'}</button>}
+                {!showReplies && <button class="spaced-button" onClick={fetchReplies}>View Replies</button>}
                 {showReplies && renderReplies(replies)}
             </div>
-            <Footer />
+
+            <Footer/>
         </>
     );
 }

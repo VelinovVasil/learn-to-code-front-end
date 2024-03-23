@@ -1,0 +1,27 @@
+.questionLi {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.questionContainer {
+    background-color: #3fabaf;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.questionContainer:hover {
+    background-color: #262626;
+}
+
+.authorName {
+    font-style: italic;
+}
+
+.questionContainer p {
+    margin: 5px 0;
+}
+
+.questionContainer p:first-child {
+    font-weight: bold;
+}
