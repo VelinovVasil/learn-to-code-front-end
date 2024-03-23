@@ -9,6 +9,7 @@ import {get} from "axios";
 import {editQuestion, markQuestionAsAnswered} from "../../services/questionService";
 import {useNavigate} from "react-router-dom";
 import '../styles/QuestionPage.css';
+import {fetchTags} from "../../services/tagService";
 
 const QuestionPage = () => {
     const [replies, setReplies] = useState([]);
@@ -23,6 +24,7 @@ const QuestionPage = () => {
     const [replyToReplyId, setReplyToReplyId] = useState(null);
     const navigate = useNavigate();
     const [questionTitle, setQuestionTitle] = useState('');
+    const [allTags, setAllTags] = useState([]);
 
     const question = JSON.parse(localStorage.getItem('question'));
     const tags = JSON.parse(localStorage.getItem('tags'));
@@ -34,6 +36,10 @@ const QuestionPage = () => {
 
     const [replyBeingRepliedTo, setReplyBeingRepliedTo] = useState(null);
     const [replyToAReplyButtonClicked, setReplyToAReplyButtonClicked] = useState(false);
+
+    useEffect(() => {
+        fetchAllTags(); // Call fetchAllTags when the component mounts
+    }, []);
 
     // Function to set the reply being replied to
     const handleReplyToAReply = (replyId) => {
@@ -52,6 +58,16 @@ const QuestionPage = () => {
     // Function to check if a reply is being replied to
     const isReplyBeingRepliedTo = (replyId) => {
         return replyBeingRepliedTo === replyId;
+    };
+
+    const fetchAllTags = async () => {
+        try {
+            const token = await getAccessTokenSilently();
+            const tags = await fetchTags(token);
+            setAllTags(tags);
+        } catch (error) {
+            console.error('Error fetching tags:', error);
+        }
     };
 
 
@@ -197,7 +213,7 @@ const QuestionPage = () => {
                     placeholder="Type your question here"
                 />
                 <h4>Tags:</h4>
-                {Object.values(tags).map((tag) => (
+                {Object.values(allTags).map((tag) => (
                     <button
                         key={tag.id}
                         id={tag.id}
