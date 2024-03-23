@@ -1,0 +1,96 @@
+
+{
+"title": "SQL",
+"content": "SQL (Structured Query Language) is a domain-specific language used in programming and designed for managing data held in a relational database management system (RDBMS), or for stream processing in a relational data stream management system (RDSMS).",
+"data": [
+{
+"title": "Basic SQL Syntax",
+"links": [
+{ "title": "SQL Tutorial", "href": "https://www.w3schools.com/sql/" },
+{ "title": "SQL Quick Reference", "href": "https://www.sqltutorial.org/sql-cheat-sheet/" },
+{ "title": "SQLZoo Interactive SQL Tutorial", "href": "https://sqlzoo.net/wiki/SQL_Tutorial" }
+]
+},
+{
+"title": "Data Definition Language (DDL)",
+"links": [
+{ "title": "CREATE TABLE Statement", "href": "https://www.geeksforgeeks.org/sql-create-table-statement/" },
+{ "title": "ALTER TABLE Statement", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-alter-table/" },
+{ "title": "DROP TABLE Statement", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-drop-table/" }
+]
+},
+{
+"title": "Data Manipulation Language (DML)",
+"links": [
+{ "title": "SELECT Statement", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-select/" },
+{ "title": "INSERT INTO Statement", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-insert/" },
+{ "title": "UPDATE Statement", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-update/" },
+{ "title": "DELETE Statement", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-delete/" }
+]
+},
+{
+"title": "Data Control Language (DCL)",
+"links": [
+{ "title": "GRANT Statement", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-grant/" },
+{ "title": "REVOKE Statement", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-revoke/" }
+]
+},
+{
+"title": "Data Query Language (DQL)",
+"links": [
+{ "title": "SELECT Statement", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-select/" },
+{ "title": "JOIN Clause", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-inner-join/" },
+{ "title": "GROUP BY Clause", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-group-by/" },
+{ "title": "HAVING Clause", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-having/" },
+{ "title": "ORDER BY Clause", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-order-by/" }
+]
+},
+{
+"title": "Data Definition Language (DDL)",
+"links": [
+{ "title": "CREATE INDEX Statement", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-create-index/" },
+{ "title": "ALTER INDEX Statement", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-alter-index/" },
+{ "title": "DROP INDEX Statement", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-drop-index/" }
+]
+},
+{
+"title": "Database Normalization",
+"links": [
+{ "title": "Database Normalization", "href": "https://www.essentialsql.com/get-ready-to-learn-sql-12-database-normalization-explained-in-simple-english/" },
+{ "title": "First Normal Form (1NF)", "href": "https://www.essentialsql.com/get-ready-to-learn-sql-14-database-normalization-first-normal-form-explained-in-simple-english/" },
+{ "title": "Second Normal Form (2NF)", "href": "https://www.essentialsql.com/get-ready-to-learn-sql-15-database-normalization-second-normal-form-explained-in-simple-english/" },
+{ "title": "Third Normal Form (3NF)", "href": "https://www.essentialsql.com/get-ready-to-learn-sql-16-database-normalization-third-normal-form-explained-in-simple-english/" }
+]
+},
+{
+"title": "SQL Joins",
+"links": [
+{ "title": "SQL Joins Explained", "href": "https://www.w3schools.com/sql/sql_join.asp" },
+{ "title": "INNER JOIN", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-inner-join/" },
+{ "title": "LEFT JOIN", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-left-join/" },
+{ "title": "RIGHT JOIN", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-right-join/" },
+{ "title": "FULL OUTER JOIN", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-full-outer-join/" }
+]
+},
+{
+"title": "SQL Functions",
+"links": [
+{ "title": "SQL Functions", "href": "https://www.w3schools.com/sql/sql_functions.asp" },
+{ "title": "Aggregate Functions", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-aggregate-functions/" },
+{ "title": "Scalar Functions", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-scalar-functions/" },
+{ "title": "Date Functions", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-date-functions/" }
+]
+},
+{
+"title": "Advanced SQL Topics",
+"links": [
+{ "title": "Subqueries", "href": "https://www.w3schools.com/sql/sql_subqueries.asp" },
+{ "title": "Views", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-views/" },
+{ "title": "Transactions", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-transactions/" },
+{ "title": "Stored Procedures", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-stored-procedures/" },
+{ "title": "Triggers", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-triggers/" }
+]
+}
+]
+}
+
