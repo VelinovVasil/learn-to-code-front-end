@@ -17,6 +17,7 @@ import javaProps from "./data/javaProps.json";
 import pythonProps from "./data/pythonProps.json";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import DirectChatPage from "./components/pages/DirectChatPage";
 
 function App() {
   return (
@@ -60,6 +61,10 @@ function App() {
             path="/programming-languages/python"
             element={<RoadmapPage data={pythonProps} />}
           />
+        <Route
+          path="/chat"
+          element={<DirectChatPage />}
+        />
         </Routes>
         <Footer />
       </Auth0Provider>
