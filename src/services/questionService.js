@@ -1,4 +1,4 @@
-import question from "../components/Question";
+import question from "../components/shared/Question";
 
 const url = 'http://localhost:8080/api/questions/'
 

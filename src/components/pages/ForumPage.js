@@ -8,7 +8,7 @@ import 'react-quill/dist/quill.snow.css';
 import {fetchQuestionById, getQuestions} from "../../services/questionService";
 import {getOneUser} from "../../services/userService";
 import {fetchTags, getOneTag} from "../../services/tagService"; // Import Quill's snow theme CSS
-import Question  from "../Question";
+import Question  from "../shared/Question";
 
 const ForumPage = () => {
     const [questions, setQuestions] = useState([]);
