@@ -47,9 +47,7 @@ const QuestionPage = () => {
 
   useEffect(() => {
     getAccessTokenSilently().then(token =>{
-        getAllTags(token).then(tags => {
-            setAllTags(tags);
-        })
+        getAllTags(token).then(tags => setAllTags(tags))
     })
   });
 
