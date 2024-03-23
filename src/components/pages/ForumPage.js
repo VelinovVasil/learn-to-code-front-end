@@ -5,7 +5,7 @@ import Footer from "../Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import 'react-quill/dist/quill.snow.css';
-import {getQuestions} from "../../services/questionService";
+import {fetchQuestionById, getQuestions} from "../../services/questionService";
 import {getOneUser} from "../../services/userService";
 import {fetchTags, getOneTag} from "../../services/tagService"; // Import Quill's snow theme CSS
 import Question  from "../Question";
@@ -15,7 +15,7 @@ const ForumPage = () => {
     const [authors, setAuthors] = useState({});
     const [tags, setTags] = useState({});
     const [allTags, setAllTags] = useState({});
-    const [selectedTags, setSelectedTags] = useState([]);
+    const [selectedTagId, setSelectedTagId] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const { getAccessTokenSilently } = useAuth0();
 
@@ -39,12 +39,10 @@ const ForumPage = () => {
     }, []);
 
     const handleTagChange = (event) => {
-        const { value, checked } = event.target;
+        const {id, checked } = event.target;
 
         if (checked) {
-            setSelectedTags(prevSelectedTags => [...prevSelectedTags, value]);
-        } else {
-            setSelectedTags(prevSelectedTags => prevSelectedTags.filter(tag => tag !== value));
+            setSelectedTagId(id);
         }
     };
 
@@ -111,11 +109,31 @@ const ForumPage = () => {
         }
     }, [fetchQuestions]);
 
-    const handleFilter = (e) => {
+    const handleFilter = async (e) => {
         e.preventDefault();
 
-        // TODO:
-        // setQuestions(await fetchQuestionsByTagNames)
+        // console.log('questionIds');
+        // console.log(selectedTagId);
+
+        const token = await getAccessTokenSilently();
+
+        if (!tags[selectedTagId] || !tags[selectedTagId]?.questionIds?.length) {
+            alert('No questions have this tag selected.');
+            return;
+        }
+
+        const questionIds = Array.from(tags[selectedTagId].questionIds);
+
+
+        const questions = await Promise.all(questionIds.map(async (id) => {
+            return await fetchQuestionById(token, id);
+        }));
+
+        setQuestions(questions);
+    }
+
+    const handleClearFilter = async () => {
+        await fetchQuestions();
     }
 
 
@@ -140,7 +158,7 @@ const ForumPage = () => {
                                         name="selectedTag"
                                         value={tag.name}
                                         onChange={handleTagChange}
-                                        checked={selectedTags.includes(tag.name)}
+                                        checked={selectedTagId == tag.id}
                                     />
                                     <label htmlFor={tag.id}>{tag.name}</label>
                                 </div>
@@ -149,6 +167,7 @@ const ForumPage = () => {
                             <button type="submit">Filter</button>
                         </form>
 
+                        <button onClick={handleClearFilter}>Clear Filter</button>
                     </div>
                 </section>
             </header>

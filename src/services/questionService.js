@@ -1,3 +1,5 @@
+import question from "../components/Question";
+
 const url = 'http://localhost:8080/api/questions/'
 
 export const getQuestions = async (token) => {
@@ -54,9 +56,6 @@ export const markQuestionAsAnswered = async (token, questionId) => {
 export const editQuestion = async (token, question) => {
     try {
 
-        console.log('Question:');
-        console.log(question);
-
         const response = await fetch(url + question.id, {
             method: 'PUT',
             headers: {
@@ -69,6 +68,26 @@ export const editQuestion = async (token, question) => {
         if (!response.ok) {
             throw new Error(`Failed to edit question: ${response.status} ${response.statusText}`)
         }
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const fetchQuestionById = async (token, id) => {
+    try {
+
+        const response = await fetch(url + id, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }});
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch Question by Id');
+        }
+
+        return await response.json();
 
     } catch (error) {
         console.log(error);
