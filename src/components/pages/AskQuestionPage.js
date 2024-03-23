@@ -59,11 +59,6 @@ const AskQuestionPage = () => {
   }
 
   const handleQuestionSubmit = async () => {
-    if (selectedTags.length === 0) {
-      window.alert("Please select tags for the question.");
-      return;
-    }
-
     setIsLoading(true);
 
     try {
@@ -75,11 +70,10 @@ const AskQuestionPage = () => {
       });
 
       const answerData = await questionSubmit(token, obj);
-
       const content = answerData.response.content;
 
       // Session id:
-      localStorage.setItem("sessionId", answerData.sessionId);
+      localStorage.setItem("sessionId", answerData.input.sessionId);
 
       const updatedLog = [
         ...conversationLog,
@@ -100,11 +94,6 @@ const AskQuestionPage = () => {
   };
 
   const handleContinueConversation = async () => {
-    if (selectedTags.length === 0) {
-      window.alert("Please select tags for the question.");
-      return;
-    }
-
     setIsLoading(true);
 
     try {
@@ -141,9 +130,6 @@ const AskQuestionPage = () => {
 
     try {
       const token = await getAccessTokenSilently();
-
-      console.log("Question title: ");
-      console.log(questionTitle);
 
       const publishObj = JSON.stringify({
         title: questionTitle,
