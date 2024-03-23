@@ -174,15 +174,6 @@ const QuestionPage = () => {
     }
   };
 
-  const handleDiscardReply = () => {
-    setShowReplyForm(false);
-    setReplyButtonClicked(false);
-  };
-
-  const handleDiscardEdit = () => {
-    setEditButtonClicked(false);
-  };
-
   const renderReplies = (replies, level = 0) => {
     return replies.map((reply) => (
       <div key={reply.id} style={{ marginLeft: level + 40 }} className="reply">
