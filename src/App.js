@@ -15,6 +15,8 @@ import QuestionPage from "./components/pages/QuestionPage";
 import javaScriptProps from "./data/javaScriptProps.json";
 import javaProps from "./data/javaProps.json";
 import pythonProps from "./data/pythonProps.json";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -32,6 +34,7 @@ function App() {
           audience: "https://hello-world.example.com",
         }}
       >
+        <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route
@@ -58,6 +61,7 @@ function App() {
             element={<RoadmapPage data={pythonProps} />}
           />
         </Routes>
+        <Footer />
       </Auth0Provider>
     </Router>
   );
