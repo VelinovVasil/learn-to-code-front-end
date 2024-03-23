@@ -1,111 +1,81 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../Navbar";
 import "../styles/ForumPage.css";
 import Footer from "../Footer";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import "react-quill/dist/quill.snow.css";
-import {
-  fetchQuestionById,
-  getQuestions,
-} from "../../services/questionService";
+import { getQuestions } from "../../services/questionService";
 import { getAllTags } from "../../services/tagService"; // Import Quill's snow theme CSS
 import Question from "../shared/Question";
 
 const ForumPage = () => {
   const [questions, setQuestions] = useState([]);
-  // const [authors, setAuthors] = useState({});
-  // const [tags, setTags] = useState({});
   const [allTags, setAllTags] = useState({});
-  const [selectedTagId, setSelectedTagId] = useState();
+  const [selectedTagIds, setSelectedTagIds] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { getAccessTokenSilently } = useAuth0();
 
-  const fetchTags = useCallback(async () => {
-    const token = await getAccessTokenSilently();
-    const fetchedTags = await getAllTags(token);
-    setAllTags(fetchedTags);
-  }, [getAccessTokenSilently]);
-
-  const handleTagChange = (event) => {
-    const { id, checked } = event.target;
-
-    if (checked) {
-      setSelectedTagId(id);
+  const handleCheckboxChange = (id) => {
+    if (selectedTagIds.includes(id)) {
+      setSelectedTagIds(selectedTagIds.filter(checkedId => checkedId !== id));
+    } else {
+      setSelectedTagIds([...selectedTagIds, id]);
     }
   };
 
-  const fetchQuestions = useCallback(async () => {
-    try {
-      const token = await getAccessTokenSilently();
-      const data = await getQuestions(token);
-
-      setQuestions(data);
-    } catch (error) {
-      throw new Error(error);
-    }
-  }, [getAccessTokenSilently]);
-
-  useEffect(() => {
-    try {
-      fetchTags();
-      fetchQuestions();
-      setIsLoading(false);
-    } catch (err) {
-      console.log(err);
-    }
-  }, [fetchQuestions, fetchTags]);
-
   const handleFilter = async (e) => {
-    // e.preventDefault();
-
-    // // console.log('questionIds');
-    // // console.log(selectedTagId);
-
-    // const token = await getAccessTokenSilently();
-
-    // if (!tags[selectedTagId] || !tags[selectedTagId]?.questionIds?.length) {
-    //   alert("No questions have this tag selected.");
-    //   return;
-    // }
-
-    // const questionIds = Array.from(tags[selectedTagId].questionIds);
-
-    // const questions = await Promise.all(
-    //   questionIds.map(async (id) => {
-    //     return await fetchQuestionById(token, id);
-    //   })
-    // );
-
-    // setQuestions(questions);
+    e.preventDefault();
+    getAccessTokenSilently().then((token) => {
+      getQuestions(token, selectedTagIds).then((q) => setQuestions(q));
+    });
   };
 
   const handleClearFilter = async () => {
-    await fetchQuestions();
+    setSelectedTagIds([]);
+    setIsLoading(true);
+    getAccessTokenSilently().then((token) => {
+      getQuestions(token).then((questions) => {
+        setQuestions(questions);
+        setIsLoading(false);
+      });
+    });
   };
+
+  useEffect(() => {
+    getAccessTokenSilently().then((token) => {
+      getQuestions(token).then((questions) => {
+        setQuestions(questions);
+        setIsLoading(false);
+      });
+      getAllTags(token).then((tags) => {
+        setAllTags(tags);
+      });
+    });
+  }, [getAccessTokenSilently]);
 
   return (
     <div>
       <Navbar />
-      <header id={"forumHeader"}>
-        <section className={"headerAskBtn"}>
+      <header id="forumHeader">
+        <section className="headerAskBtn">
           <h2 id="forumTitle">Forum</h2>
           {isLoading && <div className="loading">Loading&#8230;</div>}
-          <div id={"askFilterContainer"}>
-            <Link to={"/ask-question"}>
-              <button id={"btnAddQuestion"}>Ask a question</button>
+          <div id="askFilterContainer">
+            <Link to="/ask-question">
+              <button id="btnAddQuestion">Ask a question</button>
             </Link>
 
             <form onSubmit={(e) => handleFilter(e)}>
               {Object.values(allTags).map((tag) => (
                 <div key={tag.id}>
                   <input
-                    type="radio"
+                    type="checkbox"
                     id={tag.id}
                     name="selectedTag"
-                    value={tag.name}
-                    onChange={handleTagChange}
-                    checked={selectedTagId == tag.id}
+                    value={tag.name}  
+                    onChange={() => handleCheckboxChange(tag.id)}
+                    checked={selectedTagIds.includes(tag.id)}
                   />
                   <label htmlFor={tag.id}>{tag.name}</label>
                 </div>

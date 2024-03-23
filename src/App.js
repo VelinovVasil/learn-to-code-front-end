@@ -17,7 +17,6 @@ import javaProps from "./data/javaProps.json";
 import pythonProps from "./data/pythonProps.json";
 
 function App() {
-
   return (
     <Router>
       {/* Wrap your Routes with Auth0Provider */}

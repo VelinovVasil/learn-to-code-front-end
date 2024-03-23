@@ -1,7 +1,7 @@
 const url = 'http://localhost:8080/api/questions/'
 
-export const getQuestions = async (token) => {
-    const response = await fetch(url , {
+export const getQuestions = async (token, params) => {
+    const response = await fetch(url + (params ? `?tag=${params.join(',')}` : ''), {
         headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
