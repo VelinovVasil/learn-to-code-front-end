@@ -20,6 +20,7 @@ const AskQuestionPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const [questionTitle, setQuestionTitle] = useState("");
+  const [initialQuestion, setInitialQuestion] = useState("");
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
   // Get userId from localstorage
@@ -67,6 +68,7 @@ const AskQuestionPage = () => {
         role: "USER",
       });
 
+      setInitialQuestion(questionText);
       const answerData = await questionSubmit(token, obj);
       const content = answerData.response.content;
 
@@ -129,9 +131,12 @@ const AskQuestionPage = () => {
     try {
       const token = await getAccessTokenSilently();
 
+      // console.log('Initial question');
+      // console.log(initialQuestion);
+
       const publishObj = JSON.stringify({
         title: questionTitle,
-        text: questionText,
+        text: initialQuestion,
         authorId: userId,
         tagIds: selectedTags,
         imageUrls: [],
