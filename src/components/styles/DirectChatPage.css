@@ -1,5 +1,11 @@
-/* Animation */
+.ce-message-form-container,
+.ce-chat-form-container,
+.ce-chat-title-text,
+.ce-settings-container {
+    color: black;
+}
 
+/* Animation */
 @-webkit-keyframes spinner {
     0% {
         -webkit-transform: rotate(0deg);
