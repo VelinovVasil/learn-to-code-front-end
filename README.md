@@ -6,7 +6,7 @@ At Learn to code, our mission is simple yet profound: to equip aspiring programm
 
 ## How to use Learn to Code
 
-Create an account (you can log in with google account as well) and feel free to ask any coding questions in the AI-enhanced forum. Various resources on many languages are at your disposal on the Programming languages page.
+Create an account (you can log in with google account as well) and feel free to ask any coding questions in the AI-enhanced forum. Various resources on many languages are at your disposal on the Programming languages page. In order to have a conversation with another user, there is a chat system which allows both direct messages and group chats. If the user is satisfied with the provided service, a donation could be made with integrated Stripe payment system.
 
 ## Our team
 
