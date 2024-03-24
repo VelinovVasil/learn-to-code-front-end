@@ -1,0 +1,53 @@
+#donationsContainer {
+    text-align: center;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-width: 400px;
+}
+
+.title {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.amount {
+    margin-bottom: 20px;
+}
+
+.btnMoneyValue {
+    margin: 0 10px;
+    padding: 10px 20px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: rgb(63, 171, 175);
+    cursor: pointer;
+}
+
+.btnMoneyValue:last-child {
+    margin-top: 20px;
+}
+
+.set-amount {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 120px;
+    /* margin-top: 10px; */
+}
+
+#donateBtn {
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+#donateBtn:hover {
+    background-color: #45a049;
+}
