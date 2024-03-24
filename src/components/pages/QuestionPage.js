@@ -183,8 +183,8 @@ const QuestionPage = () => {
         <hr class="separator"></hr>
         <button onClick={() => handleReplyToAReply(reply.id)}>
           {replyToReplyButtonClicked
-            ? "Discard Reply to Reply"
-            : "Reply to Reply"}
+            ? "Discard Reply"
+            : "Reply"}
         </button>
         {/*{replyToReplyButtonClicked && <button onClick={handleDiscardReplyToAReply}>Discard Reply to Reply</button>}*/}
         {reply.id == replyToReplyId && (
