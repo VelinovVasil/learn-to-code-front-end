@@ -229,7 +229,7 @@ const QuestionPage = () => {
         />
         <h4>Tags:</h4>
         {Object.values(allTags).map((tag) => (
-          <button
+          <button style={{ marginRight: '10px', marginBottom: '10px' }}
             key={tag.id}
             id={tag.id}
             className={selectedTagIds.includes(tag.id) ? "selected" : ""}
