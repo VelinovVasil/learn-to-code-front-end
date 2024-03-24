@@ -180,7 +180,7 @@ const AskQuestionPage = () => {
           placeholder="Type your question here"
         />
         <div>
-          <h3>Tags:</h3>
+          <h3></h3>
           <div className="tags-container">
             {allTags.map((tag) => (
               <button
