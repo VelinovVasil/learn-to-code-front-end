@@ -10,7 +10,6 @@ const NotLoggedIn = () => {
 
     return (
         <div>
-            <Navbar/>
             <div id={'loginMessage'}>
                 <h2>Please log in to your account</h2>
                 {/*<button onClick={() => loginWithRedirect()}>Log in</button>*/}
@@ -18,7 +17,6 @@ const NotLoggedIn = () => {
                     <LoginButton/>
                 </div>
             </div>
-            <Footer/>
         </div>
     );
 }

@@ -40,16 +40,6 @@ const AboutUs = () => {
             </div>
 
             <div className="container">
-                <h1>What We Offer:</h1>
-                <ul className="ul">
-                    <li className="li">Comprehensive Roadmaps</li>
-                    <li className="li">Curated Resources</li>
-                    <li className="li">Community Support</li>
-                    <li className="li">Expert Advice</li>
-                </ul>
-            </div>
-
-            <div className="container">
                 <h1>Our Commitment to Excellence:</h1>
                 <h5>At Learn to code, we are committed to excellence in everything we do. We continually update and
                     refine our roadmaps and resources to ensure they reflect the latest trends, technologies, and best
