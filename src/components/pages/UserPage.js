@@ -4,6 +4,7 @@ import Footer from "../Footer";
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "../LoginButton";
 import NotLoggedIn from "../NotLoggedIn";
+import "../styles/UserPage.css";
 import {
   getQuestionsByUserId,
   getUserByEmail,
@@ -65,21 +66,19 @@ const UserPage = () => {
   return (
     <>
       {isAuthenticated && user && userData && (
-        <div>
-          <h2>Welcome back!</h2>
-          <h3>User Information:</h3>
-          <p>Username {user.username}</p>
-          <p>Email: {user.email}</p>
-          <p>Nickname: {user.nickname}</p>
-          {/* Display other user information as needed */}
+          <div className="container">
+            <h2 className="heading">Welcome back!</h2>
+            <h3 className="sub-heading">User Information:</h3>
+            <p className="info">Email: {user.email}</p>
+            <p className="info">Username: {user.nickname}</p>
 
-          <h3>Asked Questions:</h3>
-          <ul>
-            {askedQuestions.map((question) => (
-              <li key={question.id}>{question.text}</li>
-            ))}
-          </ul>
-        </div>
+            <h3 className="sub-heading">Asked Questions:</h3>
+            <ul className="question-list">
+              {askedQuestions.map((question) => (
+                  <li className="question-item" key={question.id}>{question.text}</li>
+              ))}
+            </ul>
+          </div>
       )}
     </>
   );
