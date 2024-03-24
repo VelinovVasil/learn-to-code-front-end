@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from "react";
-import Navbar from "../Navbar";
-import Footer from "../Footer";
+import { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import LoginButton from "../LoginButton";
 import NotLoggedIn from "../NotLoggedIn";
-import "../styles/UserPage.css";
 import {
   getQuestionsByUserId,
   getUserByEmail,
