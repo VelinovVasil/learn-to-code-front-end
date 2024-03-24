@@ -1,51 +1,46 @@
+import { PrettyChatWindow } from "react-chat-engine-pretty";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import { getOneUser } from "../../services/userService";
+import '../styles/DirectChatPage.css';
 
-import { ChatEngine, getOrCreateChat } from "react-chat-engine";
-
-const DirectChatPage = () => {
-  const [username, setUsername] = useState("");
+const DirectChatsPage = () => {
   const { getAccessTokenSilently } = useAuth0();
-
-  function createDirectChat(creds) {
-    getOrCreateChat(
-      creds,
-      { is_direct_chat: true, usernames: [username] },
-      () => setUsername("")
-    );
-  }
+  const [username, setUsername] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getAccessTokenSilently().then((token) => {
-      getOneUser(token, localStorage.getItem("userId")).then((user) =>
-        setUsername(user.nickname)
-      );
-    });
+    getAccessTokenSilently()
+      .then((token) => {
+        return getOneUser(token, localStorage.getItem("userId"));
+      })
+      .then((user) => {
+        setUsername(user.nickname);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching user data:', error);
+        setLoading(false);
+      });
   }, [getAccessTokenSilently]);
 
-  function renderChatForm(creds) {
-    return (
-      <div>
-        <input
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <button onClick={() => createDirectChat(creds)}>Create</button>
-      </div>
-    );
+
+  if (loading) {
+    return <div className="loading">Loading&#8230;</div>;
   }
 
   return (
-    <ChatEngine
-      height="100vh"
-      userName={username}
-      userSecret="password"
-      projectID="edc2befa-d0a4-44b8-90e6-095e062e7608"
-      renderNewChatForm={(creds) => renderChatForm(creds)}
-    />
+    <div style={{fontFamily: 'Arial', height: "100vh", maxWidth: '100%'}}>
+      {username && (
+        <PrettyChatWindow
+          projectId={'edc2befa-d0a4-44b8-90e6-095e062e7608'}
+          username={username}
+          secret={'password'}
+          style={{ height: "100%" }}
+        />
+      )}
+    </div>
   );
 };
 
-export default DirectChatPage;
+export default DirectChatsPage;

@@ -114,3 +114,36 @@ h2 {
 button:hover {
     background-color: grey;
 }
+
+
+@media only screen and (max-width: 600px) {
+
+    body {
+        padding: 1em 0.5em;
+    }
+
+
+
+    .headerText h2 {
+        font-size: 4em;
+    }
+
+    .homeMainContainer {
+        flex-direction: column;
+    }
+
+    .homeMainContainer div {
+        width: 100%;
+    }
+
+    .svgIconContainer {
+        max-width: 50%;
+    }
+
+    .homePageBtn {
+        text-align: center;
+    }
+}
+
+
+
