@@ -14,7 +14,7 @@
 {
 "title": "Data Definition Language (DDL)",
 "links": [
-{ "title": "CREATE TABLE Statement", "href": "https://www.geeksforgeeks.org/sql-create-table-statement/" },
+{ "title": "CREATE TABLE Statement", "href": "https://www.w3schools.com/sql/sql_create_table.asp" },
 { "title": "ALTER TABLE Statement", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-alter-table/" },
 { "title": "DROP TABLE Statement", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-drop-table/" }
 ]
@@ -49,17 +49,7 @@
 "title": "Data Definition Language (DDL)",
 "links": [
 { "title": "CREATE INDEX Statement", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-create-index/" },
-{ "title": "ALTER INDEX Statement", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-alter-index/" },
 { "title": "DROP INDEX Statement", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-drop-index/" }
-]
-},
-{
-"title": "Database Normalization",
-"links": [
-{ "title": "Database Normalization", "href": "https://www.essentialsql.com/get-ready-to-learn-sql-12-database-normalization-explained-in-simple-english/" },
-{ "title": "First Normal Form (1NF)", "href": "https://www.essentialsql.com/get-ready-to-learn-sql-14-database-normalization-first-normal-form-explained-in-simple-english/" },
-{ "title": "Second Normal Form (2NF)", "href": "https://www.essentialsql.com/get-ready-to-learn-sql-15-database-normalization-second-normal-form-explained-in-simple-english/" },
-{ "title": "Third Normal Form (3NF)", "href": "https://www.essentialsql.com/get-ready-to-learn-sql-16-database-normalization-third-normal-form-explained-in-simple-english/" }
 ]
 },
 {
@@ -75,7 +65,6 @@
 {
 "title": "SQL Functions",
 "links": [
-{ "title": "SQL Functions", "href": "https://www.w3schools.com/sql/sql_functions.asp" },
 { "title": "Aggregate Functions", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-aggregate-functions/" },
 { "title": "Scalar Functions", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-scalar-functions/" },
 { "title": "Date Functions", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-date-functions/" }
@@ -84,9 +73,6 @@
 {
 "title": "Advanced SQL Topics",
 "links": [
-{ "title": "Subqueries", "href": "https://www.w3schools.com/sql/sql_subqueries.asp" },
-{ "title": "Views", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-views/" },
-{ "title": "Transactions", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-transactions/" },
 { "title": "Stored Procedures", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-stored-procedures/" },
 { "title": "Triggers", "href": "https://www.sqlservertutorial.net/sql-server-basics/sql-server-triggers/" }
 ]
