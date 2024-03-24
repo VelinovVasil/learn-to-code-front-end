@@ -10,6 +10,10 @@ button {
     border-radius: 1em;
 }
 
+#wrapper {
+    min-height: 64vh;
+}
+
 @media (max-width: 600px) {
 
 

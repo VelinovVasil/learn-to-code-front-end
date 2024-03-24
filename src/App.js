@@ -39,39 +39,41 @@ function App() {
         }}
       >
         <Navbar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
+        <div id="wrapper">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route
+              path="/programming-languages"
+              element={<ProgrammingLanguagesPage />}
+            />
+            <Route path="/forum" element={<ForumPage />} />
+            <Route path="/about-us" element={<AboutUsPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/ask-question" element={<AskQuestionPage />} />
+            <Route path="/user" element={<UserPage />} />
+            <Route path="/callback" element={<CallbackPage />} />
+            <Route path="/question/:id" element={<QuestionPage />} />
+            <Route path="/success" element={<SuccessPage />} />
+            <Route path="/cancel" element={<CancelPage />} />
+            <Route path="/donate" element={<DonationPage />} />
+            <Route
+              path="/programming-languages/java-script"
+              element={<RoadmapPage data={javaScriptProps} />}
+            />
+            <Route
+              path="/programming-languages/java"
+              element={<RoadmapPage data={javaProps} />}
+            />
+            <Route
+              path="/programming-languages/python"
+              element={<RoadmapPage data={pythonProps} />}
+            />
           <Route
-            path="/programming-languages"
-            element={<ProgrammingLanguagesPage />}
+            path="/chat"
+            element={<DirectChatPage />}
           />
-          <Route path="/forum" element={<ForumPage />} />
-          <Route path="/about-us" element={<AboutUsPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/ask-question" element={<AskQuestionPage />} />
-          <Route path="/user" element={<UserPage />} />
-          <Route path="/callback" element={<CallbackPage />} />
-          <Route path="/question/:id" element={<QuestionPage />} />
-          <Route path="/success" element={<SuccessPage />} />
-          <Route path="/cancel" element={<CancelPage />} />
-          <Route path="/donate" element={<DonationPage />} />
-          <Route
-            path="/programming-languages/java-script"
-            element={<RoadmapPage data={javaScriptProps} />}
-          />
-          <Route
-            path="/programming-languages/java"
-            element={<RoadmapPage data={javaProps} />}
-          />
-          <Route
-            path="/programming-languages/python"
-            element={<RoadmapPage data={pythonProps} />}
-          />
-        <Route
-          path="/chat"
-          element={<DirectChatPage />}
-        />
-        </Routes>
+          </Routes>
+        </div>
         <Footer />
       </Auth0Provider>
     </Router>

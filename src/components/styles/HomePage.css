@@ -60,7 +60,7 @@ h2 {
     margin-top: 3em;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 
@@ -69,7 +69,6 @@ h2 {
     padding: 2em;
     box-sizing: border-box;
     text-align: center;
-    
 }
 
 .homeMainContainer div button {
