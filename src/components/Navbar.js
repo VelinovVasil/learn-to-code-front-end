@@ -23,6 +23,11 @@ const Navbar = () => {
                         </Link>
                     </li>
                     <li>
+                        <Link to={'/chat'} className={'navLink'}>
+                            <h4>Chat</h4>
+                        </Link>
+                    </li>
+                    <li>
                         <Link to={'/about-us'} className={'navLink'}>
                             <h4>About us</h4>
                         </Link>

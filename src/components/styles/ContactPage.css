@@ -32,6 +32,10 @@
     border-radius: 3px;
 }
 
+.textArea {
+    resize: none;
+}
+
 .submitButton {
     width: 100%;
     padding: 10px;

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from "../Navbar";
 import '../styles/ContactPage.css'
-import Footer from "../Footer";
 
 const ContactPage = () => {
     // State variables for form inputs
