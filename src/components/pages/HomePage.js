@@ -26,7 +26,7 @@ const HomePage = () => {
                         </div>
                         <p>Find the best answer to your technical question, help others answer theirs.</p>
                         <Link to={'/ask-question'}>
-                            <button>Ask a question</button>
+                            <button className='homePageBtn'>Ask a question</button>
                         </Link>
                     </div>
                     <div>
@@ -39,7 +39,7 @@ const HomePage = () => {
                         </div>
                         <p>Want to learn a new programming language or expand your current skills?</p>
                         <Link to={'/programming-languages'}>
-                            <button>Discover</button>
+                            <button className='homePageBtn'>Discover</button>
                         </Link>
                     </div>
                 </div>
