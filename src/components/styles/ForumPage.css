@@ -254,3 +254,42 @@
     }
 }
 
+
+#filterDiv {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #3fabaf;
+    margin-bottom: 20px;
+}
+
+#filterDiv form {
+    margin-bottom: 10px;
+}
+
+#filterDiv form div {
+    margin-bottom: 5px;
+}
+
+#filterDiv button {
+    padding: 5px 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    background-color: white;
+    color: black;
+}
+
+#filterDiv button:hover {
+    background-color: grey;
+    color: white;
+}
+
+#filterDiv input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+#filterDiv label {
+    cursor: pointer;
+}

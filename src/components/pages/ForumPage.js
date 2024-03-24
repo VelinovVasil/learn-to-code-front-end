@@ -55,44 +55,44 @@ const ForumPage = () => {
   }, [getAccessTokenSilently]);
 
   return (
-    <div>
-      <header id="forumHeader">
-        <section className="headerAskBtn">
-          <h2 id="forumTitle">Forum</h2>
-          {isLoading && <div className="loading">Loading&#8230;</div>}
-          <div id="askFilterContainer">
-            <Link to="/ask-question">
-              <button id="btnAddQuestion">Ask a question</button>
-            </Link>
+      <div>
+        <header id="forumHeader">
+          <section className="headerAskBtn">
+            <h2 id="forumTitle">Forum</h2>
+            {isLoading && <div className="loading">Loading&#8230;</div>}
+            <div id="askFilterContainer">
+              <Link to="/ask-question">
+                <button id="btnAddQuestion">Ask a question</button>
+              </Link>
 
-            <div id="filterDiv">
-              <form onSubmit={(e) => handleFilter(e)}>
-                {Object.values(allTags).map((tag) => (
-                  <div key={tag.id}>
-                    <input
-                      type="checkbox"
-                      id={tag.id}
-                      name="selectedTag"
-                      value={tag.name}  
-                      onChange={() => handleCheckboxChange(tag.id)}
-                      checked={selectedTagIds.includes(tag.id)}
-                    />
-                    <label htmlFor={tag.id}>{tag.name}</label>
-                  </div>
-                ))}
-                <button type="submit">Filter</button>
-              </form>
-              <button onClick={handleClearFilter}>Clear Filter</button>
+              <div id="filterDiv">
+                <form onSubmit={(e) => handleFilter(e)}>
+                  {Object.values(allTags).map((tag) => (
+                      <div key={tag.id}>
+                        <input
+                            type="checkbox"
+                            id={tag.id}
+                            name="selectedTag"
+                            value={tag.name}
+                            onChange={() => handleCheckboxChange(tag.id)}
+                            checked={selectedTagIds.includes(tag.id)}
+                        />
+                        <label htmlFor={tag.id}>{tag.name}</label>
+                      </div>
+                  ))}
+                  <button type="submit">Filter</button>
+                </form>
+                <button onClick={handleClearFilter}>Clear Filter</button>
+              </div>
             </div>
-          </div>
-        </section>
-      </header>
-      <ul>
-        {questions.map((question) => (
-          <Question key={question.id} question={question} />
-        ))}
-      </ul>
-    </div>
+          </section>
+        </header>
+        <ul>
+          {questions.map((question) => (
+              <Question key={question.id} question={question} />
+          ))}
+        </ul>
+      </div>
   );
 };
 
