@@ -1,4 +1,4 @@
-const url = 'https://learn-to-code-server.azurewebsites.net/' + 'api/replies/'
+const url = 'http://localhost:8080/' + 'api/replies/'
 
 export const fetchRepliesByQuestionId = async (token, questionId) => {
     try {

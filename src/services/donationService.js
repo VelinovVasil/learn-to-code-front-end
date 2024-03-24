@@ -1,4 +1,4 @@
-const url = 'https://learn-to-code-server.azurewebsites.net/' + 'api/donate'
+const url = 'http://localhost:8080/' + 'api/donate'
 
 export const donate = async (amount) => {
 

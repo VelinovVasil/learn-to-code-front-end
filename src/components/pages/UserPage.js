@@ -33,6 +33,9 @@ const UserPage = () => {
 
       const userData = await getUserByEmail(userEmail);
 
+      console.log('Userdata');
+      console.log(userData);
+
       setUserData(userData);
 
       const userId = userData.id;

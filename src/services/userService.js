@@ -1,4 +1,4 @@
-const url = 'https://learn-to-code-server.azurewebsites.net/' + 'api/users/'
+const url = 'http://localhost:8080/' + 'api/users/';
 
 export const getOneUser = async (token, userId) => {
 
@@ -28,6 +28,11 @@ export const fetchAuthor = async (token, authorId) => {
 
 export const getUserByEmail = async (userEmail) => {
 
+    console.log('Useremail');
+    console.log(userEmail);
+
+    console.log(url + 'email/' + userEmail);
+
     const response = await fetch(url + 'email/' + userEmail, {
         headers: {
             // Authorization: `Bearer ${token}`,
@@ -35,9 +40,12 @@ export const getUserByEmail = async (userEmail) => {
         },
     });
 
-    if (!response.ok) {
-        throw new Error('Failed to fetch user info');
-    }
+    // if (!response.ok) {
+    //     throw new Error('Failed to fetch user info');
+    // }
+
+    console.log('response');
+    console.log(response);
 
     return await response.json();
 }
