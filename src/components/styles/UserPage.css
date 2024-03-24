@@ -1,0 +1,32 @@
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.heading {
+    color: #333;
+}
+
+.sub-heading {
+    color: #3fabaf;
+}
+
+.info {
+    margin: 5px 0;
+    color:  #333;
+}
+
+.question-list {
+    list-style-type: none;
+    padding: 0;
+    color: #333;
+}
+
+.question-item {
+    margin-bottom: 5px;
+
+}
