@@ -70,9 +70,9 @@ const UserPage = () => {
                 <p className="info">Email: {user.email}</p>
                 <p className="info">Username: {user.nickname}</p>
               </div>
-              <div id="pfpContainer">
+              {/* <div id="pfpContainer">
                 <img src={user.pictureUrl} alt="profilePic" />
-              </div>
+              </div> */}
             </div>
           </div>
       )}
