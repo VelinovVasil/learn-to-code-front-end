@@ -13,5 +13,3 @@ Create an account (you can log in with google account as well) and feel free to 
 ### Daniel Yordanov - Back-end & Design
 ### Nikolay Boychev - Back-end & Deployment
 ### Vasil Velinov - Front-end, Back-end & Design
-
-Special thanks to our mentor - Nikola Lukov who helped us apply the best practices in the Front-end.
