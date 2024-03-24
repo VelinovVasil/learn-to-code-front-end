@@ -63,11 +63,17 @@ const UserPage = () => {
     <>
       {isAuthenticated && user && userData && (
           <div className="container">
-            <h2 className="heading">Welcome back!</h2>
-            <h3 className="sub-heading">User Information:</h3>
-            <p className="info">Email: {user.email}</p>
-            <p className="info">Username: {user.nickname}</p>
-
+            <div id="personalInfo">
+              <div>
+                <h2 className="heading">Welcome back!</h2>
+                <h3 className="sub-heading">User Information:</h3>
+                <p className="info">Email: {user.email}</p>
+                <p className="info">Username: {user.nickname}</p>
+              </div>
+              <div id="pfpContainer">
+                <img src={user.pictureUrl} alt="profilePic" />
+              </div>
+            </div>
             <h3 className="sub-heading">Asked Questions:</h3>
             <ul className="question-list">
               {askedQuestions.map((question) => (

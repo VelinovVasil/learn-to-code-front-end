@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../styles/DonationPage.css';
 import {donate} from '../../services/donationService';
 
 const DonationPage = () => {
@@ -17,6 +18,7 @@ const DonationPage = () => {
 
     return (
         <>
+        <h3 id='donationHeading'>Want to support our project? - buy us a coffee :)</h3>
             <div id='donationsContainer'>
                 <h3 className="title">Donation Information</h3>
                 <div className="amount">
