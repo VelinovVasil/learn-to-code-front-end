@@ -1,4 +1,4 @@
-const url = 'http://localhost:8080/api/users/'
+const url = 'https://learn-to-code-server.azurewebsites.net/' + 'api/users/'
 
 export const getOneUser = async (token, userId) => {
 

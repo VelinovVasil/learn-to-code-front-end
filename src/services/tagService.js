@@ -1,4 +1,4 @@
-const url = 'http://localhost:8080/api/tags/'
+const url = 'https://learn-to-code-server.azurewebsites.net/' + 'api/tags/'
 
 export const getOneTag = async(token, tagId) => {
     const tagResponse = await fetch(url + tagId, {

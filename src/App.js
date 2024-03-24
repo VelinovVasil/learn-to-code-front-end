@@ -28,14 +28,14 @@ function App() {
       {/* Wrap your Routes with Auth0Provider */}
       {/* HARD coded the values below due to missing env files  */}
       <Auth0Provider
-        domain={process.env.DOMAIN}
-        clientId={process.env.CLIENT_ID}
+        domain="nvd.eu.auth0.com"
+        clientId="JzuLTdbayWt6ES7vnv0i84k63vqz6UG1"
         authorizationParams={{
-          redirect_uri: process.env.REDIRECT_URI,
+          redirect_uri: "http://localhost:4040/callback",
           //setting the audience here because it seems to not be possible to invoke silently access to api
           //in the other case when fetching error is generated
           //more info here https://community.auth0.com/t/call-an-api-consent-required/53324
-          audience: process.env.AUDIENCE,
+          audience: "https://hello-world.example.com",
         }}
       >
         <Navbar />

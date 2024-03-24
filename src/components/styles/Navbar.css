@@ -4,6 +4,10 @@
     color: white;
 }
 
+.navLink h4 {
+    text-align: center;
+}
+
 @media (max-width: 600px) {
     .navUl {
         display: flex;

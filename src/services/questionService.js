@@ -1,4 +1,4 @@
-const url = 'http://localhost:8080/api/questions/'
+const url = 'https://learn-to-code-server.azurewebsites.net/' + 'api/questions/'
 
 export const getQuestions = async (token, params) => {
     const response = await fetch(url + (params ? `?tag=${params.join(',')}` : ''), {

@@ -1,4 +1,4 @@
-const url = 'http://localhost:8080/api/openai/chat'
+const url = 'https://learn-to-code-server.azurewebsites.net/' + 'api/openai/chat'
 
 export const questionSubmit = async (token, obj) => {
     try {
