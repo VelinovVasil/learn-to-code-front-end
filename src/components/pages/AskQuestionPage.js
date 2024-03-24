@@ -237,7 +237,7 @@ const AskQuestionPage = () => {
           <h3>Question Published!</h3>
         </div>
       )}
-      {isSubmitted && <button onClick={handlePublish}>Publish Question</button>}
+      {isSubmitted && <button className="publishButton" onClick={handlePublish}>Publish Question</button>}
     </div>
   );
 };
