@@ -165,9 +165,10 @@ const AskQuestionPage = () => {
     <div id={"askQuestionPage"}>
       <h2>Ask a Question</h2>
       {isLoading && <div className="loading">Loading&#8230;</div>}
-      <section>
+      <section id="askQuestionSection">
         <input
           type="text"
+          id="questionNameInput"
           value={questionTitle}
           onChange={(e) => setQuestionTitle(e.target.value)}
           placeholder="Enter your question title" // Placeholder for title input
