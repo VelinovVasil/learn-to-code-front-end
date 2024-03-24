@@ -77,7 +77,7 @@ const UserPage = () => {
             <h3 className="sub-heading">Asked Questions:</h3>
             <ul className="question-list">
               {askedQuestions.map((question) => (
-                  <li className="question-item" key={question.id}>{question.text}</li>
+                  <li className="question-item" key={question.id} dangerouslySetInnerHTML={{ __html: question.text }}></li>
               ))}
             </ul>
           </div>
