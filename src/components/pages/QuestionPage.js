@@ -281,7 +281,6 @@ const QuestionPage = () => {
 
   return (
     <>
-      <Navbar />
       <div className="question-details">
         <h2>Title: {question.title}</h2>
         <div dangerouslySetInnerHTML={{ __html: question.text }} />
@@ -326,7 +325,6 @@ const QuestionPage = () => {
         {showReplies && renderReplies(replies)}
       </div>
 
-      <Footer />
     </>
   );
 };

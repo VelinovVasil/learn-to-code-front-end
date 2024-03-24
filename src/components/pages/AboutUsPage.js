@@ -6,7 +6,6 @@ import '../styles/AboutUsPage.css';
 const AboutUs = () => {
     return (
         <div>
-            <Navbar/>
 
             <div className="container">
                 <h1>Our team:</h1>
@@ -58,7 +57,6 @@ const AboutUs = () => {
                     help you reach your full potential as a programmer.</h5>
             </div>
 
-            <Footer/>
         </div>
     );
 }

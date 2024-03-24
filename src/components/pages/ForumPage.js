@@ -56,7 +56,6 @@ const ForumPage = () => {
 
   return (
     <div>
-      <Navbar />
       <header id="forumHeader">
         <section className="headerAskBtn">
           <h2 id="forumTitle">Forum</h2>
@@ -92,7 +91,6 @@ const ForumPage = () => {
           <Question key={question.id} question={question} />
         ))}
       </ul>
-      <Footer />
     </div>
   );
 };

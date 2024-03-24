@@ -25,7 +25,6 @@ const ContactPage = () => {
 
     return (
         <div>
-            <Navbar />
             <header id={'contactHeader'}>
                 <h2>Contact us</h2>
                 <p>If you have any enquiries, leave an email.</p>
@@ -65,8 +64,6 @@ const ContactPage = () => {
                 </div>
                 <button type="submit" className="submitButton">Submit</button>
             </form>
-
-            <Footer/>
         </div>
     );
 }

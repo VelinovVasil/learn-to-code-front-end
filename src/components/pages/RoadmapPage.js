@@ -16,14 +16,12 @@ const RoadmapPage = (props) => {
 
   return (
     <div>
-      <Navbar />
       <main className={"roadmapPageMain"}>
         <h1>{title}</h1>
         <p>{content}</p>
 
         <div className="timeline">{elements}</div>
       </main>
-      <Footer />
     </div>
   );
 };

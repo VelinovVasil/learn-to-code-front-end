@@ -165,7 +165,6 @@ const AskQuestionPage = () => {
 
   return (
     <div id={"askQuestionPage"}>
-      <Navbar />
       <h2>Ask a Question</h2>
       {isLoading && <div className="loading">Loading&#8230;</div>}
       <section>
@@ -241,7 +240,6 @@ const AskQuestionPage = () => {
         </div>
       )}
       {isSubmitted && <button onClick={handlePublish}>Publish Question</button>}
-      <Footer />
     </div>
   );
 };

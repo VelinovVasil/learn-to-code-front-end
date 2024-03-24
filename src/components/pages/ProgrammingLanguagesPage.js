@@ -7,7 +7,6 @@ import Footer from "../Footer";
 const ProgrammingLanguagesPage = () => {
     return (
         <div>
-            <Navbar/>
             <div className={'languagesContainer'}>
                 <Link to={"/programming-languages/java-script"}>
                     <section className={'programmingLanguageSection'}>
@@ -42,7 +41,6 @@ const ProgrammingLanguagesPage = () => {
                     </section>
                 </Link>
             </div>
-            <Footer/>
         </div>
     );
 }

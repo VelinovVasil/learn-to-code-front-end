@@ -8,7 +8,6 @@ const HomePage = () => {
     return (
         <div>
             <header>
-                <Navbar/>
                 <section className={'headerText'}>
                     <h2>Coding made simple.</h2>
                     <p>Structured study plan. Roadmaps. Countless resources.</p>
@@ -45,7 +44,6 @@ const HomePage = () => {
                     </div>
                 </div>
             </main>
-            <Footer/>
         </div>
     );
 }

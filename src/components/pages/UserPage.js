@@ -64,7 +64,6 @@ const UserPage = () => {
 
   return (
     <>
-      <Navbar />
       {isAuthenticated && user && userData && (
         <div>
           <h2>Welcome back!</h2>
@@ -82,7 +81,6 @@ const UserPage = () => {
           </ul>
         </div>
       )}
-      <Footer />
     </>
   );
 };
