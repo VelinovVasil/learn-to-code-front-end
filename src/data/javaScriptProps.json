@@ -1,27 +1,130 @@
 {
-  "title": "Java Script",
-  "content": "javascript content lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
+  "title": "JavaScript",
+  "content": "JavaScript is a high-level, interpreted programming language that conforms to the ECMAScript specification. It is widely used for client-side development in web browsers, as well as server-side development using Node.js.",
   "data": [
     {
-      "title": "Getting Started",
+      "title": "Basic Syntax",
       "links": [
-        { "title": "CDN Guide", "href": "#" },
-        { "title": "MDN Guide", "href": "#" }
+        { "title": "JavaScript Tutorial", "href": "https://www.w3schools.com/js/" },
+        { "title": "Mozilla JavaScript Guide", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide" },
+        { "title": "JavaScript for Beginners", "href": "https://javascript.info/" },
+        { "title": "Eloquent JavaScript Book", "href": "https://eloquentjavascript.net/" }
       ]
     },
     {
-      "title": "Fundamentals",
+      "title": "Data Types and Variables",
       "links": [
-        { "title": "CDN Guide", "href": "#" },
-        { "title": "MDN Guide", "href": "#" }
+        { "title": "JavaScript Data Types", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures" },
+        { "title": "Variables and Constants", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#variables" },
+        { "title": "Primitive Data Types", "href": "https://developer.mozilla.org/en-US/docs/Glossary/Primitive" },
+        { "title": "Understanding Scope in JavaScript", "href": "https://www.digitalocean.com/community/tutorials/understanding-scope-in-javascript" }
       ]
     },
     {
-      "title": "Advanced",
+      "title": "Operators",
       "links": [
-        { "title": "CDN Guide", "href": "#" },
-        { "title": "MDN Guide", "href": "#" }
+        { "title": "JavaScript Operators", "href": "https://www.w3schools.com/js/js_operators.asp" },
+        { "title": "Arithmetic Operators", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#arithmetic_operators" },
+        { "title": "Comparison Operators", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#comparison_operators" },
+        { "title": "Logical Operators", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#logical_operators" }
+      ]
+    },
+    {
+      "title": "Control Structures",
+      "links": [
+        { "title": "if...else Statement", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else" },
+        { "title": "switch Statement", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch" },
+        { "title": "for Loop", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for" },
+        { "title": "while Loop", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/while" },
+        { "title": "do...while Loop", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/do...while" }
+      ]
+    },
+    {
+      "title": "Functions",
+      "links": [
+        { "title": "Arrow Functions", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions" },
+        { "title": "Higher-Order Functions", "href": "https://eloquentjavascript.net/05_higher_order.html" },
+        { "title": "Closures", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures" }
+      ]
+    },
+    {
+      "title": "Arrays and Objects",
+      "links": [
+        { "title": "JavaScript Arrays", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" },
+        { "title": "Array Methods", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#methods" },
+        { "title": "JavaScript Objects", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects" },
+        { "title": "Object Methods", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object#methods" }
+      ]
+    },
+    {
+      "title": "Asynchronous JavaScript",
+      "links": [
+        { "title": "Understanding Asynchronous JavaScript", "href": "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous" },
+        { "title": "Callbacks", "href": "https://developer.mozilla.org/en-US/docs/Glossary/Callback_function" },
+        { "title": "Promises", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" },
+        { "title": "Async/Await", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function" }
+      ]
+    },
+    {
+      "title": "DOM Manipulation",
+      "links": [
+        { "title": "Document Object Model (DOM)", "href": "https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model" },
+        { "title": "Selecting DOM Elements", "href": "https://developer.mozilla.org/en-US/docs/Web/API/Document_object_model/Locating_DOM_elements_using_selectors" },
+        { "title": "Manipulating DOM Elements", "href": "https://developer.mozilla.org/en-US/docs/Web/API/Element#methods" }
+      ]
+    },
+    {
+      "title": "Error Handling",
+      "links": [
+        { "title": "try...catch Statement", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch" },
+        { "title": "Error Object", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error" },
+        { "title": "Error Handling Best Practices", "href": "https://www.airbrake.io/blog/javascript-error-handling/javascript-error-handling-best-practices" }
+      ]
+    },
+    {
+      "title": "Modules and Bundlers",
+      "links": [
+        { "title": "ES6 Modules", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules" },
+        { "title": "Webpack", "href": "https://webpack.js.org/" },
+        { "title": "Rollup", "href": "https://rollupjs.org/guide/en/" },
+        { "title": "Parcel", "href": "https://parceljs.org/" }
+      ]
+    },
+    {
+      "title": "Testing JavaScript",
+      "links" : [
+        { "title": "JavaScript Testing Introduction", "href": "https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/Introduction" },
+        { "title": "Unit Testing with Jest", "href": "https://jestjs.io/docs/getting-started" },
+        { "title": "End-to-End Testing with Cypress", "href": "https://www.cypress.io/" }
+      ]
+    },
+    {
+      "title": "JavaScript Frameworks and Libraries",
+      "links": [
+        { "title": "React.js", "href": "https://reactjs.org/" },
+        { "title": "Angular", "href": "https://angular.io/" },
+        { "title": "Vue.js", "href": "https://vuejs.org/" },
+        { "title": "jQuery", "href": "https://jquery.com/" }
+      ]
+    },
+    {
+      "title": "Asynchronous JavaScript and APIs",
+      "links": [
+        { "title": "Fetching Data with Fetch API", "href": "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API" },
+        { "title": "Using Axios for HTTP Requests", "href": "https://axios-http.com/" },
+        { "title": "Promises and Fetch", "href": "https://javascript.info/promise-basics" },
+        { "title": "Async/Await", "href": "https://javascript.info/async-await" }
+      ]
+    },
+    {
+      "title": "Advanced JavaScript Concepts",
+      "links": [
+        { "title": "Closures", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures" },
+        { "title": "Prototypes and Inheritance", "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain" },
+        { "title": "Functional Programming", "href": "https://eloquentjavascript.net/05_higher_order.html" },
+        { "title": "ES6 Features", "href": "https://www.w3schools.com/js/js_es6.asp" }
       ]
     }
   ]
 }
+
