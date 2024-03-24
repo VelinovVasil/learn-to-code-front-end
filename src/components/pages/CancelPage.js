@@ -1,0 +1,15 @@
+import React from "react";
+
+const CancelPage = () => {
+
+    return (
+        <>
+        <h2>Payment cancelled.</h2>
+        <Link to={"/"}>
+            <button>Return to Homepage</button>
+        </Link>
+        </>
+    )
+}
+
+export default CancelPage;

@@ -18,6 +18,9 @@ import pythonProps from "./data/pythonProps.json";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import DirectChatPage from "./components/pages/DirectChatPage";
+import SuccessPage from "./components/pages/SuccessPage";
+import CancelPage from "./components/pages/CancelPage";
+import DonationPage from "./components/pages/DonationPage";
 
 function App() {
   return (
@@ -49,6 +52,9 @@ function App() {
           <Route path="/user" element={<UserPage />} />
           <Route path="/callback" element={<CallbackPage />} />
           <Route path="/question/:id" element={<QuestionPage />} />
+          <Route path="/success" element={<SuccessPage />} />
+          <Route path="/cancel" element={<CancelPage />} />
+          <Route path="/donate" element={<DonationPage />} />
           <Route
             path="/programming-languages/java-script"
             element={<RoadmapPage data={javaScriptProps} />}

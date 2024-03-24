@@ -30,13 +30,13 @@ const DirectChatsPage = () => {
   }
 
   return (
-    <div style={{fontFamily: 'Arial', height: "100vh", maxWidth: '100%'}}>
+    <div style={{height: "100vh", maxWidth: '100%'}}>
       {username && (
         <PrettyChatWindow
           projectId={'edc2befa-d0a4-44b8-90e6-095e062e7608'}
           username={username}
           secret={'password'}
-          style={{ height: "100%" }}
+          style={{ height: "100%"}}
         />
       )}
     </div>
