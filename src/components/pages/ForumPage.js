@@ -65,24 +65,25 @@ const ForumPage = () => {
               <button id="btnAddQuestion">Ask a question</button>
             </Link>
 
-            <form onSubmit={(e) => handleFilter(e)}>
-              {Object.values(allTags).map((tag) => (
-                <div key={tag.id}>
-                  <input
-                    type="checkbox"
-                    id={tag.id}
-                    name="selectedTag"
-                    value={tag.name}  
-                    onChange={() => handleCheckboxChange(tag.id)}
-                    checked={selectedTagIds.includes(tag.id)}
-                  />
-                  <label htmlFor={tag.id}>{tag.name}</label>
-                </div>
-              ))}
-              <button type="submit">Filter</button>
-            </form>
-
-            <button onClick={handleClearFilter}>Clear Filter</button>
+            <div id="filterDiv">
+              <form onSubmit={(e) => handleFilter(e)}>
+                {Object.values(allTags).map((tag) => (
+                  <div key={tag.id}>
+                    <input
+                      type="checkbox"
+                      id={tag.id}
+                      name="selectedTag"
+                      value={tag.name}  
+                      onChange={() => handleCheckboxChange(tag.id)}
+                      checked={selectedTagIds.includes(tag.id)}
+                    />
+                    <label htmlFor={tag.id}>{tag.name}</label>
+                  </div>
+                ))}
+                <button type="submit">Filter</button>
+              </form>
+              <button onClick={handleClearFilter}>Clear Filter</button>
+            </div>
           </div>
         </section>
       </header>
