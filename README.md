@@ -16,4 +16,4 @@ Create an account (you can log in with google account as well) and feel free to 
 
 ## Technologies
 
-The Front-end is written using React library. Requests to the Back-end is done using REST API. The authentication and authorization are based on JWT.
+The Front-end is written using React library. Requests to the Back-end are done using REST API. The authentication and authorization are based on JWT.
